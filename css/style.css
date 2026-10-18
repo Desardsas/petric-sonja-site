@@ -9,9 +9,17 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "JetBrains Mono";
-  src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("/fonts/cormorant-garamond-italic.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -26,8 +34,10 @@
   --text-faint: #4E4D4A;   /* décoratif uniquement (2,3 : 1) */
   --accent: #C08A4E;       /* ocre enduit, 2 ou 3 éléments au plus */
 
-  --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* Inter Tight est réservée au nom « Sonja Petric » (.nom) ; tout le reste est en Cormorant Garamond */
+  --nom: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --mono: var(--sans);
 
   --marge: clamp(20px, 6vw, 96px);
   --gouttiere: clamp(16px, 2vw, 32px);
@@ -36,9 +46,9 @@
   --t-xxl: clamp(3.2rem, 9vw, 9.5rem);
   --t-xl: clamp(2.6rem, 6.5vw, 6.5rem);
   --t-l: clamp(2rem, 4vw, 3.8rem);
-  --t-m: clamp(1.15rem, 1.6vw, 1.5rem);
-  --t-base: 1.0625rem;
-  --t-mono: 0.75rem;
+  --t-m: clamp(1.3rem, 1.8vw, 1.7rem);
+  --t-base: 1.25rem;
+  --t-mono: 0.875rem;
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -52,8 +62,9 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: var(--t-base);
-  line-height: 1.55;
+  line-height: 1.5;
   font-weight: 400;
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -69,7 +80,8 @@ ul { padding: 0; list-style: none; }
 .mono {
   font-family: var(--mono);
   font-size: var(--t-mono);
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   line-height: 1.6;
 }
@@ -121,10 +133,13 @@ body::after {
 }
 
 /* ---------- Typographie ---------- */
-.titre-xxl, .hero-nom { font-size: var(--t-xxl); font-weight: 500; line-height: 0.92; letter-spacing: -0.035em; }
-.titre-xl { font-size: var(--t-xl); font-weight: 500; line-height: 0.95; letter-spacing: -0.03em; }
-.titre-l { font-size: var(--t-l); font-weight: 500; line-height: 0.98; letter-spacing: -0.025em; }
-.texte-large { font-size: var(--t-m); line-height: 1.4; letter-spacing: -0.01em; max-width: 34em; }
+.titre-xxl, .hero-nom { font-size: var(--t-xxl); font-weight: 500; line-height: 0.95; letter-spacing: -0.015em; }
+/* Le nom garde sa police d'origine */
+.nom, .logo, .hero-nom { font-family: var(--nom); }
+.titre-xxl.nom, .hero-nom { line-height: 0.92; letter-spacing: -0.035em; }
+.titre-xl { font-size: var(--t-xl); font-weight: 500; line-height: 1; letter-spacing: -0.01em; }
+.titre-l { font-size: var(--t-l); font-weight: 500; line-height: 1.02; letter-spacing: -0.005em; }
+.texte-large { font-size: var(--t-m); line-height: 1.4; letter-spacing: 0; max-width: 34em; }
 .intro { margin-top: clamp(28px, 4vw, 56px); }
 .num { color: var(--text-faint); }
 
@@ -162,6 +177,7 @@ body::after {
 }
 .logo { grid-column: 1 / span 3; font-weight: 500; letter-spacing: -0.01em; font-size: 1.05rem; }
 .indicateur { grid-column: 4 / span 3; color: var(--text-muted); margin: 0; }
+.entete .mono { letter-spacing: 0.08em; }
 .nav { grid-column: 7 / -1; display: flex; justify-content: flex-end; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
 .nav ul { display: flex; gap: clamp(14px, 2vw, 28px); }
 .lien-nav { position: relative; color: var(--text-muted); display: inline-flex; gap: 6px; white-space: nowrap; padding: 6px 0; transition: color 300ms var(--ease); }
@@ -173,8 +189,10 @@ body::after {
 .langues { display: flex; gap: 10px; padding-left: clamp(14px, 2vw, 28px); border-left: 1px solid var(--line); }
 .menu-bouton { display: none; grid-column: 10 / -1; justify-self: end; padding: 10px 0; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1380px) {
   .indicateur { display: none; }
+}
+@media (max-width: 1100px) {
   .logo { grid-column: 1 / span 4; }
   .nav { grid-column: 5 / -1; }
 }
@@ -191,7 +209,7 @@ body::after {
   .nav.ouvert { visibility: visible; opacity: 1; transition: opacity 400ms var(--ease); }
   .nav ul { flex-direction: column; gap: 0; }
   .nav ul li { border-bottom: 1px solid var(--line); }
-  .nav ul .lien-nav { font-family: var(--sans); text-transform: none; letter-spacing: -0.03em; font-size: clamp(2.2rem, 9vw, 3.6rem); font-weight: 500; line-height: 1; padding: 18px 0; gap: 16px; align-items: baseline; color: var(--text); }
+  .nav ul .lien-nav { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-size: clamp(2.4rem, 10vw, 3.8rem); font-weight: 500; line-height: 1; padding: 18px 0; gap: 16px; align-items: baseline; color: var(--text); }
   .nav ul .lien-nav .num { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; }
   .nav ul .lien-nav { display: flex; width: 100%; }
   .nav ul .lien-nav[aria-current]::before { left: auto; right: 0; }
@@ -230,7 +248,7 @@ body::after {
   display: grid; grid-template-columns: 48px minmax(0, 1.1fr) minmax(0, 1fr) 24px; gap: var(--gouttiere);
   align-items: baseline; padding: clamp(20px, 2.6vw, 36px) 0;
 }
-.lp-titre { font-size: var(--t-l); font-weight: 500; letter-spacing: -0.025em; line-height: 1; transition: transform 700ms var(--ease); }
+.lp-titre { font-size: var(--t-l); font-weight: 500; letter-spacing: -0.005em; line-height: 1; transition: transform 700ms var(--ease); }
 .lp-resume { color: var(--text-muted); max-width: 30em; }
 .lp-fleche { color: var(--text-muted); transition: transform 700ms var(--ease), color 300ms; justify-self: end; }
 .ligne-prestation a:hover .lp-titre { transform: translateX(12px); }
@@ -417,10 +435,10 @@ body.vis-active { overflow: hidden; }
   transition: transform 450ms var(--ease), opacity 300ms var(--ease), border-radius 450ms var(--ease);
 }
 .curseur-label {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; white-space: nowrap;
+  font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; white-space: nowrap;
   opacity: 0; transform: scale(0.8); transition: opacity 300ms var(--ease), transform 450ms var(--ease);
 }
-.curseur-coords { font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em; color: var(--text-faint); white-space: nowrap; transition: opacity 300ms var(--ease); }
+.curseur-coords { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--text-faint); white-space: nowrap; transition: opacity 300ms var(--ease); }
 /* États */
 .curseur.lien .curseur-anneau::before { transform: scale(1.6); }
 .curseur.oeuvre .curseur-anneau::before { transform: scale(2.6, 1.1); border-radius: 0; }

@@ -449,7 +449,7 @@ def corps_a_propos(t, langue):
     return f'''    <section class="entete-page grille">
       <div class="col-entete">{entete_section(4, t["a_propos"])}</div>
       <div class="col-large">
-        {titre_masque("h1", "Sonja Petric", "titre-xxl")}
+        {titre_masque("h1", "Sonja Petric", "titre-xxl nom")}
       </div>
     </section>
     <section class="section apropos grille">
@@ -552,7 +552,7 @@ def page(langue, nom):
 {alternates}
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
   <script>document.documentElement.classList.add("js")</script>
 </head>
