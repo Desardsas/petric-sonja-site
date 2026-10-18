@@ -43,6 +43,7 @@ PRESTATIONS = [
     },
     {
         "id": "enduits",
+        "image": "enduit-salon.jpg",
         "titre": {"fr": "Enduits décoratifs sur mesure", "en": "Bespoke decorative plaster"},
         "resume": {"fr": "Des murs uniques, créés sur mesure : matières minérales, textures subtiles et teintes choisies avec vous.", "en": "Unique walls, made to measure: mineral materials, subtle textures and colours chosen with you."},
         "points": {
@@ -52,7 +53,6 @@ PRESTATIONS = [
     },
     {
         "id": "home-staging",
-        "image": "home-staging-salon.jpg",
         "titre": {"fr": "Home staging", "en": "Home staging"},
         "resume": {"fr": "Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.", "en": "Enhancing a property so it sells or rents faster, with an artist's eye and a controlled budget."},
         "points": {
@@ -66,7 +66,7 @@ PRESTATIONS = [
 # prestation (un "id" de PRESTATIONS), titre et détails dans chaque langue.
 # Les trois premières apparaissent sur l'accueil.
 REALISATIONS = [
-    {"image": "home-staging-salon.jpg", "prestation": "home-staging", "titre": {"fr": "Salon", "en": "Living room"}, "details": {"fr": "", "en": ""}},
+    {"image": "enduit-salon.jpg", "prestation": "enduits", "titre": {"fr": "Mur de salon en enduit décoratif", "en": "Living room wall in decorative plaster"}, "details": {"fr": "", "en": ""}},
     {"image": "restauration-avant-apres.jpg", "entier": True, "prestation": "restauration", "titre": {"fr": "Tableau ancien, avant / après", "en": "Old painting, before / after"}, "details": {"fr": "", "en": ""}},
     {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
     {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
