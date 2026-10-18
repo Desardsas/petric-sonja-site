@@ -74,10 +74,10 @@ PARCOURS = [
 
 TEXTES = {
     "fr": {
-        "description": "Sonja Petric : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging.",
+        "description": "Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.",
         "nav": {"index": "Accueil", "prestations": "Prestations", "realisations": "Réalisations", "a-propos": "À propos", "contact": "Contact"},
         "titres": {
-            "index": "Sonja Petric · Peinture, enduits décoratifs, home staging",
+            "index": "Sonja Petric · Peinture, enduits décoratifs, home staging à Cannes",
             "prestations": "Prestations · Sonja Petric",
             "realisations": "Réalisations · Sonja Petric",
             "a-propos": "À propos · Sonja Petric",
@@ -110,7 +110,7 @@ TEXTES = {
         "bio": "[Sa biographie : son parcours, sa formation, ce qui l'a menée à la peinture et à la décoration.]",
         "bio_demarche": "[Sa façon de travailler : écoute, matières, sur mesure.]",
         "parcours": "Parcours",
-        "zone": "Intervient à [Ville] et alentours.",
+        "zone": "Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.",
         "contact": "Contact",
         "ecrivez": "Parlons de votre projet",
         "contact_intro": "Pour un devis, une commande ou une simple question, écrivez-moi : je réponds rapidement.",
@@ -123,10 +123,10 @@ TEXTES = {
         "envoyer": "Envoyer la demande",
     },
     "en": {
-        "description": "Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.",
+        "description": "Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.",
         "nav": {"index": "Home", "prestations": "Services", "realisations": "Projects", "a-propos": "About", "contact": "Contact"},
         "titres": {
-            "index": "Sonja Petric · Painting, decorative plaster, home staging",
+            "index": "Sonja Petric · Painting, decorative plaster, home staging in Cannes",
             "prestations": "Services · Sonja Petric",
             "realisations": "Projects · Sonja Petric",
             "a-propos": "About · Sonja Petric",
@@ -159,7 +159,7 @@ TEXTES = {
         "bio": "[Her biography: background, training, what led her to painting and decoration.]",
         "bio_demarche": "[How she works: listening, materials, bespoke.]",
         "parcours": "Background",
-        "zone": "Works in [City] and the surrounding area.",
+        "zone": "Studio in Cannes. Works across the French Riviera: Cannes, Antibes, Nice, Grasse, Saint-Tropez and the surrounding area.",
         "contact": "Contact",
         "ecrivez": "Let's talk about your project",
         "contact_intro": "For a quote, a commission or a simple question, write to me: I reply quickly.",
