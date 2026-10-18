@@ -142,3 +142,14 @@ p { margin: 0 0 1em; }
 }
 
 .formulaire select { font: inherit; padding: 12px 14px; border: 1px solid var(--ligne); background: var(--surface); color: var(--texte); border-radius: 2px; }
+
+/* Formulaire de devis */
+.deux-colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .deux-colonnes { grid-template-columns: 1fr; } }
+.formulaire .mention { font-size: .82rem; color: var(--texte-doux); margin: 0; }
+.formulaire .etat { margin: 0; font-size: .95rem; }
+.formulaire .etat.ok { color: #2f6b3a; }
+.formulaire .etat.ko { color: #a3322a; }
+.formulaire .etat a { color: inherit; }
+.formulaire button[disabled] { opacity: .6; cursor: wait; }
+.piege { position: absolute; left: -9999px; }

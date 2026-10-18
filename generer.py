@@ -12,7 +12,11 @@ LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
 EMAIL = "contact@exemple.fr"
 TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
 INSTAGRAM = "https://www.instagram.com/"
-FORMSPREE_ID = "VOTRE_ID"
+# Service qui transforme chaque demande de devis en e-mail pour Sonja.
+# "web3forms" : CLE_FORMULAIRE = la clé reçue sur https://web3forms.com (gratuit, sans compte)
+# "formspree" : CLE_FORMULAIRE = l'identifiant du formulaire créé sur https://formspree.io
+SERVICE_FORMULAIRE = "web3forms"
+CLE_FORMULAIRE = ""  # vide = formulaire pas encore activé, le site propose alors l'e-mail
 
 # Les services, dans l'ordre d'affichage. L'identifiant sert aussi de catégorie aux réalisations.
 PRESTATIONS = [
@@ -121,6 +125,14 @@ TEXTES = {
         "autre": "Autre",
         "message": "Votre projet (lieu, surface, délai…)",
         "envoyer": "Envoyer la demande",
+        "telephone_facultatif": "Téléphone (facultatif)",
+        "ville": "Ville du projet",
+        "mention": "Vos informations servent uniquement à répondre à votre demande.",
+        "envoi": "Envoi en cours…",
+        "merci": "Merci, votre demande est bien envoyée. Je vous réponds au plus vite.",
+        "erreur": "L'envoi n'a pas abouti. Vous pouvez m'écrire directement à",
+        "pas_actif": "Le formulaire sera bientôt actif. En attendant, écrivez-moi à",
+        "sujet": "Nouvelle demande de devis depuis sonjapetric.com",
     },
     "en": {
         "description": "Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.",
@@ -170,6 +182,14 @@ TEXTES = {
         "autre": "Other",
         "message": "Your project (place, surface, timing…)",
         "envoyer": "Send request",
+        "telephone_facultatif": "Phone (optional)",
+        "ville": "Project location",
+        "mention": "Your details are only used to reply to your request.",
+        "envoi": "Sending…",
+        "merci": "Thank you, your request has been sent. I will get back to you shortly.",
+        "erreur": "The request could not be sent. You can email me directly at",
+        "pas_actif": "The form will be active soon. In the meantime, email me at",
+        "sujet": "New quote request from sonjapetric.com",
     },
 }
 
@@ -318,7 +338,14 @@ def corps_a_propos(t, langue):
 
 
 def corps_contact(t, langue):
-    options = "\n".join(f'            <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
+    options = "\n".join(f'              <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
+    if SERVICE_FORMULAIRE == "formspree":
+        adresse, cachés = f"https://formspree.io/f/{CLE_FORMULAIRE}", f'        <input type="hidden" name="_subject" value="{t["sujet"]}">'
+    else:
+        adresse = "https://api.web3forms.com/submit"
+        cachés = (f'        <input type="hidden" name="access_key" value="{CLE_FORMULAIRE}">\n'
+                  f'        <input type="hidden" name="subject" value="{t["sujet"]}">\n'
+                  '        <input type="hidden" name="from_name" value="sonjapetric.com">')
     tel = f'<br>\n           {t["telephone"]} : <a href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a>' if TELEPHONE else ""
     return f'''    <section class="section conteneur contact">
       <div class="coordonnees">
@@ -329,17 +356,28 @@ def corps_contact(t, langue):
            Instagram : <a href="{INSTAGRAM}" rel="noopener">@[compte]</a><br>
            {t["zone"]}</p>
       </div>
-      <form class="formulaire" action="https://formspree.io/f/{FORMSPREE_ID}" method="POST">
+      <form class="formulaire" action="{adresse}" method="POST" data-actif="{"oui" if CLE_FORMULAIRE else "non"}"
+            data-envoi="{t["envoi"]}" data-merci="{t["merci"]}" data-erreur="{t["erreur"]}" data-pas-actif="{t["pas_actif"]}" data-email="{EMAIL}">
+{cachés}
+        <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label>{t["nom"]}<input name="nom" required autocomplete="name"></label>
-        <label>{t["email"]}<input type="email" name="email" required autocomplete="email"></label>
-        <label>{t["type_projet"]}
-          <select name="prestation">
+        <div class="deux-colonnes">
+          <label>{t["email"]}<input type="email" name="email" required autocomplete="email"></label>
+          <label>{t["telephone_facultatif"]}<input type="tel" name="telephone" autocomplete="tel"></label>
+        </div>
+        <div class="deux-colonnes">
+          <label>{t["type_projet"]}
+            <select name="prestation">
 {options}
-            <option>{t["autre"]}</option>
-          </select>
-        </label>
+              <option>{t["autre"]}</option>
+            </select>
+          </label>
+          <label>{t["ville"]}<input name="ville" autocomplete="address-level2"></label>
+        </div>
         <label>{t["message"]}<textarea name="message" required></textarea></label>
+        <p class="mention">{t["mention"]}</p>
         <div><button class="bouton plein" type="submit">{t["envoyer"]}</button></div>
+        <p class="etat" role="status" aria-live="polite"></p>
       </form>
     </section>'''
 

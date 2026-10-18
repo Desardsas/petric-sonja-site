@@ -26,6 +26,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const depuisAdresse = document.querySelector(`.filtres button[data-filtre="${location.hash.slice(1)}"]`);
   if (depuisAdresse) depuisAdresse.click();
 
+  // Formulaire de devis : envoi sans quitter la page
+  const formulaire = document.querySelector(".formulaire");
+  if (formulaire) {
+    const etat = formulaire.querySelector(".etat");
+    const bouton = formulaire.querySelector("button[type=submit]");
+    const d = formulaire.dataset;
+    const afficher = (texte, classe, avecEmail) => {
+      etat.className = "etat " + classe;
+      etat.textContent = texte + (avecEmail ? " " : "");
+      if (avecEmail) {
+        const lien = document.createElement("a");
+        lien.href = "mailto:" + d.email;
+        lien.textContent = d.email;
+        etat.append(lien, ".");
+      }
+    };
+    formulaire.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (d.actif !== "oui") return afficher(d.pasActif, "ko", true);
+      bouton.disabled = true;
+      afficher(d.envoi, "", false);
+      try {
+        const reponse = await fetch(formulaire.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(formulaire))),
+        });
+        if (!reponse.ok) throw new Error(reponse.status);
+        formulaire.reset();
+        afficher(d.merci, "ok", false);
+      } catch {
+        afficher(d.erreur, "ko", true);
+      } finally {
+        bouton.disabled = false;
+      }
+    });
+  }
+
   // Visionneuse plein écran
   const vis = document.querySelector(".visionneuse");
   if (!vis || !oeuvres.length) return;

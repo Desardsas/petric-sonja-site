@@ -44,20 +44,33 @@
            Instagram : <a href="https://www.instagram.com/" rel="noopener">@[compte]</a><br>
            Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.</p>
       </div>
-      <form class="formulaire" action="https://formspree.io/f/VOTRE_ID" method="POST">
+      <form class="formulaire" action="https://api.web3forms.com/submit" method="POST" data-actif="non"
+            data-envoi="Envoi en cours…" data-merci="Merci, votre demande est bien envoyée. Je vous réponds au plus vite." data-erreur="L'envoi n'a pas abouti. Vous pouvez m'écrire directement à" data-pas-actif="Le formulaire sera bientôt actif. En attendant, écrivez-moi à" data-email="contact@exemple.fr">
+        <input type="hidden" name="access_key" value="">
+        <input type="hidden" name="subject" value="Nouvelle demande de devis depuis sonjapetric.com">
+        <input type="hidden" name="from_name" value="sonjapetric.com">
+        <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label>Nom<input name="nom" required autocomplete="name"></label>
-        <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
-        <label>Prestation souhaitée
-          <select name="prestation">
-            <option>Peinture</option>
-            <option>Restauration de peinture</option>
-            <option>Enduits décoratifs sur mesure</option>
-            <option>Home staging</option>
-            <option>Autre</option>
-          </select>
-        </label>
+        <div class="deux-colonnes">
+          <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+          <label>Téléphone (facultatif)<input type="tel" name="telephone" autocomplete="tel"></label>
+        </div>
+        <div class="deux-colonnes">
+          <label>Prestation souhaitée
+            <select name="prestation">
+              <option>Peinture</option>
+              <option>Restauration de peinture</option>
+              <option>Enduits décoratifs sur mesure</option>
+              <option>Home staging</option>
+              <option>Autre</option>
+            </select>
+          </label>
+          <label>Ville du projet<input name="ville" autocomplete="address-level2"></label>
+        </div>
         <label>Votre projet (lieu, surface, délai…)<textarea name="message" required></textarea></label>
+        <p class="mention">Vos informations servent uniquement à répondre à votre demande.</p>
         <div><button class="bouton plein" type="submit">Envoyer la demande</button></div>
+        <p class="etat" role="status" aria-live="polite"></p>
       </form>
     </section>
   </main>

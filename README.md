@@ -22,9 +22,11 @@ puis commit des fichiers `.html` mis à jour. Les textes entre crochets `[...]` 
 
 Un lien vers `/realisations#enduits` ouvre la page déjà filtrée sur une prestation.
 
-## Formulaire de contact
+## Formulaire de devis
 
-Le formulaire passe par [Formspree](https://formspree.io) (gratuit jusqu'à 50 messages par mois) : créer un formulaire, puis remplacer `VOTRE_ID` dans `generer.py` (`FORMSPREE_ID`) par son identifiant. Les messages arrivent par e-mail.
+Le formulaire de la page Contact envoie chaque demande par e-mail grâce à [Web3Forms](https://web3forms.com) (gratuit jusqu'à 250 demandes par mois). Le visiteur reste sur la page et voit un message de confirmation ; un champ invisible bloque les robots.
+
+Pour l'activer : sur web3forms.com, saisir l'adresse e-mail qui doit recevoir les demandes, récupérer la clé (Access Key) reçue par e-mail, la mettre dans `CLE_FORMULAIRE` en haut de `generer.py`, puis lancer `python3 generer.py`. Cette clé est publique par conception : elle peut figurer dans le code. Tant qu'elle est vide, le formulaire affiche l'adresse e-mail à la place. Pour passer à Formspree, mettre `SERVICE_FORMULAIRE = "formspree"` et l'identifiant du formulaire dans `CLE_FORMULAIRE`.
 
 ## Voir le site en local
 
