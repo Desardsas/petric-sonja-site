@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric, création artistique : œuvres, démarche et contact.">
+  <meta property="og:title" content="Contact · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric, création artistique : œuvres, démarche et contact.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="index.html">Sonja Petric</a>
+      <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <a href="galerie.html">Galerie</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section conteneur contact">
+      <div class="coordonnees">
+        <p class="surtitre">Contact</p>
+        <h1>Écrivez-moi</h1>
+        <p>Pour une commande, une acquisition, une exposition ou simplement un échange.</p>
+        <p>E-mail : <a href="mailto:contact@exemple.fr">contact@exemple.fr</a><br>
+           Instagram : <a href="https://www.instagram.com/" rel="noopener">@[compte]</a><br>
+           Atelier : [Ville]</p>
+      </div>
+      <!-- Formulaire envoyé par Formspree (gratuit) : remplacer VOTRE_ID par l'identifiant du formulaire -->
+      <form class="formulaire" action="https://formspree.io/f/VOTRE_ID" method="POST">
+        <label>Nom<input name="nom" required autocomplete="name"></label>
+        <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+        <label>Message<textarea name="message" required></textarea></label>
+        <div><button class="bouton plein" type="submit">Envoyer</button></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <span>© <span id="annee"></span> Sonja Petric. Tous droits réservés.</span>
+      <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
