@@ -67,7 +67,7 @@ REALISATIONS = [
 ]
 
 PARCOURS = [
-    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
+    {"annee": "[Année]", "fr": "Formation à l'École supérieure d'art d'Avignon (ESAA)", "en": "Trained at the École supérieure d'art d'Avignon (ESAA)"},
     {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
     {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
 ]
