@@ -16,7 +16,7 @@ INSTAGRAM = "https://www.instagram.com/"
 # "web3forms" : CLE_FORMULAIRE = la clé reçue sur https://web3forms.com (gratuit, sans compte)
 # "formspree" : CLE_FORMULAIRE = l'identifiant du formulaire créé sur https://formspree.io
 SERVICE_FORMULAIRE = "web3forms"
-CLE_FORMULAIRE = ""  # vide = formulaire pas encore activé, le site propose alors l'e-mail
+CLE_FORMULAIRE = "954684af-cae0-4937-9ce8-ec030d75f55d"  # vide = formulaire pas encore activé, le site propose alors l'e-mail
 
 # Les services, dans l'ordre d'affichage. L'identifiant sert aussi de catégorie aux réalisations.
 PRESTATIONS = [
