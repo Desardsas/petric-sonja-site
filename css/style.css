@@ -37,10 +37,15 @@ p { margin: 0 0 1em; }
 .nav { display: flex; gap: 28px; }
 .nav a { text-decoration: none; font-size: .95rem; color: var(--texte-doux); padding: 4px 0; border-bottom: 1px solid transparent; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--texte); border-bottom-color: var(--accent); }
+.entete-droite { display: flex; align-items: center; gap: 28px; }
+.langues { display: flex; gap: 6px; font-size: .8rem; letter-spacing: .06em; }
+.langues a { text-decoration: none; color: var(--texte-doux); padding: 2px 4px; }
+.langues a[aria-current="true"] { color: var(--texte); border-bottom: 1px solid var(--accent); }
 .menu-bouton { display: none; background: none; border: 0; font: inherit; cursor: pointer; padding: 8px; }
 
 @media (max-width: 720px) {
   .menu-bouton { display: block; }
+  .entete-droite { gap: 12px; }
   .nav { display: none; position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--fond); border-bottom: 1px solid var(--ligne); }
   .nav.ouvert { display: flex; }
   .nav a { padding: 14px 20px; border-bottom: 1px solid var(--ligne); }

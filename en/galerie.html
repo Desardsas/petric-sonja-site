@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric, artist: artworks, approach and contact.">
+  <meta property="og:title" content="Gallery · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric, artist: artworks, approach and contact.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="fr" href="/galerie">
+  <link rel="alternate" hreflang="en" href="/en/galerie">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="/en">Sonja Petric</a>
+      <div class="entete-droite">
+        <nav class="nav">
+        <a href="/en">Home</a>
+        <a href="/en/galerie" aria-current="page">Gallery</a>
+        <a href="/en/a-propos">About</a>
+        <a href="/en/contact">Contact</a>
+        </nav>
+        <div class="langues"><a href="/galerie" lang="fr" hreflang="fr">FR</a> <a href="/en/galerie" lang="en" hreflang="en" aria-current="true">EN</a></div>
+        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section conteneur">
+      <div class="section-titre"><h1>Gallery</h1></div>
+      <div class="filtres" role="group" aria-label="Filter by category">
+        <button data-filtre="tout" aria-pressed="true">All</button>
+        <button data-filtre="peinture" aria-pressed="false">Painting</button>
+        <button data-filtre="dessin" aria-pressed="false">Drawing</button>
+        <button data-filtre="sculpture" aria-pressed="false">Sculpture</button>
+      </div>
+      <div class="galerie">
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Work 1</div></div>
+          <figcaption><div class="nom">[Title 1]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Work 2</div></div>
+          <figcaption><div class="nom">[Title 2]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="dessin">
+          <div class="cadre"><div class="attente">Work 3</div></div>
+          <figcaption><div class="nom">[Title 3]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="sculpture">
+          <div class="cadre"><div class="attente">Work 4</div></div>
+          <figcaption><div class="nom">[Title 4]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Work 5</div></div>
+          <figcaption><div class="nom">[Title 5]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="dessin">
+          <div class="cadre"><div class="attente">Work 6</div></div>
+          <figcaption><div class="nom">[Title 6]</div><div class="details">[Medium, size, year]</div></figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="Enlarged artwork">
+    <button class="fermer" aria-label="Close">×</button>
+    <button class="prec" aria-label="Previous work">‹</button>
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
+    <button class="suiv" aria-label="Next work">›</button>
+  </div>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <span>© <span id="annee"></span> Sonja Petric. All rights reserved.</span>
+      <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

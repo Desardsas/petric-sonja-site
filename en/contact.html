@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric, artist: artworks, approach and contact.">
+  <meta property="og:title" content="Contact · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric, artist: artworks, approach and contact.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="fr" href="/contact">
+  <link rel="alternate" hreflang="en" href="/en/contact">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="/en">Sonja Petric</a>
+      <div class="entete-droite">
+        <nav class="nav">
+        <a href="/en">Home</a>
+        <a href="/en/galerie">Gallery</a>
+        <a href="/en/a-propos">About</a>
+        <a href="/en/contact" aria-current="page">Contact</a>
+        </nav>
+        <div class="langues"><a href="/contact" lang="fr" hreflang="fr">FR</a> <a href="/en/contact" lang="en" hreflang="en" aria-current="true">EN</a></div>
+        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section conteneur contact">
+      <div class="coordonnees">
+        <p class="surtitre">Contact</p>
+        <h1>Write to me</h1>
+        <p>For a commission, a purchase, an exhibition or simply a conversation.</p>
+        <p>Email : <a href="mailto:contact@exemple.fr">contact@exemple.fr</a><br>
+           Instagram : <a href="https://www.instagram.com/" rel="noopener">@[compte]</a><br>
+           Studio: [City]</p>
+      </div>
+      <form class="formulaire" action="https://formspree.io/f/VOTRE_ID" method="POST">
+        <label>Name<input name="nom" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Message<textarea name="message" required></textarea></label>
+        <div><button class="bouton plein" type="submit">Send</button></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <span>© <span id="annee"></span> Sonja Petric. All rights reserved.</span>
+      <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

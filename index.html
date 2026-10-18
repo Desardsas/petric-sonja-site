@@ -8,23 +8,28 @@
   <meta property="og:title" content="Sonja Petric · Création artistique">
   <meta property="og:description" content="Sonja Petric, création artistique : œuvres, démarche et contact.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="fr" href="/">
+  <link rel="alternate" hreflang="en" href="/en">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="entete">
     <div class="conteneur">
-      <a class="logo" href="index.html">Sonja Petric</a>
-      <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
-      <nav class="nav">
-        <a href="index.html" aria-current="page">Accueil</a>
-        <a href="galerie.html">Galerie</a>
-        <a href="a-propos.html">À propos</a>
-        <a href="contact.html">Contact</a>
-      </nav>
+      <a class="logo" href="/">Sonja Petric</a>
+      <div class="entete-droite">
+        <nav class="nav">
+        <a href="/" aria-current="page">Accueil</a>
+        <a href="/galerie">Galerie</a>
+        <a href="/a-propos">À propos</a>
+        <a href="/contact">Contact</a>
+        </nav>
+        <div class="langues"><a href="/" lang="fr" hreflang="fr" aria-current="true">FR</a> <a href="/en" lang="en" hreflang="en">EN</a></div>
+        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
     </div>
   </header>
 
@@ -34,7 +39,7 @@
         <p class="surtitre">Création artistique</p>
         <h1>Sonja Petric</h1>
         <p>[Une phrase qui présente sa démarche : ce qu'elle crée, avec quelles matières, ce qui l'inspire.]</p>
-        <p style="margin-top:28px"><a class="bouton plein" href="galerie.html">Voir les œuvres</a> &nbsp; <a class="bouton" href="contact.html">Me contacter</a></p>
+        <p style="margin-top:28px"><a class="bouton plein" href="/galerie">Voir les œuvres</a> &nbsp; <a class="bouton" href="/contact">Me contacter</a></p>
       </div>
       <div class="hero-image"><div class="attente">Photo principale</div></div>
     </section>
@@ -43,18 +48,18 @@
       <div class="conteneur">
         <div class="section-titre">
           <h2>Œuvres récentes</h2>
-          <a href="galerie.html">Toute la galerie →</a>
+          <a href="/galerie">Toute la galerie →</a>
         </div>
         <div class="galerie">
-        <figure class="oeuvre" data-categorie="">
+        <figure class="oeuvre" data-categorie="peinture">
           <div class="cadre"><div class="attente">Œuvre 1</div></div>
           <figcaption><div class="nom">[Titre 1]</div><div class="details">[Technique, dimensions, année]</div></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="">
+        <figure class="oeuvre" data-categorie="peinture">
           <div class="cadre"><div class="attente">Œuvre 2</div></div>
           <figcaption><div class="nom">[Titre 2]</div><div class="details">[Technique, dimensions, année]</div></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="">
+        <figure class="oeuvre" data-categorie="dessin">
           <div class="cadre"><div class="attente">Œuvre 3</div></div>
           <figcaption><div class="nom">[Titre 3]</div><div class="details">[Technique, dimensions, année]</div></figcaption>
         </figure>
@@ -66,7 +71,7 @@
       <p class="surtitre">Démarche</p>
       <h2>[Titre court sur sa démarche]</h2>
       <p style="color:var(--texte-doux)">[Deux ou trois phrases sur ce qui guide son travail.]</p>
-      <p><a class="bouton" href="a-propos.html">En savoir plus</a></p>
+      <p><a class="bouton" href="/a-propos">En savoir plus</a></p>
     </section>
   </main>
 
@@ -76,6 +81,6 @@
       <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
     </div>
   </footer>
-  <script src="js/main.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>
