@@ -132,7 +132,7 @@ TEXTES = {
         "merci": "Merci, votre demande est bien envoyée. Je vous réponds au plus vite.",
         "erreur": "L'envoi n'a pas abouti. Vous pouvez m'écrire directement à",
         "pas_actif": "Le formulaire sera bientôt actif. En attendant, écrivez-moi à",
-        "sujet": "Nouvelle demande de devis depuis sonjapetric.art",
+        "sujet": "Nouvelle demande de devis depuis petricsonja.art",
     },
     "en": {
         "description": "Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.",
@@ -189,7 +189,7 @@ TEXTES = {
         "merci": "Thank you, your request has been sent. I will get back to you shortly.",
         "erreur": "The request could not be sent. You can email me directly at",
         "pas_actif": "The form will be active soon. In the meantime, email me at",
-        "sujet": "New quote request from sonjapetric.art",
+        "sujet": "New quote request from petricsonja.art",
     },
 }
 
@@ -345,7 +345,7 @@ def corps_contact(t, langue):
         adresse = "https://api.web3forms.com/submit"
         cachés = (f'        <input type="hidden" name="access_key" value="{CLE_FORMULAIRE}">\n'
                   f'        <input type="hidden" name="subject" value="{t["sujet"]}">\n'
-                  '        <input type="hidden" name="from_name" value="sonjapetric.art">')
+                  '        <input type="hidden" name="from_name" value="petricsonja.art">')
     tel = f'<br>\n           {t["telephone"]} : <a href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a>' if TELEPHONE else ""
     return f'''    <section class="section conteneur contact">
       <div class="coordonnees">
