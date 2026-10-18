@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const annee = document.getElementById("annee");
   if (annee) annee.textContent = new Date().getFullYear();
 
-  // Filtres par catégorie (attribut data-categorie sur chaque œuvre)
+  // Filtres par prestation (attribut data-categorie sur chaque réalisation)
   const oeuvres = [...document.querySelectorAll(".galerie .oeuvre")];
   document.querySelectorAll(".filtres button").forEach((filtre) => {
     filtre.addEventListener("click", () => {
@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
       oeuvres.forEach((o) => { o.hidden = cat !== "tout" && o.dataset.categorie !== cat; });
     });
   });
+
+  // Filtre choisi par l'adresse, par exemple /realisations#enduits
+  const depuisAdresse = document.querySelector(`.filtres button[data-filtre="${location.hash.slice(1)}"]`);
+  if (depuisAdresse) depuisAdresse.click();
 
   // Visionneuse plein écran
   const vis = document.querySelector(".visionneuse");

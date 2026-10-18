@@ -4,23 +4,23 @@ Site statique en HTML, CSS et un peu de JavaScript, sans framework ni étape de 
 
 ## Pages et langues
 
-Quatre pages en français à la racine (`index.html`, `galerie.html`, `a-propos.html`, `contact.html`) et leur version anglaise dans `en/`. Un lien FR / EN en haut de chaque page mène à la même page dans l'autre langue.
+Cinq pages en français à la racine (`index`, `prestations`, `realisations`, `a-propos`, `contact`) et leur version anglaise dans `en/`. Un lien FR / EN en haut de chaque page mène à la même page dans l'autre langue. L'ancienne adresse `/galerie` redirige vers `/realisations` (`vercel.json`).
 
-Ces fichiers HTML sont **générés** par `generer.py` : on ne les modifie pas à la main. Tous les textes, les œuvres, les expositions, l'e-mail et l'Instagram sont en haut de `generer.py`. Après une modification :
+Ces fichiers HTML sont **générés** par `generer.py` : on ne les modifie pas à la main. Coordonnées, prestations, réalisations, parcours et tous les textes sont en haut de `generer.py`. Après une modification :
 
 ```sh
 python3 generer.py
 ```
 
-puis commit des fichiers `.html` mis à jour. Pour ajouter une langue, l'ajouter à `LANGUES` et compléter `TEXTES` et les champs de chaque œuvre.
+puis commit des fichiers `.html` mis à jour. Les textes entre crochets `[...]` sont à remplacer par le vrai contenu.
 
-Les textes entre crochets `[...]` sont à remplacer par le vrai contenu.
+## Ajouter une réalisation
 
-## Ajouter une œuvre
-
-1. Déposer la photo dans `images/oeuvres/` (JPEG, 1600 px de large maximum, nom sans espace, par exemple `jardin-bleu.jpg`).
-2. Dans `generer.py`, ajouter une entrée à `OEUVRES` avec `"image": "jardin-bleu.jpg"`, sa catégorie (une clé de `CATEGORIES`), son titre et ses détails dans chaque langue. Les trois premières œuvres de la liste apparaissent sur l'accueil.
+1. Déposer la photo dans `images/realisations/` (JPEG, 1600 px de large maximum, nom sans espace, par exemple `salon-tadelakt.jpg`).
+2. Dans `generer.py`, ajouter une entrée à `REALISATIONS` avec `"image": "salon-tadelakt.jpg"`, la prestation concernée (un `id` de `PRESTATIONS`), son titre et ses détails dans chaque langue. Les trois premières apparaissent sur l'accueil.
 3. Lancer `python3 generer.py`.
+
+Un lien vers `/realisations#enduits` ouvre la page déjà filtrée sur une prestation.
 
 ## Formulaire de contact
 

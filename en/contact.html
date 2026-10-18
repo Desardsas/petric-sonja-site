@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Contact · Sonja Petric</title>
-  <meta name="description" content="Sonja Petric, artist: artworks, approach and contact.">
-  <meta property="og:title" content="Contact · Sonja Petric">
-  <meta property="og:description" content="Sonja Petric, artist: artworks, approach and contact.">
+  <title>Contact and quotes · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.">
+  <meta property="og:title" content="Contact and quotes · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.">
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="fr" href="/contact">
   <link rel="alternate" hreflang="en" href="/en/contact">
@@ -23,7 +23,8 @@
       <div class="entete-droite">
         <nav class="nav">
         <a href="/en">Home</a>
-        <a href="/en/galerie">Gallery</a>
+        <a href="/en/prestations">Services</a>
+        <a href="/en/realisations">Projects</a>
         <a href="/en/a-propos">About</a>
         <a href="/en/contact" aria-current="page">Contact</a>
         </nav>
@@ -37,17 +38,26 @@
     <section class="section conteneur contact">
       <div class="coordonnees">
         <p class="surtitre">Contact</p>
-        <h1>Write to me</h1>
-        <p>For a commission, a purchase, an exhibition or simply a conversation.</p>
+        <h1>Let's talk about your project</h1>
+        <p>For a quote, a commission or a simple question, write to me: I reply quickly.</p>
         <p>Email : <a href="mailto:contact@exemple.fr">contact@exemple.fr</a><br>
            Instagram : <a href="https://www.instagram.com/" rel="noopener">@[compte]</a><br>
-           Studio: [City]</p>
+           Works in [City] and the surrounding area.</p>
       </div>
       <form class="formulaire" action="https://formspree.io/f/VOTRE_ID" method="POST">
         <label>Name<input name="nom" required autocomplete="name"></label>
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
-        <label>Message<textarea name="message" required></textarea></label>
-        <div><button class="bouton plein" type="submit">Send</button></div>
+        <label>Service
+          <select name="prestation">
+            <option>Painting</option>
+            <option>Painting restoration</option>
+            <option>Bespoke decorative plaster</option>
+            <option>Home staging</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Your project (place, surface, timing…)<textarea name="message" required></textarea></label>
+        <div><button class="bouton plein" type="submit">Send request</button></div>
       </form>
     </section>
   </main>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Réalisations · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging.">
+  <meta property="og:title" content="Réalisations · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="fr" href="/realisations">
+  <link rel="alternate" hreflang="en" href="/en/realisations">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="/">Sonja Petric</a>
+      <div class="entete-droite">
+        <nav class="nav">
+        <a href="/">Accueil</a>
+        <a href="/prestations">Prestations</a>
+        <a href="/realisations" aria-current="page">Réalisations</a>
+        <a href="/a-propos">À propos</a>
+        <a href="/contact">Contact</a>
+        </nav>
+        <div class="langues"><a href="/realisations" lang="fr" hreflang="fr" aria-current="true">FR</a> <a href="/en/realisations" lang="en" hreflang="en">EN</a></div>
+        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section conteneur">
+      <div class="section-titre"><h1>Réalisations</h1></div>
+      <div class="filtres" role="group" aria-label="Filtrer par prestation">
+        <button data-filtre="tout" aria-pressed="true">Tout</button>
+        <button data-filtre="peinture" aria-pressed="false">Peinture</button>
+        <button data-filtre="restauration" aria-pressed="false">Restauration de peinture</button>
+        <button data-filtre="enduits" aria-pressed="false">Enduits décoratifs sur mesure</button>
+        <button data-filtre="home-staging" aria-pressed="false">Home staging</button>
+      </div>
+      <div class="galerie">
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Peinture · [Technique, dimensions, année]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="enduits">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Enduits décoratifs sur mesure · [Pièce, matière, ville]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="restauration">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Restauration de peinture · [Œuvre restaurée, année]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="home-staging">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Home staging · [Type de bien, ville]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Peinture · [Technique, dimensions, année]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="enduits">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Titre]</div><div class="details">Enduits décoratifs sur mesure · [Pièce, matière, ville]</div></figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="Réalisation en grand">
+    <button class="fermer" aria-label="Fermer">×</button>
+    <button class="prec" aria-label="Précédente">‹</button>
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
+    <button class="suiv" aria-label="Suivante">›</button>
+  </div>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <span>© <span id="annee"></span> Sonja Petric. Tous droits réservés.</span>
+      <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 """Génère les pages HTML du site dans chaque langue.
 
-Les textes sont dans TEXTES et les œuvres dans OEUVRES, plus bas.
+Tout le contenu est dans ce fichier : coordonnées, PRESTATIONS, REALISATIONS, PARCOURS et TEXTES.
 Après une modification : python3 generer.py, puis commit des fichiers .html.
 Le français est à la racine du site, chaque autre langue dans son dossier (en/, ...).
 """
@@ -10,115 +10,170 @@ from pathlib import Path
 RACINE = Path(__file__).parent
 LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
 EMAIL = "contact@exemple.fr"
+TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
 INSTAGRAM = "https://www.instagram.com/"
 FORMSPREE_ID = "VOTRE_ID"
 
-# Chaque œuvre : fichier image dans images/oeuvres/ (None tant qu'il n'y a pas de photo),
-# catégorie (clé de CATEGORIES), titre et détails dans chaque langue.
-OEUVRES = [
-    {"image": None, "categorie": "peinture", "titre": {"fr": "[Titre 1]", "en": "[Title 1]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "categorie": "peinture", "titre": {"fr": "[Titre 2]", "en": "[Title 2]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "categorie": "dessin", "titre": {"fr": "[Titre 3]", "en": "[Title 3]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "categorie": "sculpture", "titre": {"fr": "[Titre 4]", "en": "[Title 4]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "categorie": "peinture", "titre": {"fr": "[Titre 5]", "en": "[Title 5]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "categorie": "dessin", "titre": {"fr": "[Titre 6]", "en": "[Title 6]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
+# Les services, dans l'ordre d'affichage. L'identifiant sert aussi de catégorie aux réalisations.
+PRESTATIONS = [
+    {
+        "id": "peinture",
+        "titre": {"fr": "Peinture", "en": "Painting"},
+        "resume": {"fr": "[Une phrase : tableaux, toiles sur commande, fresques…]", "en": "[One sentence: paintings, commissioned canvases, murals…]"},
+        "points": {
+            "fr": ["[Exemple de ce qu'elle propose]", "[Exemple]", "[Exemple]"],
+            "en": ["[Example of what she offers]", "[Example]", "[Example]"],
+        },
+    },
+    {
+        "id": "restauration",
+        "titre": {"fr": "Restauration de peinture", "en": "Painting restoration"},
+        "resume": {"fr": "[Une phrase : quels types de peintures elle restaure et comment.]", "en": "[One sentence: which paintings she restores and how.]"},
+        "points": {
+            "fr": ["[Exemple]", "[Exemple]", "[Exemple]"],
+            "en": ["[Example]", "[Example]", "[Example]"],
+        },
+    },
+    {
+        "id": "enduits",
+        "titre": {"fr": "Enduits décoratifs sur mesure", "en": "Bespoke decorative plaster"},
+        "resume": {"fr": "[Une phrase : finitions, matières, pièces concernées.]", "en": "[One sentence: finishes, materials, rooms.]"},
+        "points": {
+            "fr": ["[Exemple : tadelakt, chaux, béton ciré…]", "[Exemple]", "[Exemple]"],
+            "en": ["[Example: tadelakt, lime, polished concrete…]", "[Example]", "[Example]"],
+        },
+    },
+    {
+        "id": "home-staging",
+        "titre": {"fr": "Home staging", "en": "Home staging"},
+        "resume": {"fr": "[Une phrase : valoriser un bien pour la vente ou la location.]", "en": "[One sentence: enhancing a property for sale or rent.]"},
+        "points": {
+            "fr": ["[Exemple]", "[Exemple]", "[Exemple]"],
+            "en": ["[Example]", "[Example]", "[Example]"],
+        },
+    },
 ]
-CATEGORIES = {
-    "peinture": {"fr": "Peinture", "en": "Painting"},
-    "dessin": {"fr": "Dessin", "en": "Drawing"},
-    "sculpture": {"fr": "Sculpture", "en": "Sculpture"},
-}
 
-EXPOSITIONS = [
-    {"annee": "[Année]", "fr": "[Nom de l'exposition, lieu]", "en": "[Exhibition name, venue]"},
-    {"annee": "[Année]", "fr": "[Nom de l'exposition, lieu]", "en": "[Exhibition name, venue]"},
-    {"annee": "[Année]", "fr": "[Nom de l'exposition, lieu]", "en": "[Exhibition name, venue]"},
+# Chaque réalisation : fichier image dans images/realisations/ (None tant qu'il n'y a pas de photo),
+# prestation (un "id" de PRESTATIONS), titre et détails dans chaque langue.
+# Les trois premières apparaissent sur l'accueil.
+REALISATIONS = [
+    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
+    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
+    {"image": None, "prestation": "restauration", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Œuvre restaurée, année]", "en": "[Restored work, year]"}},
+    {"image": None, "prestation": "home-staging", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Type de bien, ville]", "en": "[Property type, town]"}},
+    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
+    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
+]
+
+PARCOURS = [
+    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
+    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
+    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
 ]
 
 TEXTES = {
     "fr": {
-        "nom_langue": "Français",
-        "description": "Sonja Petric, création artistique : œuvres, démarche et contact.",
-        "nav": {"index": "Accueil", "galerie": "Galerie", "a-propos": "À propos", "contact": "Contact"},
-        "titres": {"index": "Sonja Petric · Création artistique", "galerie": "Galerie · Sonja Petric", "a-propos": "À propos · Sonja Petric", "contact": "Contact · Sonja Petric"},
+        "description": "Sonja Petric : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging.",
+        "nav": {"index": "Accueil", "prestations": "Prestations", "realisations": "Réalisations", "a-propos": "À propos", "contact": "Contact"},
+        "titres": {
+            "index": "Sonja Petric · Peinture, enduits décoratifs, home staging",
+            "prestations": "Prestations · Sonja Petric",
+            "realisations": "Réalisations · Sonja Petric",
+            "a-propos": "À propos · Sonja Petric",
+            "contact": "Contact et devis · Sonja Petric",
+        },
         "menu": "Menu",
         "droits": "Tous droits réservés.",
-        "surtitre": "Création artistique",
-        "accroche": "[Une phrase qui présente sa démarche : ce qu'elle crée, avec quelles matières, ce qui l'inspire.]",
-        "voir_oeuvres": "Voir les œuvres",
-        "me_contacter": "Me contacter",
+        "surtitre": "Peinture · Restauration · Enduits décoratifs · Home staging",
+        "accroche": "[Une phrase qui la présente : ce qu'elle fait, pour qui, et ce qui rend son travail unique.]",
+        "voir_prestations": "Mes prestations",
+        "devis": "Demander un devis",
         "photo_principale": "Photo principale",
-        "oeuvres_recentes": "Œuvres récentes",
-        "toute_galerie": "Toute la galerie →",
-        "oeuvre": "Œuvre",
-        "demarche": "Démarche",
-        "demarche_titre": "[Titre court sur sa démarche]",
-        "demarche_texte": "[Deux ou trois phrases sur ce qui guide son travail.]",
-        "en_savoir_plus": "En savoir plus",
-        "galerie": "Galerie",
-        "filtrer": "Filtrer par catégorie",
+        "prestations": "Prestations",
+        "prestations_intro": "[Une phrase d'introduction : sur mesure, à l'écoute, du conseil à la réalisation.]",
+        "en_savoir_plus": "En savoir plus →",
+        "realisations": "Réalisations",
+        "realisations_recentes": "Réalisations récentes",
+        "toutes_realisations": "Toutes les réalisations →",
+        "photo": "Photo",
+        "cta_titre": "Un projet en tête ?",
+        "cta_texte": "Décrivez-le-moi en quelques lignes : je vous réponds avec une proposition et un devis.",
+        "filtrer": "Filtrer par prestation",
         "tout": "Tout",
-        "vue_grand": "Œuvre en grand",
+        "vue_grand": "Réalisation en grand",
         "fermer": "Fermer",
-        "precedente": "Œuvre précédente",
-        "suivante": "Œuvre suivante",
+        "precedente": "Précédente",
+        "suivante": "Suivante",
         "a_propos": "À propos",
         "portrait": "Portrait",
-        "bio": "[Sa biographie : son parcours, sa formation, son atelier, ce qui l'a menée à la création.]",
-        "bio_demarche": "[Sa démarche artistique : thèmes, matières, techniques.]",
-        "expositions": "Expositions",
+        "bio": "[Sa biographie : son parcours, sa formation, ce qui l'a menée à la peinture et à la décoration.]",
+        "bio_demarche": "[Sa façon de travailler : écoute, matières, sur mesure.]",
+        "parcours": "Parcours",
+        "zone": "Intervient à [Ville] et alentours.",
         "contact": "Contact",
-        "ecrivez": "Écrivez-moi",
-        "contact_intro": "Pour une commande, une acquisition, une exposition ou simplement un échange.",
+        "ecrivez": "Parlons de votre projet",
+        "contact_intro": "Pour un devis, une commande ou une simple question, écrivez-moi : je réponds rapidement.",
         "email": "E-mail",
-        "atelier": "Atelier : [Ville]",
+        "telephone": "Téléphone",
         "nom": "Nom",
-        "message": "Message",
-        "envoyer": "Envoyer",
+        "type_projet": "Prestation souhaitée",
+        "autre": "Autre",
+        "message": "Votre projet (lieu, surface, délai…)",
+        "envoyer": "Envoyer la demande",
     },
     "en": {
-        "nom_langue": "English",
-        "description": "Sonja Petric, artist: artworks, approach and contact.",
-        "nav": {"index": "Home", "galerie": "Gallery", "a-propos": "About", "contact": "Contact"},
-        "titres": {"index": "Sonja Petric · Artist", "galerie": "Gallery · Sonja Petric", "a-propos": "About · Sonja Petric", "contact": "Contact · Sonja Petric"},
+        "description": "Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.",
+        "nav": {"index": "Home", "prestations": "Services", "realisations": "Projects", "a-propos": "About", "contact": "Contact"},
+        "titres": {
+            "index": "Sonja Petric · Painting, decorative plaster, home staging",
+            "prestations": "Services · Sonja Petric",
+            "realisations": "Projects · Sonja Petric",
+            "a-propos": "About · Sonja Petric",
+            "contact": "Contact and quotes · Sonja Petric",
+        },
         "menu": "Menu",
         "droits": "All rights reserved.",
-        "surtitre": "Artist",
-        "accroche": "[One sentence introducing her work: what she creates, with which materials, what inspires her.]",
-        "voir_oeuvres": "See the works",
-        "me_contacter": "Get in touch",
+        "surtitre": "Painting · Restoration · Decorative plaster · Home staging",
+        "accroche": "[One sentence introducing her: what she does, for whom, and what makes her work unique.]",
+        "voir_prestations": "My services",
+        "devis": "Request a quote",
         "photo_principale": "Main photo",
-        "oeuvres_recentes": "Recent works",
-        "toute_galerie": "Full gallery →",
-        "oeuvre": "Work",
-        "demarche": "Approach",
-        "demarche_titre": "[Short title about her approach]",
-        "demarche_texte": "[Two or three sentences about what drives her work.]",
-        "en_savoir_plus": "Learn more",
-        "galerie": "Gallery",
-        "filtrer": "Filter by category",
+        "prestations": "Services",
+        "prestations_intro": "[One introductory sentence: bespoke, attentive, from advice to completion.]",
+        "en_savoir_plus": "Learn more →",
+        "realisations": "Projects",
+        "realisations_recentes": "Recent projects",
+        "toutes_realisations": "All projects →",
+        "photo": "Photo",
+        "cta_titre": "Have a project in mind?",
+        "cta_texte": "Describe it in a few lines and I will reply with a proposal and a quote.",
+        "filtrer": "Filter by service",
         "tout": "All",
-        "vue_grand": "Enlarged artwork",
+        "vue_grand": "Enlarged project",
         "fermer": "Close",
-        "precedente": "Previous work",
-        "suivante": "Next work",
+        "precedente": "Previous",
+        "suivante": "Next",
         "a_propos": "About",
         "portrait": "Portrait",
-        "bio": "[Her biography: background, training, studio, what led her to create.]",
-        "bio_demarche": "[Her artistic approach: themes, materials, techniques.]",
-        "expositions": "Exhibitions",
+        "bio": "[Her biography: background, training, what led her to painting and decoration.]",
+        "bio_demarche": "[How she works: listening, materials, bespoke.]",
+        "parcours": "Background",
+        "zone": "Works in [City] and the surrounding area.",
         "contact": "Contact",
-        "ecrivez": "Write to me",
-        "contact_intro": "For a commission, a purchase, an exhibition or simply a conversation.",
+        "ecrivez": "Let's talk about your project",
+        "contact_intro": "For a quote, a commission or a simple question, write to me: I reply quickly.",
         "email": "Email",
-        "atelier": "Studio: [City]",
+        "telephone": "Phone",
         "nom": "Name",
-        "message": "Message",
-        "envoyer": "Send",
+        "type_projet": "Service",
+        "autre": "Other",
+        "message": "Your project (place, surface, timing…)",
+        "envoyer": "Send request",
     },
 }
 
-PAGES = ["index", "galerie", "a-propos", "contact"]
+PAGES = ["index", "prestations", "realisations", "a-propos", "contact"]
 
 
 def chemin(langue, page):
@@ -128,60 +183,105 @@ def chemin(langue, page):
     return f"/{langue}" if page == "index" else f"/{langue}/{page}"
 
 
-def figure(o, n, t, langue):
-    if o["image"]:
-        visuel = f'<img src="/images/oeuvres/{o["image"]}" alt="{escape(o["titre"][langue])}" loading="lazy">'
+def nom_prestation(id_, langue):
+    return next(p["titre"][langue] for p in PRESTATIONS if p["id"] == id_)
+
+
+def figure(r, t, langue):
+    if r["image"]:
+        visuel = f'<img src="/images/realisations/{r["image"]}" alt="{escape(r["titre"][langue])}" loading="lazy">'
     else:
-        visuel = f'<div class="attente">{t["oeuvre"]} {n}</div>'
-    return f'''        <figure class="oeuvre" data-categorie="{o["categorie"]}">
+        visuel = f'<div class="attente">{t["photo"]}</div>'
+    return f'''        <figure class="oeuvre" data-categorie="{r["prestation"]}">
           <div class="cadre">{visuel}</div>
-          <figcaption><div class="nom">{escape(o["titre"][langue])}</div><div class="details">{escape(o["details"][langue])}</div></figcaption>
+          <figcaption><div class="nom">{escape(r["titre"][langue])}</div><div class="details">{escape(nom_prestation(r["prestation"], langue))} · {escape(r["details"][langue])}</div></figcaption>
         </figure>'''
 
 
+def appel_devis(t, langue):
+    return f'''    <section class="section conteneur" style="text-align:center;max-width:720px">
+      <h2>{t["cta_titre"]}</h2>
+      <p style="color:var(--texte-doux)">{t["cta_texte"]}</p>
+      <p><a class="bouton plein" href="{chemin(langue, "contact")}">{t["devis"]}</a></p>
+    </section>'''
+
+
 def corps_index(t, langue):
-    recentes = "\n".join(figure(o, n, t, langue) for n, o in enumerate(OEUVRES[:3], 1))
+    cartes = "\n".join(
+        f'''          <a class="carte" href="{chemin(langue, "prestations")}#{p["id"]}">
+            <h3>{p["titre"][langue]}</h3>
+            <p>{p["resume"][langue]}</p>
+            <span class="lien">{t["en_savoir_plus"]}</span>
+          </a>''' for p in PRESTATIONS
+    )
+    recentes = "\n".join(figure(r, t, langue) for r in REALISATIONS[:3])
     return f'''    <section class="conteneur hero">
       <div>
         <p class="surtitre">{t["surtitre"]}</p>
         <h1>Sonja Petric</h1>
         <p>{t["accroche"]}</p>
-        <p style="margin-top:28px"><a class="bouton plein" href="{chemin(langue, "galerie")}">{t["voir_oeuvres"]}</a> &nbsp; <a class="bouton" href="{chemin(langue, "contact")}">{t["me_contacter"]}</a></p>
+        <p style="margin-top:28px"><a class="bouton plein" href="{chemin(langue, "contact")}">{t["devis"]}</a> &nbsp; <a class="bouton" href="{chemin(langue, "prestations")}">{t["voir_prestations"]}</a></p>
       </div>
       <div class="hero-image"><div class="attente">{t["photo_principale"]}</div></div>
     </section>
 
     <section class="section" style="background:var(--surface)">
       <div class="conteneur">
-        <div class="section-titre">
-          <h2>{t["oeuvres_recentes"]}</h2>
-          <a href="{chemin(langue, "galerie")}">{t["toute_galerie"]}</a>
-        </div>
-        <div class="galerie">
-{recentes}
+        <div class="section-titre"><h2>{t["prestations"]}</h2></div>
+        <div class="cartes">
+{cartes}
         </div>
       </div>
     </section>
 
-    <section class="section conteneur" style="text-align:center;max-width:720px">
-      <p class="surtitre">{t["demarche"]}</p>
-      <h2>{t["demarche_titre"]}</h2>
-      <p style="color:var(--texte-doux)">{t["demarche_texte"]}</p>
-      <p><a class="bouton" href="{chemin(langue, "a-propos")}">{t["en_savoir_plus"]}</a></p>
-    </section>'''
+    <section class="section conteneur">
+      <div class="section-titre">
+        <h2>{t["realisations_recentes"]}</h2>
+        <a href="{chemin(langue, "realisations")}">{t["toutes_realisations"]}</a>
+      </div>
+      <div class="galerie">
+{recentes}
+      </div>
+    </section>
+
+{appel_devis(t, langue)}'''
 
 
-def corps_galerie(t, langue):
-    filtres = "\n".join(f'        <button data-filtre="{c}" aria-pressed="false">{noms[langue]}</button>' for c, noms in CATEGORIES.items())
-    oeuvres = "\n".join(figure(o, n, t, langue) for n, o in enumerate(OEUVRES, 1))
+def corps_prestations(t, langue):
+    blocs = "\n".join(
+        f'''      <article class="prestation" id="{p["id"]}">
+        <div class="prestation-image"><div class="attente">{t["photo"]}</div></div>
+        <div>
+          <h2>{p["titre"][langue]}</h2>
+          <p>{p["resume"][langue]}</p>
+          <ul>
+{chr(10).join(f"            <li>{x}</li>" for x in p["points"][langue])}
+          </ul>
+          <p><a href="{chemin(langue, "realisations")}#{p["id"]}">{t["toutes_realisations"]}</a></p>
+        </div>
+      </article>''' for p in PRESTATIONS
+    )
     return f'''    <section class="section conteneur">
-      <div class="section-titre"><h1>{t["galerie"]}</h1></div>
+      <p class="surtitre">{t["prestations"]}</p>
+      <h1>{t["prestations"]}</h1>
+      <p style="color:var(--texte-doux);max-width:40em">{t["prestations_intro"]}</p>
+{blocs}
+    </section>
+
+{appel_devis(t, langue)}'''
+
+
+def corps_realisations(t, langue):
+    filtres = "\n".join(f'        <button data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]}</button>' for p in PRESTATIONS)
+    items = "\n".join(figure(r, t, langue) for r in REALISATIONS)
+    return f'''    <section class="section conteneur">
+      <div class="section-titre"><h1>{t["realisations"]}</h1></div>
       <div class="filtres" role="group" aria-label="{t["filtrer"]}">
         <button data-filtre="tout" aria-pressed="true">{t["tout"]}</button>
 {filtres}
       </div>
       <div class="galerie">
-{oeuvres}
+{items}
       </div>
     </section>'''
 
@@ -198,7 +298,7 @@ def visionneuse(t):
 
 
 def corps_a_propos(t, langue):
-    expos = "\n".join(f'          <li><span class="annee">{e["annee"]}</span><span>{e[langue]}</span></li>' for e in EXPOSITIONS)
+    lignes = "\n".join(f'          <li><span class="annee">{e["annee"]}</span><span>{e[langue]}</span></li>' for e in PARCOURS)
     return f'''    <section class="section conteneur apropos">
       <div class="portrait"><div class="attente">{t["portrait"]}</div></div>
       <div>
@@ -206,34 +306,51 @@ def corps_a_propos(t, langue):
         <h1>Sonja Petric</h1>
         <p>{t["bio"]}</p>
         <p>{t["bio_demarche"]}</p>
-        <h2 style="margin-top:40px;font-size:1.8rem">{t["expositions"]}</h2>
+        <p>{t["zone"]}</p>
+        <h2 style="margin-top:40px;font-size:1.8rem">{t["parcours"]}</h2>
         <ul class="parcours">
-{expos}
+{lignes}
         </ul>
       </div>
-    </section>'''
+    </section>
+
+{appel_devis(t, langue)}'''
 
 
 def corps_contact(t, langue):
+    options = "\n".join(f'            <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
+    tel = f'<br>\n           {t["telephone"]} : <a href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a>' if TELEPHONE else ""
     return f'''    <section class="section conteneur contact">
       <div class="coordonnees">
         <p class="surtitre">{t["contact"]}</p>
         <h1>{t["ecrivez"]}</h1>
         <p>{t["contact_intro"]}</p>
-        <p>{t["email"]} : <a href="mailto:{EMAIL}">{EMAIL}</a><br>
+        <p>{t["email"]} : <a href="mailto:{EMAIL}">{EMAIL}</a>{tel}<br>
            Instagram : <a href="{INSTAGRAM}" rel="noopener">@[compte]</a><br>
-           {t["atelier"]}</p>
+           {t["zone"]}</p>
       </div>
       <form class="formulaire" action="https://formspree.io/f/{FORMSPREE_ID}" method="POST">
         <label>{t["nom"]}<input name="nom" required autocomplete="name"></label>
         <label>{t["email"]}<input type="email" name="email" required autocomplete="email"></label>
+        <label>{t["type_projet"]}
+          <select name="prestation">
+{options}
+            <option>{t["autre"]}</option>
+          </select>
+        </label>
         <label>{t["message"]}<textarea name="message" required></textarea></label>
         <div><button class="bouton plein" type="submit">{t["envoyer"]}</button></div>
       </form>
     </section>'''
 
 
-CORPS = {"index": corps_index, "galerie": corps_galerie, "a-propos": corps_a_propos, "contact": corps_contact}
+CORPS = {
+    "index": corps_index,
+    "prestations": corps_prestations,
+    "realisations": corps_realisations,
+    "a-propos": corps_a_propos,
+    "contact": corps_contact,
+}
 
 
 def page(langue, nom):
@@ -245,7 +362,7 @@ def page(langue, nom):
         f'<a href="{chemin(l, nom)}" lang="{l}" hreflang="{l}"{" aria-current=\"true\"" if l == langue else ""}>{l.upper()}</a>' for l in LANGUES
     )
     alternates = "\n".join(f'  <link rel="alternate" hreflang="{l}" href="{chemin(l, nom)}">' for l in LANGUES)
-    extra = visionneuse(t) if nom == "galerie" else ""
+    extra = visionneuse(t) if nom == "realisations" else ""
     return f'''<!doctype html>
 <html lang="{langue}">
 <head>

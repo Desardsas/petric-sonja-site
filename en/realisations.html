@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Sonja Petric</title>
+  <meta name="description" content="Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.">
+  <meta property="og:title" content="Projects · Sonja Petric">
+  <meta property="og:description" content="Sonja Petric: painting, painting restoration, bespoke decorative plaster and home staging.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="fr" href="/realisations">
+  <link rel="alternate" hreflang="en" href="/en/realisations">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <div class="conteneur">
+      <a class="logo" href="/en">Sonja Petric</a>
+      <div class="entete-droite">
+        <nav class="nav">
+        <a href="/en">Home</a>
+        <a href="/en/prestations">Services</a>
+        <a href="/en/realisations" aria-current="page">Projects</a>
+        <a href="/en/a-propos">About</a>
+        <a href="/en/contact">Contact</a>
+        </nav>
+        <div class="langues"><a href="/realisations" lang="fr" hreflang="fr">FR</a> <a href="/en/realisations" lang="en" hreflang="en" aria-current="true">EN</a></div>
+        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section conteneur">
+      <div class="section-titre"><h1>Projects</h1></div>
+      <div class="filtres" role="group" aria-label="Filter by service">
+        <button data-filtre="tout" aria-pressed="true">All</button>
+        <button data-filtre="peinture" aria-pressed="false">Painting</button>
+        <button data-filtre="restauration" aria-pressed="false">Painting restoration</button>
+        <button data-filtre="enduits" aria-pressed="false">Bespoke decorative plaster</button>
+        <button data-filtre="home-staging" aria-pressed="false">Home staging</button>
+      </div>
+      <div class="galerie">
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Painting · [Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="enduits">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Bespoke decorative plaster · [Room, material, town]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="restauration">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Painting restoration · [Restored work, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="home-staging">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Home staging · [Property type, town]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="peinture">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Painting · [Medium, size, year]</div></figcaption>
+        </figure>
+        <figure class="oeuvre" data-categorie="enduits">
+          <div class="cadre"><div class="attente">Photo</div></div>
+          <figcaption><div class="nom">[Title]</div><div class="details">Bespoke decorative plaster · [Room, material, town]</div></figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="Enlarged project">
+    <button class="fermer" aria-label="Close">×</button>
+    <button class="prec" aria-label="Previous">‹</button>
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
+    <button class="suiv" aria-label="Next">›</button>
+  </div>
+
+  <footer class="pied">
+    <div class="conteneur">
+      <span>© <span id="annee"></span> Sonja Petric. All rights reserved.</span>
+      <span><a href="https://www.instagram.com/" rel="noopener">Instagram</a> · <a href="mailto:contact@exemple.fr">contact@exemple.fr</a></span>
+    </div>
+  </footer>
+  <script src="/js/main.js"></script>
+</body>
+</html>
