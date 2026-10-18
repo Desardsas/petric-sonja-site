@@ -2,6 +2,10 @@
 
 Site statique en HTML, CSS et un peu de JavaScript, sans framework ni étape de compilation. Il se déploie tel quel sur Vercel (ou tout autre hébergeur).
 
+## Site privé (temporaire)
+
+Tant que le site n'est pas prêt, `middleware.js` demande un mot de passe avant chaque page. Le mot de passe est la variable d'environnement `SITE_PASSWORD` du projet Vercel (Settings → Environment Variables) ; sans elle, personne n'entre. Pour ouvrir le site au public, supprimer `middleware.js`.
+
 ## Pages et langues
 
 Cinq pages en français à la racine (`index`, `prestations`, `realisations`, `a-propos`, `contact`) et leur version anglaise dans `en/`. Un lien FR / EN en haut de chaque page mène à la même page dans l'autre langue. L'ancienne adresse `/galerie` redirige vers `/realisations` (`vercel.json`).
