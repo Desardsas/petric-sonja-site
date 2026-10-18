@@ -12,6 +12,7 @@ LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
 EMAIL = "sonjapetric92@gmail.com"
 TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
 INSTAGRAM = "https://www.instagram.com/psonjap/"
+PHOTO_ACCUEIL = "sonja-petric-portrait.jpg"  # dans images/ ; None = cadre d'attente
 # Service qui transforme chaque demande de devis en e-mail pour Sonja.
 # "web3forms" : CLE_FORMULAIRE = la clé reçue sur https://web3forms.com (gratuit, sans compte)
 # "formspree" : CLE_FORMULAIRE = l'identifiant du formulaire créé sur https://formspree.io
@@ -49,6 +50,7 @@ PRESTATIONS = [
     },
     {
         "id": "home-staging",
+        "image": "home-staging-salon.jpg",
         "titre": {"fr": "Home staging", "en": "Home staging"},
         "resume": {"fr": "Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.", "en": "Enhancing a property so it sells or rents faster, with an artist's eye and a controlled budget."},
         "points": {
@@ -62,10 +64,10 @@ PRESTATIONS = [
 # prestation (un "id" de PRESTATIONS), titre et détails dans chaque langue.
 # Les trois premières apparaissent sur l'accueil.
 REALISATIONS = [
+    {"image": "home-staging-salon.jpg", "prestation": "home-staging", "titre": {"fr": "Salon", "en": "Living room"}, "details": {"fr": "", "en": ""}},
     {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
     {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
     {"image": None, "prestation": "restauration", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Œuvre restaurée, année]", "en": "[Restored work, year]"}},
-    {"image": None, "prestation": "home-staging", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Type de bien, ville]", "en": "[Property type, town]"}},
     {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
     {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
 ]
@@ -93,7 +95,7 @@ TEXTES = {
         "accroche": "Artiste peintre à Cannes, je crée des toiles, des murs et des intérieurs contemporains, et je restaure les tableaux qui comptent pour vous.",
         "voir_prestations": "Mes prestations",
         "devis": "Demander un devis",
-        "photo_principale": "Photo principale",
+        "photo_principale": "Portrait de Sonja Petric",
         "prestations": "Prestations",
         "prestations_intro": "Chaque projet est unique : je vous écoute, je vous conseille, puis je réalise le travail moi-même, du premier croquis à la dernière touche.",
         "en_savoir_plus": "En savoir plus →",
@@ -150,7 +152,7 @@ TEXTES = {
         "accroche": "A painter based in Cannes, I create contemporary canvases, walls and interiors, and restore the paintings that matter to you.",
         "voir_prestations": "My services",
         "devis": "Request a quote",
-        "photo_principale": "Main photo",
+        "photo_principale": "Portrait of Sonja Petric",
         "prestations": "Services",
         "prestations_intro": "Every project is unique: I listen, I advise, then I carry out the work myself, from the first sketch to the final touch.",
         "en_savoir_plus": "Learn more →",
@@ -214,7 +216,7 @@ def figure(r, t, langue):
         visuel = f'<div class="attente">{t["photo"]}</div>'
     return f'''        <figure class="oeuvre" data-categorie="{r["prestation"]}">
           <div class="cadre">{visuel}</div>
-          <figcaption><div class="nom">{escape(r["titre"][langue])}</div><div class="details">{escape(nom_prestation(r["prestation"], langue))} · {escape(r["details"][langue])}</div></figcaption>
+          <figcaption><div class="nom">{escape(r["titre"][langue])}</div><div class="details">{escape(" · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x))}</div></figcaption>
         </figure>'''
 
 
@@ -242,7 +244,7 @@ def corps_index(t, langue):
         <p>{t["accroche"]}</p>
         <p style="margin-top:28px"><a class="bouton plein" href="{chemin(langue, "contact")}">{t["devis"]}</a> &nbsp; <a class="bouton" href="{chemin(langue, "prestations")}">{t["voir_prestations"]}</a></p>
       </div>
-      <div class="hero-image"><div class="attente">{t["photo_principale"]}</div></div>
+      <div class="hero-image">{f'<img src="/images/{PHOTO_ACCUEIL}" alt="{t["photo_principale"]}" width="1086" height="1448" fetchpriority="high">' if PHOTO_ACCUEIL else f'<div class="attente">{t["photo_principale"]}</div>'}</div>
     </section>
 
     <section class="section" style="background:var(--surface)">
@@ -270,7 +272,7 @@ def corps_index(t, langue):
 def corps_prestations(t, langue):
     blocs = "\n".join(
         f'''      <article class="prestation" id="{p["id"]}">
-        <div class="prestation-image"><div class="attente">{t["photo"]}</div></div>
+        <div class="prestation-image">{f'<img src="/images/realisations/{p["image"]}" alt="{p["titre"][langue]}" loading="lazy">' if p.get("image") else f'<div class="attente">{t["photo"]}</div>'}</div>
         <div>
           <h2>{p["titre"][langue]}</h2>
           <p>{p["resume"][langue]}</p>

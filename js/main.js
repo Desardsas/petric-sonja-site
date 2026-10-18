@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const img = o.querySelector("img");
     visImg.src = img.dataset.grande || img.src;
     visImg.alt = img.alt;
-    visTexte.textContent = o.querySelector("figcaption").textContent.replace(/\s+/g, " ").trim();
+    visTexte.textContent = [...o.querySelectorAll("figcaption div")].map((d) => d.textContent.trim()).filter(Boolean).join(" · ");
   };
   const ouvrir = (o) => { courant = visibles().indexOf(o); afficher(o); vis.classList.add("ouverte"); };
   const fermer = () => vis.classList.remove("ouverte");
