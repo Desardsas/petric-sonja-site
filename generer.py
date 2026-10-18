@@ -9,7 +9,7 @@ from pathlib import Path
 
 RACINE = Path(__file__).parent
 LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
-EMAIL = "contact@exemple.fr"
+EMAIL = "sonjapetric92@gmail.com"
 TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
 INSTAGRAM = "https://www.instagram.com/"
 # Service qui transforme chaque demande de devis en e-mail pour Sonja.
