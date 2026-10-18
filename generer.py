@@ -11,7 +11,7 @@ RACINE = Path(__file__).parent
 LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
 EMAIL = "sonjapetric92@gmail.com"
 TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
-INSTAGRAM = "https://www.instagram.com/"
+INSTAGRAM = "https://www.instagram.com/psonjap/"
 # Service qui transforme chaque demande de devis en e-mail pour Sonja.
 # "web3forms" : CLE_FORMULAIRE = la clé reçue sur https://web3forms.com (gratuit, sans compte)
 # "formspree" : CLE_FORMULAIRE = l'identifiant du formulaire créé sur https://formspree.io
@@ -353,7 +353,7 @@ def corps_contact(t, langue):
         <h1>{t["ecrivez"]}</h1>
         <p>{t["contact_intro"]}</p>
         <p>{t["email"]} : <a href="mailto:{EMAIL}">{EMAIL}</a>{tel}<br>
-           Instagram : <a href="{INSTAGRAM}" rel="noopener">@[compte]</a><br>
+           Instagram : <a href="{INSTAGRAM}" rel="noopener">@psonjap</a><br>
            {t["zone"]}</p>
       </div>
       <form class="formulaire" action="{adresse}" method="POST" data-actif="{"oui" if CLE_FORMULAIRE else "non"}"
