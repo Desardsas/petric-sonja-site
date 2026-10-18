@@ -2,9 +2,9 @@
 
 Site statique en HTML, CSS et un peu de JavaScript, sans framework ni étape de compilation. Il se déploie tel quel sur Vercel (ou tout autre hébergeur).
 
-## Site privé (temporaire)
+## Site privé (au besoin)
 
-Tant que le site n'est pas prêt, `middleware.js` demande un mot de passe avant chaque page. Le mot de passe est la variable d'environnement `SITE_PASSWORD` du projet Vercel (Settings → Environment Variables) ; sans elle, personne n'entre. Pour ouvrir le site au public, supprimer `middleware.js`.
+Pour remettre un mot de passe avant chaque page, restaurer `middleware.js` depuis l'historique git (`git checkout <commit>~1 -- middleware.js`, voir le commit « Site public ») et définir `SITE_PASSWORD` dans Vercel.
 
 ## Design
 
