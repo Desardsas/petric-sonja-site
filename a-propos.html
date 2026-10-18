@@ -5,66 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>À propos · Sonja Petric</title>
   <meta name="description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
+  <meta name="theme-color" content="#0E0E0E">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="À propos · Sonja Petric">
   <meta property="og:description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="fr" href="/a-propos">
   <link rel="alternate" hreflang="en" href="/en/a-propos">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+  <a class="evitement mono" href="#contenu">Aller au contenu</a>
   <header class="entete">
-    <div class="conteneur">
-      <a class="logo" href="/">Sonja Petric</a>
-      <div class="entete-droite">
-        <nav class="nav">
-        <a href="/">Accueil</a>
-        <a href="/prestations">Prestations</a>
-        <a href="/realisations">Réalisations</a>
-        <a href="/a-propos" aria-current="page">À propos</a>
-        <a href="/contact">Contact</a>
-        </nav>
-        <div class="langues"><a href="/a-propos" lang="fr" hreflang="fr" aria-current="true">FR</a> <a href="/en/a-propos" lang="en" hreflang="en">EN</a></div>
-        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
-      </div>
-    </div>
+    <a class="logo" href="/">Sonja Petric</a>
+    <p class="indicateur mono" aria-hidden="true"><span class="num">04</span> / 05 — À propos</p>
+    <nav class="nav mono" id="menu" aria-label="Menu">
+      <ul>
+          <li><a class="lien-nav" href="/"><span class="num">01</span>Accueil</a></li>
+          <li><a class="lien-nav" href="/prestations"><span class="num">02</span>Prestations</a></li>
+          <li><a class="lien-nav" href="/realisations"><span class="num">03</span>Réalisations</a></li>
+          <li><a class="lien-nav" href="/a-propos" aria-current="page"><span class="num">04</span>À propos</a></li>
+          <li><a class="lien-nav" href="/contact"><span class="num">05</span>Contact</a></li>
+      </ul>
+      <div class="langues"><a class="lien-nav" href="/a-propos" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/a-propos" lang="en" hreflang="en">EN</a></div>
+    </nav>
+    <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Fermer">Menu</button>
   </header>
 
-  <main>
-    <section class="section conteneur apropos">
-      <div class="portrait"><div class="attente">Portrait</div></div>
-      <div>
-        <p class="surtitre">À propos</p>
-        <h1>Sonja Petric</h1>
-        <p>Formée à l'École supérieure d'art d'Avignon, Sonja Petric partage son travail entre la création et le savoir-faire : peinture, restauration de tableaux, enduits décoratifs et home staging.</p>
-        <p>Son style est contemporain et épuré : des lignes simples, des matières justes et des couleurs choisies avec soin, pour des œuvres et des lieux qui vous ressemblent.</p>
-        <p>Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.</p>
-        <h2 style="margin-top:40px;font-size:1.8rem">Parcours</h2>
+  <main id="contenu">
+    <section class="entete-page grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>004</span><span>À propos</span></p></div>
+      <div class="col-large">
+        <h1 class="titre-xxl" data-reveal="masque"><span class="ligne"><span>Sonja Petric</span></span></h1>
+      </div>
+    </section>
+    <section class="section apropos grille">
+      <figure class="apropos-portrait" data-reveal><picture class="fondu" style="background-color:#232222"><source type="image/avif" srcset="/images/_gen/sonja-petric-portrait-640.avif 640w, /images/_gen/sonja-petric-portrait-1024.avif 1024w, /images/_gen/sonja-petric-portrait-1086.avif 1086w" sizes="(max-width: 760px) 100vw, 35vw"><source type="image/webp" srcset="/images/_gen/sonja-petric-portrait-640.webp 640w, /images/_gen/sonja-petric-portrait-1024.webp 1024w, /images/_gen/sonja-petric-portrait-1086.webp 1086w" sizes="(max-width: 760px) 100vw, 35vw"><img src="/images/sonja-petric-portrait.jpg" alt="Portrait de Sonja Petric" width="1086" height="1448" loading="lazy" decoding="async"></picture><figcaption class="cartel mono"><span class="cartel-titre">Sonja Petric</span><span class="cartel-details">Cannes, Côte d'Azur</span></figcaption></figure>
+      <div class="apropos-texte">
+        <p class="texte-large" data-reveal>Formée à l'École supérieure d'art d'Avignon, Sonja Petric partage son travail entre la création et le savoir-faire : peinture, restauration de tableaux, enduits décoratifs et home staging.</p>
+        <p data-reveal>Son style est contemporain et épuré : des lignes simples, des matières justes et des couleurs choisies avec soin, pour des œuvres et des lieux qui vous ressemblent.</p>
+        <p class="mono faible-texte" data-reveal>Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.</p>
+        <h2 class="mono index-section" data-reveal><span>—</span><span>Parcours</span></h2>
         <ul class="parcours">
-          <li><span class="annee">[Année]</span><span>Formation à l'École supérieure d'art d'Avignon (ESAA)</span></li>
-          <li><span class="annee">[Année]</span><span>[Formation, expérience ou exposition]</span></li>
-          <li><span class="annee">[Année]</span><span>[Formation, expérience ou exposition]</span></li>
+          <li data-reveal><span class="mono annee">[Année]</span><span>Formation à l'École supérieure d'art d'Avignon (ESAA)</span></li>
+          <li data-reveal><span class="mono annee">[Année]</span><span>[Formation, expérience ou exposition]</span></li>
+          <li data-reveal><span class="mono annee">[Année]</span><span>[Formation, expérience ou exposition]</span></li>
         </ul>
       </div>
     </section>
 
-    <section class="section conteneur" style="text-align:center;max-width:720px">
-      <h2>Un projet en tête ?</h2>
-      <p style="color:var(--texte-doux)">Décrivez-le-moi en quelques lignes : je vous réponds avec une proposition et un devis.</p>
-      <p><a class="bouton plein" href="/contact">Demander un devis</a></p>
+    <section class="section appel grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>005</span><span>Contact</span></p></div>
+      <div class="col-principale">
+        <h2 class="titre-xl" data-reveal="masque"><span class="ligne"><span>Un projet en tête ?</span></span></h2>
+        <p class="texte-large" data-reveal>Décrivez-le-moi en quelques lignes : je vous réponds avec une proposition et un devis.</p>
+        <p data-reveal><a class="lien-fort accent" href="/contact">Demander un devis <span aria-hidden="true">→</span></a></p>
+      </div>
     </section>
   </main>
 
-  <footer class="pied">
-    <div class="conteneur">
-      <span>© <span id="annee"></span> Sonja Petric. Tous droits réservés.</span>
-      <span><a href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a> · <a href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a></span>
-    </div>
+  <footer class="pied mono grille">
+    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>Cannes, Côte d'Azur</span>
+    <a class="lien" href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a>
+    <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
   </footer>
-  <script src="/js/main.js"></script>
+  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>

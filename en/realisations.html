@@ -5,87 +5,100 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Projects · Sonja Petric</title>
   <meta name="description" content="Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.">
+  <meta name="theme-color" content="#0E0E0E">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Projects · Sonja Petric">
   <meta property="og:description" content="Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.">
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="fr" href="/realisations">
   <link rel="alternate" hreflang="en" href="/en/realisations">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+  <a class="evitement mono" href="#contenu">Skip to content</a>
   <header class="entete">
-    <div class="conteneur">
-      <a class="logo" href="/en">Sonja Petric</a>
-      <div class="entete-droite">
-        <nav class="nav">
-        <a href="/en">Home</a>
-        <a href="/en/prestations">Services</a>
-        <a href="/en/realisations" aria-current="page">Projects</a>
-        <a href="/en/a-propos">About</a>
-        <a href="/en/contact">Contact</a>
-        </nav>
-        <div class="langues"><a href="/realisations" lang="fr" hreflang="fr">FR</a> <a href="/en/realisations" lang="en" hreflang="en" aria-current="true">EN</a></div>
-        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
-      </div>
-    </div>
+    <a class="logo" href="/en">Sonja Petric</a>
+    <p class="indicateur mono" aria-hidden="true"><span class="num">03</span> / 05 — Projects</p>
+    <nav class="nav mono" id="menu" aria-label="Menu">
+      <ul>
+          <li><a class="lien-nav" href="/en"><span class="num">01</span>Home</a></li>
+          <li><a class="lien-nav" href="/en/prestations"><span class="num">02</span>Services</a></li>
+          <li><a class="lien-nav" href="/en/realisations" aria-current="page"><span class="num">03</span>Projects</a></li>
+          <li><a class="lien-nav" href="/en/a-propos"><span class="num">04</span>About</a></li>
+          <li><a class="lien-nav" href="/en/contact"><span class="num">05</span>Contact</a></li>
+      </ul>
+      <div class="langues"><a class="lien-nav" href="/realisations" lang="fr" hreflang="fr">FR</a><a class="lien-nav" href="/en/realisations" lang="en" hreflang="en" aria-current="true">EN</a></div>
+    </nav>
+    <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Close">Menu</button>
   </header>
 
-  <main>
-    <section class="section conteneur">
-      <div class="section-titre"><h1>Projects</h1></div>
-      <div class="filtres" role="group" aria-label="Filter by service">
-        <button data-filtre="tout" aria-pressed="true">All</button>
-        <button data-filtre="peinture" aria-pressed="false">Painting</button>
-        <button data-filtre="restauration" aria-pressed="false">Painting restoration</button>
-        <button data-filtre="enduits" aria-pressed="false">Bespoke decorative plaster</button>
-        <button data-filtre="home-staging" aria-pressed="false">Home staging</button>
+  <main id="contenu">
+    <section class="entete-page grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>003</span><span>Projects</span></p></div>
+      <div class="col-large">
+        <h1 class="titre-xxl" data-reveal="masque"><span class="ligne"><span>Projects</span></span></h1>
       </div>
-      <div class="galerie">
-        <figure class="oeuvre" data-categorie="enduits">
-          <div class="cadre"><img src="/images/realisations/enduit-salon.jpg" alt="Living room wall in decorative plaster" loading="lazy"></div>
-          <figcaption><div class="nom">Living room wall in decorative plaster</div><div class="details">Bespoke decorative plaster</div></figcaption>
+    </section>
+    <section class="section-galerie grille">
+      <div class="filtres mono" role="group" aria-label="Filter by service">
+        <button class="filtre" data-filtre="tout" aria-pressed="true">All <span class="compte">6</span></button>
+        <button class="filtre" data-filtre="peinture" aria-pressed="false">Painting <span class="compte">2</span></button>
+        <button class="filtre" data-filtre="restauration" aria-pressed="false">Painting restoration <span class="compte">1</span></button>
+        <button class="filtre" data-filtre="enduits" aria-pressed="false">Bespoke decorative plaster <span class="compte">3</span></button>
+        <button class="filtre" data-filtre="home-staging" aria-pressed="false">Home staging <span class="compte">0</span></button>
+      </div>
+      <div class="galerie galerie-complete">
+        <figure class="oeuvre" data-categorie="enduits" data-numero="001" data-ouvrable tabindex="0" role="button" data-reveal>
+          <div class="oeuvre-image"><picture class="fondu" style="background-color:#8c6b4e"><source type="image/avif" srcset="/images/_gen/enduit-salon-640.avif 640w, /images/_gen/enduit-salon-1024.avif 1024w, /images/_gen/enduit-salon-1536.avif 1536w" sizes="(max-width: 760px) 100vw, 50vw"><source type="image/webp" srcset="/images/_gen/enduit-salon-640.webp 640w, /images/_gen/enduit-salon-1024.webp 1024w, /images/_gen/enduit-salon-1536.webp 1536w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/images/realisations/enduit-salon.jpg" alt="Living room wall in decorative plaster" width="1536" height="1024" loading="lazy" decoding="async"></picture></div>
+          <figcaption class="cartel mono"><span class="cartel-num">001</span><span class="cartel-titre">Living room wall in decorative plaster</span><span class="cartel-details">Bespoke decorative plaster</span></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="restauration">
-          <div class="cadre entier"><img src="/images/realisations/restauration-avant-apres.jpg" alt="Old painting, before / after" loading="lazy"></div>
-          <figcaption><div class="nom">Old painting, before / after</div><div class="details">Painting restoration</div></figcaption>
+        <figure class="oeuvre" data-categorie="restauration" data-numero="002" data-ouvrable tabindex="0" role="button" data-reveal>
+          <div class="oeuvre-image"><picture class="fondu" style="background-color:#6d5538"><source type="image/avif" srcset="/images/_gen/restauration-avant-apres-640.avif 640w, /images/_gen/restauration-avant-apres-1024.avif 1024w, /images/_gen/restauration-avant-apres-1320.avif 1320w" sizes="(max-width: 760px) 100vw, 50vw"><source type="image/webp" srcset="/images/_gen/restauration-avant-apres-640.webp 640w, /images/_gen/restauration-avant-apres-1024.webp 1024w, /images/_gen/restauration-avant-apres-1320.webp 1320w" sizes="(max-width: 760px) 100vw, 50vw"><img src="/images/realisations/restauration-avant-apres.jpg" alt="Old painting, before / after" width="1320" height="1316" loading="lazy" decoding="async"></picture></div>
+          <figcaption class="cartel mono"><span class="cartel-num">002</span><span class="cartel-titre">Old painting, before / after</span><span class="cartel-details">Painting restoration</span></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="peinture">
-          <div class="cadre"><div class="attente">Photo</div></div>
-          <figcaption><div class="nom">[Title]</div><div class="details">Painting · [Medium, size, year]</div></figcaption>
+        <figure class="oeuvre" data-categorie="peinture" data-numero="003" data-reveal>
+          <div class="oeuvre-image"><div class="attente"><span>Image to come</span></div></div>
+          <figcaption class="cartel mono"><span class="cartel-num">003</span><span class="cartel-titre">[Title]</span><span class="cartel-details">Painting · [Medium, size, year]</span></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="enduits">
-          <div class="cadre"><div class="attente">Photo</div></div>
-          <figcaption><div class="nom">[Title]</div><div class="details">Bespoke decorative plaster · [Room, material, town]</div></figcaption>
+        <figure class="oeuvre" data-categorie="enduits" data-numero="004" data-reveal>
+          <div class="oeuvre-image"><div class="attente"><span>Image to come</span></div></div>
+          <figcaption class="cartel mono"><span class="cartel-num">004</span><span class="cartel-titre">[Title]</span><span class="cartel-details">Bespoke decorative plaster · [Room, material, town]</span></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="peinture">
-          <div class="cadre"><div class="attente">Photo</div></div>
-          <figcaption><div class="nom">[Title]</div><div class="details">Painting · [Medium, size, year]</div></figcaption>
+        <figure class="oeuvre" data-categorie="peinture" data-numero="005" data-reveal>
+          <div class="oeuvre-image"><div class="attente"><span>Image to come</span></div></div>
+          <figcaption class="cartel mono"><span class="cartel-num">005</span><span class="cartel-titre">[Title]</span><span class="cartel-details">Painting · [Medium, size, year]</span></figcaption>
         </figure>
-        <figure class="oeuvre" data-categorie="enduits">
-          <div class="cadre"><div class="attente">Photo</div></div>
-          <figcaption><div class="nom">[Title]</div><div class="details">Bespoke decorative plaster · [Room, material, town]</div></figcaption>
+        <figure class="oeuvre" data-categorie="enduits" data-numero="006" data-reveal>
+          <div class="oeuvre-image"><div class="attente"><span>Image to come</span></div></div>
+          <figcaption class="cartel mono"><span class="cartel-num">006</span><span class="cartel-titre">[Title]</span><span class="cartel-details">Bespoke decorative plaster · [Room, material, town]</span></figcaption>
         </figure>
       </div>
     </section>
   </main>
 
-  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="Enlarged project">
-    <button class="fermer" aria-label="Close">×</button>
-    <button class="prec" aria-label="Previous">‹</button>
-    <figure><img src="" alt=""><figcaption></figcaption></figure>
-    <button class="suiv" aria-label="Next">›</button>
+  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="Enlarged project" hidden>
+    <div class="vis-barre mono">
+      <span class="vis-compteur" aria-live="polite"></span>
+      <button class="vis-fermer lien" type="button">Close <span class="faible">[Esc]</span></button>
+    </div>
+    <figure class="vis-figure"><img src="" alt=""><figcaption class="cartel mono"></figcaption></figure>
+    <div class="vis-nav mono">
+      <button class="vis-prec lien" type="button">← Previous</button>
+      <button class="vis-suiv lien" type="button">Next →</button>
+    </div>
   </div>
 
-  <footer class="pied">
-    <div class="conteneur">
-      <span>© <span id="annee"></span> Sonja Petric. All rights reserved.</span>
-      <span><a href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a> · <a href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a></span>
-    </div>
+  <footer class="pied mono grille">
+    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>Cannes, French Riviera</span>
+    <a class="lien" href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a>
+    <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
   </footer>
-  <script src="/js/main.js"></script>
+  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>

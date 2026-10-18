@@ -5,58 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact et devis · Sonja Petric</title>
   <meta name="description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
+  <meta name="theme-color" content="#0E0E0E">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Contact et devis · Sonja Petric">
   <meta property="og:description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="fr" href="/contact">
   <link rel="alternate" hreflang="en" href="/en/contact">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+  <a class="evitement mono" href="#contenu">Aller au contenu</a>
   <header class="entete">
-    <div class="conteneur">
-      <a class="logo" href="/">Sonja Petric</a>
-      <div class="entete-droite">
-        <nav class="nav">
-        <a href="/">Accueil</a>
-        <a href="/prestations">Prestations</a>
-        <a href="/realisations">Réalisations</a>
-        <a href="/a-propos">À propos</a>
-        <a href="/contact" aria-current="page">Contact</a>
-        </nav>
-        <div class="langues"><a href="/contact" lang="fr" hreflang="fr" aria-current="true">FR</a> <a href="/en/contact" lang="en" hreflang="en">EN</a></div>
-        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
-      </div>
-    </div>
+    <a class="logo" href="/">Sonja Petric</a>
+    <p class="indicateur mono" aria-hidden="true"><span class="num">05</span> / 05 — Contact</p>
+    <nav class="nav mono" id="menu" aria-label="Menu">
+      <ul>
+          <li><a class="lien-nav" href="/"><span class="num">01</span>Accueil</a></li>
+          <li><a class="lien-nav" href="/prestations"><span class="num">02</span>Prestations</a></li>
+          <li><a class="lien-nav" href="/realisations"><span class="num">03</span>Réalisations</a></li>
+          <li><a class="lien-nav" href="/a-propos"><span class="num">04</span>À propos</a></li>
+          <li><a class="lien-nav" href="/contact" aria-current="page"><span class="num">05</span>Contact</a></li>
+      </ul>
+      <div class="langues"><a class="lien-nav" href="/contact" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/contact" lang="en" hreflang="en">EN</a></div>
+    </nav>
+    <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Fermer">Menu</button>
   </header>
 
-  <main>
-    <section class="section conteneur contact">
-      <div class="coordonnees">
-        <p class="surtitre">Contact</p>
-        <h1>Parlons de votre projet</h1>
-        <p>Pour un devis, une commande ou une simple question, écrivez-moi : je réponds rapidement.</p>
-        <p>E-mail : <a href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a><br>
-           Instagram : <a href="https://www.instagram.com/psonjap/" rel="noopener">@psonjap</a><br>
-           Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.</p>
+  <main id="contenu">
+    <section class="entete-page grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>005</span><span>Contact</span></p></div>
+      <div class="col-large">
+        <h1 class="titre-xxl" data-reveal="masque"><span class="ligne"><span>Parlons de votre projet</span></span></h1>
+        <p class="texte-large intro" data-reveal>Pour un devis, une commande ou une simple question, écrivez-moi : je réponds rapidement.</p>
       </div>
+    </section>
+    <section class="section contact grille">
+      <ul class="coordonnees" data-reveal>
+        <li><span class="mono etiquette">E-mail</span><a class="lien email" href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a> <button class="copier mono" type="button" data-copier="sonjapetric92@gmail.com" data-copie="Copié">Copier</button></li>
+        <li><span class="mono etiquette">Instagram</span><a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">@psonjap</a></li>
+        <li><span class="mono etiquette">Atelier</span><span>Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.</span></li>
+      </ul>
       <form class="formulaire" action="https://api.web3forms.com/submit" method="POST" data-actif="oui"
-            data-envoi="Envoi en cours…" data-merci="Merci, votre demande est bien envoyée. Je vous réponds au plus vite." data-erreur="L'envoi n'a pas abouti. Vous pouvez m'écrire directement à" data-pas-actif="Le formulaire sera bientôt actif. En attendant, écrivez-moi à" data-email="sonjapetric92@gmail.com">
+            data-envoi="Envoi en cours…" data-merci="Merci, votre demande est bien envoyée. Je vous réponds au plus vite." data-erreur="L'envoi n'a pas abouti. Vous pouvez m'écrire directement à" data-pas-actif="Le formulaire sera bientôt actif. En attendant, écrivez-moi à" data-email="sonjapetric92@gmail.com" data-reveal>
         <input type="hidden" name="access_key" value="954684af-cae0-4937-9ce8-ec030d75f55d">
         <input type="hidden" name="subject" value="Nouvelle demande de devis depuis petricsonja.art">
         <input type="hidden" name="from_name" value="petricsonja.art">
         <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <label>Nom<input name="nom" required autocomplete="name"></label>
+        <label class="champ"><span class="mono">Nom</span><input name="nom" required autocomplete="name"></label>
         <div class="deux-colonnes">
-          <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
-          <label>Téléphone (facultatif)<input type="tel" name="telephone" autocomplete="tel"></label>
+          <label class="champ"><span class="mono">E-mail</span><input type="email" name="email" required autocomplete="email"></label>
+          <label class="champ"><span class="mono">Téléphone (facultatif)</span><input type="tel" name="telephone" autocomplete="tel"></label>
         </div>
         <div class="deux-colonnes">
-          <label>Prestation souhaitée
+          <label class="champ"><span class="mono">Prestation souhaitée</span>
             <select name="prestation">
               <option>Peinture</option>
               <option>Restauration de peinture</option>
@@ -65,22 +71,22 @@
               <option>Autre</option>
             </select>
           </label>
-          <label>Ville du projet<input name="ville" autocomplete="address-level2"></label>
+          <label class="champ"><span class="mono">Ville du projet</span><input name="ville" autocomplete="address-level2"></label>
         </div>
-        <label>Votre projet (lieu, surface, délai…)<textarea name="message" required></textarea></label>
-        <p class="mention">Vos informations servent uniquement à répondre à votre demande.</p>
-        <div><button class="bouton plein" type="submit">Envoyer la demande</button></div>
-        <p class="etat" role="status" aria-live="polite"></p>
+        <label class="champ"><span class="mono">Votre projet (lieu, surface, délai…)</span><textarea name="message" rows="5" required></textarea></label>
+        <p class="mono mention">Vos informations servent uniquement à répondre à votre demande.</p>
+        <div class="envoi"><button class="lien-fort accent" type="submit">Envoyer la demande <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>
   </main>
 
-  <footer class="pied">
-    <div class="conteneur">
-      <span>© <span id="annee"></span> Sonja Petric. Tous droits réservés.</span>
-      <span><a href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a> · <a href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a></span>
-    </div>
+  <footer class="pied mono grille">
+    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>Cannes, Côte d'Azur</span>
+    <a class="lien" href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a>
+    <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
   </footer>
-  <script src="/js/main.js"></script>
+  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>

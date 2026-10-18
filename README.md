@@ -6,6 +6,16 @@ Site statique en HTML, CSS et un peu de JavaScript, sans framework ni étape de 
 
 Tant que le site n'est pas prêt, `middleware.js` demande un mot de passe avant chaque page. Le mot de passe est la variable d'environnement `SITE_PASSWORD` du projet Vercel (Settings → Environment Variables) ; sans elle, personne n'entre. Pour ouvrir le site au public, supprimer `middleware.js`.
 
+## Design
+
+Direction « galerie dans l'ombre » : fond quasi noir, grain léger, Inter Tight et JetBrains Mono hébergées dans `fonts/` (licence SIL OFL), grille de 12 colonnes, sections et œuvres numérotées, images jamais recadrées avec un cartel en mono, accent ocre (`--accent`) sur 2 ou 3 éléments. Les couleurs, polices et espacements sont des variables en haut de `css/style.css`.
+
+Le curseur personnalisé, les révélations au défilement, la vue en grand et le formulaire sont dans `js/main.js`, sans bibliothèque. Le curseur est désactivé sur écran tactile et quand le visiteur demande moins d'animations ; dans ce cas tout s'affiche aussi sans mouvement.
+
+`generer.py` crée pour chaque image des versions AVIF et WebP en 640, 1024 et 1600 px dans `images/_gen/` (il faut Pillow : `pip install pillow`).
+
+L'audit et la note d'intention de la refonte sont dans `docs/`.
+
 ## Pages et langues
 
 Cinq pages en français à la racine (`index`, `prestations`, `realisations`, `a-propos`, `contact`) et leur version anglaise dans `en/`. Un lien FR / EN en haut de chaque page mène à la même page dans l'autre langue. L'ancienne adresse `/galerie` redirige vers `/realisations` (`vercel.json`).

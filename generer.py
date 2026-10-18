@@ -1,7 +1,8 @@
 """Génère les pages HTML du site dans chaque langue.
 
 Tout le contenu est dans ce fichier : coordonnées, PRESTATIONS, REALISATIONS, PARCOURS et TEXTES.
-Après une modification : python3 generer.py, puis commit des fichiers .html.
+Après une modification : python3 generer.py (nécessite Pillow : pip install pillow), puis commit des fichiers
+.html et des images générées dans images/_gen/.
 Le français est à la racine du site, chaque autre langue dans son dossier (en/, ...).
 """
 from html import escape
@@ -137,6 +138,15 @@ TEXTES = {
         "erreur": "L'envoi n'a pas abouti. Vous pouvez m'écrire directement à",
         "pas_actif": "Le formulaire sera bientôt actif. En attendant, écrivez-moi à",
         "sujet": "Nouvelle demande de devis depuis petricsonja.art",
+        "voir": "Voir",
+        "copier": "Copier",
+        "copie": "Copié",
+        "image_a_venir": "Image à venir",
+        "echap": "Échap",
+        "lieu": "Cannes, Côte d'Azur",
+        "fermer_menu": "Fermer",
+        "aller_contenu": "Aller au contenu",
+        "atelier_libelle": "Atelier",
     },
     "en": {
         "description": "Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.",
@@ -194,10 +204,21 @@ TEXTES = {
         "erreur": "The request could not be sent. You can email me directly at",
         "pas_actif": "The form will be active soon. In the meantime, email me at",
         "sujet": "New quote request from petricsonja.art",
+        "voir": "View",
+        "copier": "Copy",
+        "copie": "Copied",
+        "image_a_venir": "Image to come",
+        "echap": "Esc",
+        "lieu": "Cannes, French Riviera",
+        "fermer_menu": "Close",
+        "aller_contenu": "Skip to content",
+        "atelier_libelle": "Studio",
     },
 }
 
+
 PAGES = ["index", "prestations", "realisations", "a-propos", "contact"]
+LARGEURS = [640, 1024, 1600]  # tailles générées pour chaque image (AVIF et WebP)
 
 
 def chemin(langue, page):
@@ -207,181 +228,290 @@ def chemin(langue, page):
     return f"/{langue}" if page == "index" else f"/{langue}/{page}"
 
 
+def num(n, chiffres=3):
+    return str(n).zfill(chiffres)
+
+
 def nom_prestation(id_, langue):
     return next(p["titre"][langue] for p in PRESTATIONS if p["id"] == id_)
 
 
-def figure(r, t, langue):
+_IMAGES = {}
+
+
+def image(fichier):
+    """Prépare les variantes AVIF / WebP d'une image (dans images/_gen/) et renvoie ses infos.
+
+    Les variantes ne sont recalculées que si elles n'existent pas encore. Nécessite Pillow.
+    """
+    if fichier in _IMAGES:
+        return _IMAGES[fichier]
+    from PIL import Image
+
+    source = RACINE / "images" / fichier
+    sortie = RACINE / "images" / "_gen"
+    sortie.mkdir(exist_ok=True)
+    with Image.open(source) as im:
+        im = im.convert("RGB")
+        largeur, hauteur = im.size
+        couleur = "#%02x%02x%02x" % im.resize((1, 1), Image.LANCZOS).getpixel((0, 0))
+        largeurs = [l for l in LARGEURS if l < largeur] + [largeur]
+        base = Path(fichier).stem
+        for l in largeurs:
+            for fmt, options in (("avif", {"quality": 55}), ("webp", {"quality": 78})):
+                cible = sortie / f"{base}-{l}.{fmt}"
+                if not cible.exists():
+                    im.resize((l, round(hauteur * l / largeur)), Image.LANCZOS).save(cible, **options)
+    infos = {
+        "src": f"/images/{fichier}",
+        "largeur": largeur,
+        "hauteur": hauteur,
+        "couleur": couleur,
+        "srcset": {fmt: ", ".join(f"/images/_gen/{base}-{l}.{fmt} {l}w" for l in largeurs) for fmt in ("avif", "webp")},
+    }
+    _IMAGES[fichier] = infos
+    return infos
+
+
+def picture(fichier, alt, tailles, prioritaire=False):
+    i = image(fichier)
+    chargement = 'fetchpriority="high"' if prioritaire else 'loading="lazy"'
+    return (
+        f'<picture class="fondu" style="background-color:{i["couleur"]}">'
+        f'<source type="image/avif" srcset="{i["srcset"]["avif"]}" sizes="{tailles}">'
+        f'<source type="image/webp" srcset="{i["srcset"]["webp"]}" sizes="{tailles}">'
+        f'<img src="{i["src"]}" alt="{escape(alt)}" width="{i["largeur"]}" height="{i["hauteur"]}" {chargement} decoding="async">'
+        "</picture>"
+    )
+
+
+def attente(t):
+    return f'<div class="attente"><span>{t["image_a_venir"]}</span></div>'
+
+
+def titre_masque(balise, texte, classe=""):
+    """Titre révélé par un masque au défilement."""
+    attr = f' class="{classe}"' if classe else ""
+    return f'<{balise}{attr} data-reveal="masque"><span class="ligne"><span>{texte}</span></span></{balise}>'
+
+
+def entete_section(numero, libelle):
+    return f'<p class="index-section mono" data-reveal><span>{num(numero)}</span><span>{libelle}</span></p>'
+
+
+def oeuvre(r, n, total, t, langue, tailles):
     if r["image"]:
-        visuel = f'<img src="/images/realisations/{r["image"]}" alt="{escape(r["titre"][langue])}" loading="lazy">'
+        visuel = picture(f'realisations/{r["image"]}', r["titre"][langue], tailles)
     else:
-        visuel = f'<div class="attente">{t["photo"]}</div>'
-    return f'''        <figure class="oeuvre" data-categorie="{r["prestation"]}">
-          <div class="cadre{" entier" if r.get("entier") else ""}">{visuel}</div>
-          <figcaption><div class="nom">{escape(r["titre"][langue])}</div><div class="details">{escape(" · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x))}</div></figcaption>
+        visuel = attente(t)
+    details = " · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x)
+    ouvrable = ' data-ouvrable tabindex="0" role="button"' if r["image"] else ""
+    return f'''<figure class="oeuvre" data-categorie="{r["prestation"]}" data-numero="{num(n)}"{ouvrable} data-reveal>
+          <div class="oeuvre-image">{visuel}</div>
+          <figcaption class="cartel mono"><span class="cartel-num">{num(n)}</span><span class="cartel-titre">{escape(r["titre"][langue])}</span><span class="cartel-details">{escape(details)}</span></figcaption>
         </figure>'''
 
 
-def appel_devis(t, langue):
-    return f'''    <section class="section conteneur" style="text-align:center;max-width:720px">
-      <h2>{t["cta_titre"]}</h2>
-      <p style="color:var(--texte-doux)">{t["cta_texte"]}</p>
-      <p><a class="bouton plein" href="{chemin(langue, "contact")}">{t["devis"]}</a></p>
+def appel_devis(t, langue, numero):
+    return f'''    <section class="section appel grille">
+      <div class="col-entete">{entete_section(numero, t["contact"])}</div>
+      <div class="col-principale">
+        {titre_masque("h2", t["cta_titre"], "titre-xl")}
+        <p class="texte-large" data-reveal>{t["cta_texte"]}</p>
+        <p data-reveal><a class="lien-fort accent" href="{chemin(langue, "contact")}">{t["devis"]} <span aria-hidden="true">→</span></a></p>
+      </div>
     </section>'''
 
 
 def corps_index(t, langue):
-    cartes = "\n".join(
-        f'''          <a class="carte" href="{chemin(langue, "prestations")}#{p["id"]}">
-            <h3>{p["titre"][langue]}</h3>
-            <p>{p["resume"][langue]}</p>
-            <span class="lien">{t["en_savoir_plus"]}</span>
-          </a>''' for p in PRESTATIONS
+    lignes = "\n".join(
+        f'''        <li class="ligne-prestation" data-reveal>
+          <a href="{chemin(langue, "prestations")}#{p["id"]}">
+            <span class="mono num">{num(n, 2)}</span>
+            <span class="lp-titre">{p["titre"][langue]}</span>
+            <span class="lp-resume">{p["resume"][langue]}</span>
+            <span class="mono lp-fleche" aria-hidden="true">→</span>
+          </a>
+        </li>''' for n, p in enumerate(PRESTATIONS, 1)
     )
-    recentes = "\n".join(figure(r, t, langue) for r in REALISATIONS[:3])
-    return f'''    <section class="conteneur hero">
-      <div>
-        <p class="surtitre">{t["surtitre"]}</p>
-        <h1>Sonja Petric</h1>
-        <p>{t["accroche"]}</p>
-        <p style="margin-top:28px"><a class="bouton plein" href="{chemin(langue, "contact")}">{t["devis"]}</a> &nbsp; <a class="bouton" href="{chemin(langue, "prestations")}">{t["voir_prestations"]}</a></p>
+    avec_image = [(n, r) for n, r in enumerate(REALISATIONS, 1) if r["image"]][:3]
+    recentes = "\n".join(
+        oeuvre(r, n, len(REALISATIONS), t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in avec_image
+    )
+    portrait = picture(PHOTO_ACCUEIL, t["photo_principale"], "(max-width: 760px) 100vw, 40vw", prioritaire=True) if PHOTO_ACCUEIL else attente(t)
+    return f'''    <section class="hero grille">
+      <p class="hero-meta mono" data-reveal><span>{num(1)}</span><span>{t["lieu"]}</span></p>
+      <h1 class="hero-nom" data-reveal="masque"><span class="ligne"><span>Sonja</span></span><span class="ligne"><span>Petric</span></span></h1>
+      <div class="hero-texte">
+        <p class="mono surtitre" data-reveal>{t["surtitre"]}</p>
+        <p class="texte-large" data-reveal>{t["accroche"]}</p>
+        <p class="actions" data-reveal><a class="lien-fort accent" href="{chemin(langue, "contact")}">{t["devis"]} <span aria-hidden="true">→</span></a><a class="lien-fort" href="{chemin(langue, "realisations")}">{t["realisations"]} <span aria-hidden="true">→</span></a></p>
       </div>
-      <div class="hero-image">{f'<img src="/images/{PHOTO_ACCUEIL}" alt="{t["photo_principale"]}" width="1086" height="1448" fetchpriority="high">' if PHOTO_ACCUEIL else f'<div class="attente">{t["photo_principale"]}</div>'}</div>
+      <figure class="hero-portrait" data-reveal>
+        <div class="hero-image">{portrait}</div>
+        <figcaption class="cartel mono"><span class="cartel-titre">Sonja Petric</span><span class="cartel-details">{t["photo_principale"]}</span></figcaption>
+      </figure>
     </section>
 
-    <section class="section" style="background:var(--surface)">
-      <div class="conteneur">
-        <div class="section-titre"><h2>{t["prestations"]}</h2></div>
-        <div class="cartes">
-{cartes}
-        </div>
+    <section class="section grille">
+      <div class="col-entete">{entete_section(2, t["prestations"])}</div>
+      <div class="col-large">
+        <ul class="liste-prestations">
+{lignes}
+        </ul>
       </div>
     </section>
 
-    <section class="section conteneur">
-      <div class="section-titre">
-        <h2>{t["realisations_recentes"]}</h2>
-        <a href="{chemin(langue, "realisations")}">{t["toutes_realisations"]}</a>
-      </div>
-      <div class="galerie">
-{recentes}
+    <section class="section grille">
+      <div class="col-entete">{entete_section(3, t["realisations_recentes"])}<p class="mono" data-reveal><a class="lien" href="{chemin(langue, "realisations")}">{t["toutes_realisations"]}</a></p></div>
+      <div class="col-large galerie galerie-accueil">
+        {recentes}
       </div>
     </section>
 
-{appel_devis(t, langue)}'''
+{appel_devis(t, langue, 4)}'''
 
 
 def corps_prestations(t, langue):
-    blocs = "\n".join(
-        f'''      <article class="prestation" id="{p["id"]}">
-        <div class="prestation-image{" entier" if p.get("entier") else ""}">{f'<img src="/images/realisations/{p["image"]}" alt="{p["titre"][langue]}" loading="lazy">' if p.get("image") else f'<div class="attente">{t["photo"]}</div>'}</div>
-        <div>
-          <h2>{p["titre"][langue]}</h2>
-          <p>{p["resume"][langue]}</p>
-          <ul>
-{chr(10).join(f"            <li>{x}</li>" for x in p["points"][langue])}
+    blocs = []
+    for n, p in enumerate(PRESTATIONS, 1):
+        visuel = picture(f'realisations/{p["image"]}', p["titre"][langue], "(max-width: 760px) 100vw, 45vw") if p.get("image") else attente(t)
+        points = "\n".join(f"            <li>{x}</li>" for x in p["points"][langue])
+        blocs.append(f'''      <article class="prestation grille{" inverse" if n % 2 == 0 else ""}" id="{p["id"]}">
+        <p class="mono num prestation-num" data-reveal>{num(n, 2)} / {num(len(PRESTATIONS), 2)}</p>
+        <div class="prestation-texte">
+          {titre_masque("h2", p["titre"][langue], "titre-l")}
+          <p class="texte-large" data-reveal>{p["resume"][langue]}</p>
+          <ul class="liste-mono mono" data-reveal>
+{points}
           </ul>
-          <p><a href="{chemin(langue, "realisations")}#{p["id"]}">{t["toutes_realisations"]}</a></p>
+          <p class="mono" data-reveal><a class="lien" href="{chemin(langue, "realisations")}#{p["id"]}">{t["toutes_realisations"]}</a></p>
         </div>
-      </article>''' for p in PRESTATIONS
-    )
-    return f'''    <section class="section conteneur">
-      <p class="surtitre">{t["prestations"]}</p>
-      <h1>{t["prestations"]}</h1>
-      <p style="color:var(--texte-doux);max-width:40em">{t["prestations_intro"]}</p>
-{blocs}
+        <figure class="prestation-image" data-reveal>{visuel}</figure>
+      </article>''')
+    return f'''    <section class="entete-page grille">
+      <div class="col-entete">{entete_section(2, t["prestations"])}</div>
+      <div class="col-large">
+        {titre_masque("h1", t["prestations"], "titre-xxl")}
+        <p class="texte-large intro" data-reveal>{t["prestations_intro"]}</p>
+      </div>
     </section>
+{chr(10).join(blocs)}
 
-{appel_devis(t, langue)}'''
+{appel_devis(t, langue, 4)}'''
 
 
 def corps_realisations(t, langue):
-    filtres = "\n".join(f'        <button data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]}</button>' for p in PRESTATIONS)
-    items = "\n".join(figure(r, t, langue) for r in REALISATIONS)
-    return f'''    <section class="section conteneur">
-      <div class="section-titre"><h1>{t["realisations"]}</h1></div>
-      <div class="filtres" role="group" aria-label="{t["filtrer"]}">
-        <button data-filtre="tout" aria-pressed="true">{t["tout"]}</button>
+    total = len(REALISATIONS)
+    filtres = "\n".join(
+        f'        <button class="filtre" data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]} <span class="compte">{sum(r["prestation"] == p["id"] for r in REALISATIONS)}</span></button>'
+        for p in PRESTATIONS
+    )
+    items = "\n        ".join(oeuvre(r, n, total, t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in enumerate(REALISATIONS, 1))
+    return f'''    <section class="entete-page grille">
+      <div class="col-entete">{entete_section(3, t["realisations"])}</div>
+      <div class="col-large">
+        {titre_masque("h1", t["realisations"], "titre-xxl")}
+      </div>
+    </section>
+    <section class="section-galerie grille">
+      <div class="filtres mono" role="group" aria-label="{t["filtrer"]}">
+        <button class="filtre" data-filtre="tout" aria-pressed="true">{t["tout"]} <span class="compte">{total}</span></button>
 {filtres}
       </div>
-      <div class="galerie">
-{items}
+      <div class="galerie galerie-complete">
+        {items}
       </div>
     </section>'''
 
 
 def visionneuse(t):
     return f'''
-  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="{t["vue_grand"]}">
-    <button class="fermer" aria-label="{t["fermer"]}">×</button>
-    <button class="prec" aria-label="{t["precedente"]}">‹</button>
-    <figure><img src="" alt=""><figcaption></figcaption></figure>
-    <button class="suiv" aria-label="{t["suivante"]}">›</button>
+  <div class="visionneuse" role="dialog" aria-modal="true" aria-label="{t["vue_grand"]}" hidden>
+    <div class="vis-barre mono">
+      <span class="vis-compteur" aria-live="polite"></span>
+      <button class="vis-fermer lien" type="button">{t["fermer"]} <span class="faible">[{t["echap"]}]</span></button>
+    </div>
+    <figure class="vis-figure"><img src="" alt=""><figcaption class="cartel mono"></figcaption></figure>
+    <div class="vis-nav mono">
+      <button class="vis-prec lien" type="button">← {t["precedente"]}</button>
+      <button class="vis-suiv lien" type="button">{t["suivante"]} →</button>
+    </div>
   </div>
 '''
 
 
 def corps_a_propos(t, langue):
-    lignes = "\n".join(f'          <li><span class="annee">{e["annee"]}</span><span>{e[langue]}</span></li>' for e in PARCOURS)
-    return f'''    <section class="section conteneur apropos">
-      <div class="portrait"><div class="attente">{t["portrait"]}</div></div>
-      <div>
-        <p class="surtitre">{t["a_propos"]}</p>
-        <h1>Sonja Petric</h1>
-        <p>{t["bio"]}</p>
-        <p>{t["bio_demarche"]}</p>
-        <p>{t["zone"]}</p>
-        <h2 style="margin-top:40px;font-size:1.8rem">{t["parcours"]}</h2>
+    lignes = "\n".join(
+        f'          <li data-reveal><span class="mono annee">{e["annee"]}</span><span>{e[langue]}</span></li>' for e in PARCOURS
+    )
+    portrait = picture(PHOTO_ACCUEIL, t["photo_principale"], "(max-width: 760px) 100vw, 35vw") if PHOTO_ACCUEIL else attente(t)
+    return f'''    <section class="entete-page grille">
+      <div class="col-entete">{entete_section(4, t["a_propos"])}</div>
+      <div class="col-large">
+        {titre_masque("h1", "Sonja Petric", "titre-xxl")}
+      </div>
+    </section>
+    <section class="section apropos grille">
+      <figure class="apropos-portrait" data-reveal>{portrait}<figcaption class="cartel mono"><span class="cartel-titre">Sonja Petric</span><span class="cartel-details">{t["lieu"]}</span></figcaption></figure>
+      <div class="apropos-texte">
+        <p class="texte-large" data-reveal>{t["bio"]}</p>
+        <p data-reveal>{t["bio_demarche"]}</p>
+        <p class="mono faible-texte" data-reveal>{t["zone"]}</p>
+        <h2 class="mono index-section" data-reveal><span>—</span><span>{t["parcours"]}</span></h2>
         <ul class="parcours">
 {lignes}
         </ul>
       </div>
     </section>
 
-{appel_devis(t, langue)}'''
+{appel_devis(t, langue, 5)}'''
 
 
 def corps_contact(t, langue):
     options = "\n".join(f'              <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
+    tel = f'\n          <li><span class="mono etiquette">{t["telephone"]}</span><a class="lien" href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a></li>' if TELEPHONE else ""
     if SERVICE_FORMULAIRE == "formspree":
-        adresse, cachés = f"https://formspree.io/f/{CLE_FORMULAIRE}", f'        <input type="hidden" name="_subject" value="{t["sujet"]}">'
+        adresse, caches = f"https://formspree.io/f/{CLE_FORMULAIRE}", f'        <input type="hidden" name="_subject" value="{t["sujet"]}">'
     else:
         adresse = "https://api.web3forms.com/submit"
-        cachés = (f'        <input type="hidden" name="access_key" value="{CLE_FORMULAIRE}">\n'
+        caches = (f'        <input type="hidden" name="access_key" value="{CLE_FORMULAIRE}">\n'
                   f'        <input type="hidden" name="subject" value="{t["sujet"]}">\n'
                   '        <input type="hidden" name="from_name" value="petricsonja.art">')
-    tel = f'<br>\n           {t["telephone"]} : <a href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a>' if TELEPHONE else ""
-    return f'''    <section class="section conteneur contact">
-      <div class="coordonnees">
-        <p class="surtitre">{t["contact"]}</p>
-        <h1>{t["ecrivez"]}</h1>
-        <p>{t["contact_intro"]}</p>
-        <p>{t["email"]} : <a href="mailto:{EMAIL}">{EMAIL}</a>{tel}<br>
-           Instagram : <a href="{INSTAGRAM}" rel="noopener">@psonjap</a><br>
-           {t["zone"]}</p>
+    return f'''    <section class="entete-page grille">
+      <div class="col-entete">{entete_section(5, t["contact"])}</div>
+      <div class="col-large">
+        {titre_masque("h1", t["ecrivez"], "titre-xxl")}
+        <p class="texte-large intro" data-reveal>{t["contact_intro"]}</p>
       </div>
+    </section>
+    <section class="section contact grille">
+      <ul class="coordonnees" data-reveal>
+        <li><span class="mono etiquette">{t["email"]}</span><a class="lien email" href="mailto:{EMAIL}">{EMAIL}</a> <button class="copier mono" type="button" data-copier="{EMAIL}" data-copie="{t["copie"]}">{t["copier"]}</button></li>{tel}
+        <li><span class="mono etiquette">Instagram</span><a class="lien" href="{INSTAGRAM}" rel="noopener">@psonjap</a></li>
+        <li><span class="mono etiquette">{t["atelier_libelle"]}</span><span>{t["zone"]}</span></li>
+      </ul>
       <form class="formulaire" action="{adresse}" method="POST" data-actif="{"oui" if CLE_FORMULAIRE else "non"}"
-            data-envoi="{t["envoi"]}" data-merci="{t["merci"]}" data-erreur="{t["erreur"]}" data-pas-actif="{t["pas_actif"]}" data-email="{EMAIL}">
-{cachés}
+            data-envoi="{t["envoi"]}" data-merci="{t["merci"]}" data-erreur="{t["erreur"]}" data-pas-actif="{t["pas_actif"]}" data-email="{EMAIL}" data-reveal>
+{caches}
         <input type="checkbox" name="botcheck" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <label>{t["nom"]}<input name="nom" required autocomplete="name"></label>
+        <label class="champ"><span class="mono">{t["nom"]}</span><input name="nom" required autocomplete="name"></label>
         <div class="deux-colonnes">
-          <label>{t["email"]}<input type="email" name="email" required autocomplete="email"></label>
-          <label>{t["telephone_facultatif"]}<input type="tel" name="telephone" autocomplete="tel"></label>
+          <label class="champ"><span class="mono">{t["email"]}</span><input type="email" name="email" required autocomplete="email"></label>
+          <label class="champ"><span class="mono">{t["telephone_facultatif"]}</span><input type="tel" name="telephone" autocomplete="tel"></label>
         </div>
         <div class="deux-colonnes">
-          <label>{t["type_projet"]}
+          <label class="champ"><span class="mono">{t["type_projet"]}</span>
             <select name="prestation">
 {options}
               <option>{t["autre"]}</option>
             </select>
           </label>
-          <label>{t["ville"]}<input name="ville" autocomplete="address-level2"></label>
+          <label class="champ"><span class="mono">{t["ville"]}</span><input name="ville" autocomplete="address-level2"></label>
         </div>
-        <label>{t["message"]}<textarea name="message" required></textarea></label>
-        <p class="mention">{t["mention"]}</p>
-        <div><button class="bouton plein" type="submit">{t["envoyer"]}</button></div>
-        <p class="etat" role="status" aria-live="polite"></p>
+        <label class="champ"><span class="mono">{t["message"]}</span><textarea name="message" rows="5" required></textarea></label>
+        <p class="mono mention">{t["mention"]}</p>
+        <div class="envoi"><button class="lien-fort accent" type="submit">{t["envoyer"]} <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>'''
 
@@ -397,14 +527,16 @@ CORPS = {
 
 def page(langue, nom):
     t = TEXTES[langue]
+    index_page = PAGES.index(nom) + 1
     nav = "\n".join(
-        f'        <a href="{chemin(langue, p)}"{" aria-current=\"page\"" if p == nom else ""}>{t["nav"][p]}</a>' for p in PAGES
+        f'          <li><a class="lien-nav" href="{chemin(langue, p)}"{" aria-current=\"page\"" if p == nom else ""}><span class="num">{num(i, 2)}</span>{t["nav"][p]}</a></li>'
+        for i, p in enumerate(PAGES, 1)
     )
-    langues = " ".join(
-        f'<a href="{chemin(l, nom)}" lang="{l}" hreflang="{l}"{" aria-current=\"true\"" if l == langue else ""}>{l.upper()}</a>' for l in LANGUES
+    langues = "".join(
+        f'<a class="lien-nav" href="{chemin(l, nom)}" lang="{l}" hreflang="{l}"{" aria-current=\"true\"" if l == langue else ""}>{l.upper()}</a>' for l in LANGUES
     )
     alternates = "\n".join(f'  <link rel="alternate" hreflang="{l}" href="{chemin(l, nom)}">' for l in LANGUES)
-    extra = visionneuse(t) if nom == "realisations" else ""
+    extra = visionneuse(t) if nom in ("realisations", "index") else ""
     return f'''<!doctype html>
 <html lang="{langue}">
 <head>
@@ -412,41 +544,44 @@ def page(langue, nom):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{t["titres"][nom]}</title>
   <meta name="description" content="{t["description"]}">
+  <meta name="theme-color" content="#0E0E0E">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="{t["titres"][nom]}">
   <meta property="og:description" content="{t["description"]}">
   <meta property="og:type" content="website">
 {alternates}
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+  <a class="evitement mono" href="#contenu">{t["aller_contenu"]}</a>
   <header class="entete">
-    <div class="conteneur">
-      <a class="logo" href="{chemin(langue, "index")}">Sonja Petric</a>
-      <div class="entete-droite">
-        <nav class="nav">
+    <a class="logo" href="{chemin(langue, "index")}">Sonja Petric</a>
+    <p class="indicateur mono" aria-hidden="true"><span class="num">{num(index_page, 2)}</span> / {num(len(PAGES), 2)} — {t["nav"][nom]}</p>
+    <nav class="nav mono" id="menu" aria-label="Menu">
+      <ul>
 {nav}
-        </nav>
-        <div class="langues">{langues}</div>
-        <button class="menu-bouton" aria-label="{t["menu"]}" aria-expanded="false">☰</button>
-      </div>
-    </div>
+      </ul>
+      <div class="langues">{langues}</div>
+    </nav>
+    <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="{t["menu"]}" data-fermer="{t["fermer_menu"]}">{t["menu"]}</button>
   </header>
 
-  <main>
+  <main id="contenu">
 {CORPS[nom](t, langue)}
   </main>
 {extra}
-  <footer class="pied">
-    <div class="conteneur">
-      <span>© <span id="annee"></span> Sonja Petric. {t["droits"]}</span>
-      <span><a href="{INSTAGRAM}" rel="noopener">Instagram</a> · <a href="mailto:{EMAIL}">{EMAIL}</a></span>
-    </div>
+  <footer class="pied mono grille">
+    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>{t["lieu"]}</span>
+    <a class="lien" href="mailto:{EMAIL}">{EMAIL}</a>
+    <a class="lien" href="{INSTAGRAM}" rel="noopener">Instagram</a>
   </footer>
-  <script src="/js/main.js"></script>
+  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
 '''

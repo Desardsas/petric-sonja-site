@@ -5,107 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Prestations · Sonja Petric</title>
   <meta name="description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
+  <meta name="theme-color" content="#0E0E0E">
+  <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Prestations · Sonja Petric">
   <meta property="og:description" content="Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.">
   <meta property="og:type" content="website">
   <link rel="alternate" hreflang="fr" href="/prestations">
   <link rel="alternate" hreflang="en" href="/en/prestations">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Inter:wght@400;500&display=swap">
+  <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
+  <a class="evitement mono" href="#contenu">Aller au contenu</a>
   <header class="entete">
-    <div class="conteneur">
-      <a class="logo" href="/">Sonja Petric</a>
-      <div class="entete-droite">
-        <nav class="nav">
-        <a href="/">Accueil</a>
-        <a href="/prestations" aria-current="page">Prestations</a>
-        <a href="/realisations">Réalisations</a>
-        <a href="/a-propos">À propos</a>
-        <a href="/contact">Contact</a>
-        </nav>
-        <div class="langues"><a href="/prestations" lang="fr" hreflang="fr" aria-current="true">FR</a> <a href="/en/prestations" lang="en" hreflang="en">EN</a></div>
-        <button class="menu-bouton" aria-label="Menu" aria-expanded="false">☰</button>
-      </div>
-    </div>
+    <a class="logo" href="/">Sonja Petric</a>
+    <p class="indicateur mono" aria-hidden="true"><span class="num">02</span> / 05 — Prestations</p>
+    <nav class="nav mono" id="menu" aria-label="Menu">
+      <ul>
+          <li><a class="lien-nav" href="/"><span class="num">01</span>Accueil</a></li>
+          <li><a class="lien-nav" href="/prestations" aria-current="page"><span class="num">02</span>Prestations</a></li>
+          <li><a class="lien-nav" href="/realisations"><span class="num">03</span>Réalisations</a></li>
+          <li><a class="lien-nav" href="/a-propos"><span class="num">04</span>À propos</a></li>
+          <li><a class="lien-nav" href="/contact"><span class="num">05</span>Contact</a></li>
+      </ul>
+      <div class="langues"><a class="lien-nav" href="/prestations" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/prestations" lang="en" hreflang="en">EN</a></div>
+    </nav>
+    <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Fermer">Menu</button>
   </header>
 
-  <main>
-    <section class="section conteneur">
-      <p class="surtitre">Prestations</p>
-      <h1>Prestations</h1>
-      <p style="color:var(--texte-doux);max-width:40em">Chaque projet est unique : je vous écoute, je vous conseille, puis je réalise le travail moi-même, du premier croquis à la dernière touche.</p>
-      <article class="prestation" id="peinture">
-        <div class="prestation-image"><div class="attente">Photo</div></div>
-        <div>
-          <h2>Peinture</h2>
-          <p>Des toiles contemporaines aux lignes épurées, et des œuvres sur commande pensées pour votre intérieur.</p>
-          <ul>
+  <main id="contenu">
+    <section class="entete-page grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>002</span><span>Prestations</span></p></div>
+      <div class="col-large">
+        <h1 class="titre-xxl" data-reveal="masque"><span class="ligne"><span>Prestations</span></span></h1>
+        <p class="texte-large intro" data-reveal>Chaque projet est unique : je vous écoute, je vous conseille, puis je réalise le travail moi-même, du premier croquis à la dernière touche.</p>
+      </div>
+    </section>
+      <article class="prestation grille" id="peinture">
+        <p class="mono num prestation-num" data-reveal>01 / 04</p>
+        <div class="prestation-texte">
+          <h2 class="titre-l" data-reveal="masque"><span class="ligne"><span>Peinture</span></span></h2>
+          <p class="texte-large" data-reveal>Des toiles contemporaines aux lignes épurées, et des œuvres sur commande pensées pour votre intérieur.</p>
+          <ul class="liste-mono mono" data-reveal>
             <li>Œuvres originales</li>
             <li>Toiles sur commande, au format et aux couleurs de votre pièce</li>
             <li>Grands formats pour particuliers, hôtels et bureaux</li>
           </ul>
-          <p><a href="/realisations#peinture">Toutes les réalisations →</a></p>
+          <p class="mono" data-reveal><a class="lien" href="/realisations#peinture">Toutes les réalisations →</a></p>
         </div>
+        <figure class="prestation-image" data-reveal><div class="attente"><span>Image à venir</span></div></figure>
       </article>
-      <article class="prestation" id="restauration">
-        <div class="prestation-image entier"><img src="/images/realisations/restauration-avant-apres.jpg" alt="Restauration de peinture" loading="lazy"></div>
-        <div>
-          <h2>Restauration de peinture</h2>
-          <p>Formée à l'École supérieure d'art d'Avignon, elle redonne vie aux tableaux abîmés par le temps, dans le respect de l'œuvre.</p>
-          <ul>
+      <article class="prestation grille inverse" id="restauration">
+        <p class="mono num prestation-num" data-reveal>02 / 04</p>
+        <div class="prestation-texte">
+          <h2 class="titre-l" data-reveal="masque"><span class="ligne"><span>Restauration de peinture</span></span></h2>
+          <p class="texte-large" data-reveal>Formée à l'École supérieure d'art d'Avignon, elle redonne vie aux tableaux abîmés par le temps, dans le respect de l'œuvre.</p>
+          <ul class="liste-mono mono" data-reveal>
             <li>Nettoyage et allègement des vernis</li>
             <li>Consolidation et retouches</li>
             <li>Conseils de conservation</li>
           </ul>
-          <p><a href="/realisations#restauration">Toutes les réalisations →</a></p>
+          <p class="mono" data-reveal><a class="lien" href="/realisations#restauration">Toutes les réalisations →</a></p>
         </div>
+        <figure class="prestation-image" data-reveal><picture class="fondu" style="background-color:#6d5538"><source type="image/avif" srcset="/images/_gen/restauration-avant-apres-640.avif 640w, /images/_gen/restauration-avant-apres-1024.avif 1024w, /images/_gen/restauration-avant-apres-1320.avif 1320w" sizes="(max-width: 760px) 100vw, 45vw"><source type="image/webp" srcset="/images/_gen/restauration-avant-apres-640.webp 640w, /images/_gen/restauration-avant-apres-1024.webp 1024w, /images/_gen/restauration-avant-apres-1320.webp 1320w" sizes="(max-width: 760px) 100vw, 45vw"><img src="/images/realisations/restauration-avant-apres.jpg" alt="Restauration de peinture" width="1320" height="1316" loading="lazy" decoding="async"></picture></figure>
       </article>
-      <article class="prestation" id="enduits">
-        <div class="prestation-image"><img src="/images/realisations/enduit-salon.jpg" alt="Enduits décoratifs sur mesure" loading="lazy"></div>
-        <div>
-          <h2>Enduits décoratifs sur mesure</h2>
-          <p>Des murs uniques, créés sur mesure : matières minérales, textures subtiles et teintes choisies avec vous.</p>
-          <ul>
+      <article class="prestation grille" id="enduits">
+        <p class="mono num prestation-num" data-reveal>03 / 04</p>
+        <div class="prestation-texte">
+          <h2 class="titre-l" data-reveal="masque"><span class="ligne"><span>Enduits décoratifs sur mesure</span></span></h2>
+          <p class="texte-large" data-reveal>Des murs uniques, créés sur mesure : matières minérales, textures subtiles et teintes choisies avec vous.</p>
+          <ul class="liste-mono mono" data-reveal>
             <li>Enduits à la chaux, effets béton et matières minérales</li>
             <li>Teintes et textures créées pour chaque projet</li>
             <li>Salons, chambres, salles de bains, commerces</li>
           </ul>
-          <p><a href="/realisations#enduits">Toutes les réalisations →</a></p>
+          <p class="mono" data-reveal><a class="lien" href="/realisations#enduits">Toutes les réalisations →</a></p>
         </div>
+        <figure class="prestation-image" data-reveal><picture class="fondu" style="background-color:#8c6b4e"><source type="image/avif" srcset="/images/_gen/enduit-salon-640.avif 640w, /images/_gen/enduit-salon-1024.avif 1024w, /images/_gen/enduit-salon-1536.avif 1536w" sizes="(max-width: 760px) 100vw, 45vw"><source type="image/webp" srcset="/images/_gen/enduit-salon-640.webp 640w, /images/_gen/enduit-salon-1024.webp 1024w, /images/_gen/enduit-salon-1536.webp 1536w" sizes="(max-width: 760px) 100vw, 45vw"><img src="/images/realisations/enduit-salon.jpg" alt="Enduits décoratifs sur mesure" width="1536" height="1024" loading="lazy" decoding="async"></picture></figure>
       </article>
-      <article class="prestation" id="home-staging">
-        <div class="prestation-image"><div class="attente">Photo</div></div>
-        <div>
-          <h2>Home staging</h2>
-          <p>Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.</p>
-          <ul>
+      <article class="prestation grille inverse" id="home-staging">
+        <p class="mono num prestation-num" data-reveal>04 / 04</p>
+        <div class="prestation-texte">
+          <h2 class="titre-l" data-reveal="masque"><span class="ligne"><span>Home staging</span></span></h2>
+          <p class="texte-large" data-reveal>Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.</p>
+          <ul class="liste-mono mono" data-reveal>
             <li>Conseil couleurs et agencement</li>
             <li>Rafraîchissement des murs avant les photos</li>
             <li>Mise en scène pour la vente ou la location</li>
           </ul>
-          <p><a href="/realisations#home-staging">Toutes les réalisations →</a></p>
+          <p class="mono" data-reveal><a class="lien" href="/realisations#home-staging">Toutes les réalisations →</a></p>
         </div>
+        <figure class="prestation-image" data-reveal><div class="attente"><span>Image à venir</span></div></figure>
       </article>
-    </section>
 
-    <section class="section conteneur" style="text-align:center;max-width:720px">
-      <h2>Un projet en tête ?</h2>
-      <p style="color:var(--texte-doux)">Décrivez-le-moi en quelques lignes : je vous réponds avec une proposition et un devis.</p>
-      <p><a class="bouton plein" href="/contact">Demander un devis</a></p>
+    <section class="section appel grille">
+      <div class="col-entete"><p class="index-section mono" data-reveal><span>004</span><span>Contact</span></p></div>
+      <div class="col-principale">
+        <h2 class="titre-xl" data-reveal="masque"><span class="ligne"><span>Un projet en tête ?</span></span></h2>
+        <p class="texte-large" data-reveal>Décrivez-le-moi en quelques lignes : je vous réponds avec une proposition et un devis.</p>
+        <p data-reveal><a class="lien-fort accent" href="/contact">Demander un devis <span aria-hidden="true">→</span></a></p>
+      </div>
     </section>
   </main>
 
-  <footer class="pied">
-    <div class="conteneur">
-      <span>© <span id="annee"></span> Sonja Petric. Tous droits réservés.</span>
-      <span><a href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a> · <a href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a></span>
-    </div>
+  <footer class="pied mono grille">
+    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>Cannes, Côte d'Azur</span>
+    <a class="lien" href="mailto:sonjapetric92@gmail.com">sonjapetric92@gmail.com</a>
+    <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
   </footer>
-  <script src="/js/main.js"></script>
+  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
+  <script src="/js/main.js" defer></script>
 </body>
 </html>
