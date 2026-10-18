@@ -32,6 +32,8 @@ PRESTATIONS = [
     },
     {
         "id": "restauration",
+        "image": "restauration-avant-apres.jpg",
+        "entier": True,  # image montrée en entier (avant / après), sans recadrage
         "titre": {"fr": "Restauration de peinture", "en": "Painting restoration"},
         "resume": {"fr": "Formée à l'École supérieure d'art d'Avignon, elle redonne vie aux tableaux abîmés par le temps, dans le respect de l'œuvre.", "en": "Trained at the École supérieure d'art d'Avignon, she brings time-worn paintings back to life while respecting the original work."},
         "points": {
@@ -65,9 +67,9 @@ PRESTATIONS = [
 # Les trois premières apparaissent sur l'accueil.
 REALISATIONS = [
     {"image": "home-staging-salon.jpg", "prestation": "home-staging", "titre": {"fr": "Salon", "en": "Living room"}, "details": {"fr": "", "en": ""}},
+    {"image": "restauration-avant-apres.jpg", "entier": True, "prestation": "restauration", "titre": {"fr": "Tableau ancien, avant / après", "en": "Old painting, before / after"}, "details": {"fr": "", "en": ""}},
     {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
     {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
-    {"image": None, "prestation": "restauration", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Œuvre restaurée, année]", "en": "[Restored work, year]"}},
     {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
     {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
 ]
@@ -215,7 +217,7 @@ def figure(r, t, langue):
     else:
         visuel = f'<div class="attente">{t["photo"]}</div>'
     return f'''        <figure class="oeuvre" data-categorie="{r["prestation"]}">
-          <div class="cadre">{visuel}</div>
+          <div class="cadre{" entier" if r.get("entier") else ""}">{visuel}</div>
           <figcaption><div class="nom">{escape(r["titre"][langue])}</div><div class="details">{escape(" · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x))}</div></figcaption>
         </figure>'''
 
@@ -272,7 +274,7 @@ def corps_index(t, langue):
 def corps_prestations(t, langue):
     blocs = "\n".join(
         f'''      <article class="prestation" id="{p["id"]}">
-        <div class="prestation-image">{f'<img src="/images/realisations/{p["image"]}" alt="{p["titre"][langue]}" loading="lazy">' if p.get("image") else f'<div class="attente">{t["photo"]}</div>'}</div>
+        <div class="prestation-image{" entier" if p.get("entier") else ""}">{f'<img src="/images/realisations/{p["image"]}" alt="{p["titre"][langue]}" loading="lazy">' if p.get("image") else f'<div class="attente">{t["photo"]}</div>'}</div>
         <div>
           <h2>{p["titre"][langue]}</h2>
           <p>{p["resume"][langue]}</p>

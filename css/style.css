@@ -155,3 +155,8 @@ p { margin: 0 0 1em; }
 .formulaire .etat a { color: inherit; }
 .formulaire button[disabled] { opacity: .6; cursor: wait; }
 .piege { position: absolute; left: -9999px; }
+
+/* Images montrées en entier, sans recadrage (avant / après) */
+.cadre.entier, .prestation-image.entier { background: #ece6dd; }
+.cadre.entier img, .prestation-image.entier img { object-fit: contain; }
+.oeuvre:hover .cadre.entier img { transform: none; }
