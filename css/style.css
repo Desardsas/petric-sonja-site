@@ -28,14 +28,14 @@
   /* Palette tirée du logo SP : sable #D9C7B2 et terre cuite #8C462E */
   --sable: #D9C7B2;
   --terre: #8C462E;
-  --bg: #14110F;           /* noir chaud, teinté de terre */
-  --bg-elevated: #1B1714;
-  --surface: #241F1B;
-  --line: #332C26;
-  --text: #EDE5DB;         /* sable éclairci, 15 : 1 sur --bg */
-  --text-muted: #A69888;   /* sable assourdi, 6,7 : 1 sur --bg */
-  --text-faint: #5C524A;   /* décoratif uniquement (2,5 : 1) */
-  --accent: #C0714C;       /* terre cuite éclaircie pour le texte (5,1 : 1), 2 ou 3 éléments au plus */
+  --bg: #3A3029;           /* brun cacao chaud, teinté de terre */
+  --bg-elevated: #43382F;
+  --surface: #4D4137;
+  --line: #5A4D42;
+  --text: #F4EDE4;         /* sable éclairci, 11 : 1 sur --bg */
+  --text-muted: #CDBFAF;   /* sable assourdi, 7,1 : 1 sur --bg */
+  --text-faint: #8A7B6D;   /* décoratif uniquement (3,1 : 1) */
+  --accent: #EBA27E;       /* terre cuite éclaircie pour le texte (6,1 : 1), 2 ou 3 éléments au plus */
 
   /* Inter Tight est réservée au nom « Sonja Petric » (.nom) ; tout le reste est en Cormorant Garamond */
   --nom: "Inter Tight", "Helvetica Neue", Arial, sans-serif;

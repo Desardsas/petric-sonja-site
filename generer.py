@@ -544,7 +544,7 @@ def page(langue, nom):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{t["titres"][nom]}</title>
   <meta name="description" content="{t["description"]}">
-  <meta name="theme-color" content="#14110F">
+  <meta name="theme-color" content="#3A3029">
   <meta name="color-scheme" content="dark">
   <meta property="og:title" content="{t["titres"][nom]}">
   <meta property="og:description" content="{t["description"]}">
