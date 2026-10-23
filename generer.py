@@ -544,7 +544,7 @@ def page(langue, nom):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{t["titres"][nom]}</title>
   <meta name="description" content="{t["description"]}">
-  <meta name="theme-color" content="#0E0E0E">
+  <meta name="theme-color" content="#14110F">
   <meta name="color-scheme" content="dark">
   <meta property="og:title" content="{t["titres"][nom]}">
   <meta property="og:description" content="{t["description"]}">
@@ -559,7 +559,7 @@ def page(langue, nom):
 <body>
   <a class="evitement mono" href="#contenu">{t["aller_contenu"]}</a>
   <header class="entete">
-    <a class="logo" href="{chemin(langue, "index")}">Sonja Petric</a>
+    <a class="logo" href="{chemin(langue, "index")}"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38">Sonja Petric</a>
     <p class="indicateur mono" aria-hidden="true"><span class="num">{num(index_page, 2)}</span> / {num(len(PAGES), 2)} — {t["nav"][nom]}</p>
     <nav class="nav mono" id="menu" aria-label="Menu">
       <ul>
