@@ -1,5 +1,5 @@
-// Petric Sonja : menu, révélations, images, galerie, vue en grand, formulaire et curseur.
-// Aucune bibliothèque. Une seule boucle requestAnimationFrame pour le curseur.
+// Petric Sonja : menu, révélations, images, galerie, vue en grand, formulaire et thème clair / sombre.
+// Aucune bibliothèque.
 
 const mouvementReduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   galerie();
   formulaire();
   copier();
-  curseur();
+  theme();
 });
 
 // Menu plein écran sur mobile : le mot « MENU » l'ouvre, Échap le ferme
@@ -221,90 +221,21 @@ function copier() {
   });
 }
 
-// Curseur de précision : point instantané, anneau en inertie, étirement selon la vitesse.
-// Désactivé sur écran tactile et si le mouvement réduit est demandé.
-function curseur() {
-  const precis = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const racine = document.querySelector(".curseur");
-  if (!precis || mouvementReduit || !racine) return;
-
-  const point = racine.querySelector(".curseur-point");
-  const anneau = racine.querySelector(".curseur-anneau");
-  const label = racine.querySelector(".curseur-label");
-  const coords = racine.querySelector(".curseur-coords");
-  const voir = document.documentElement.lang === "fr" ? "Voir" : "View";
-
-  const souris = { x: innerWidth / 2, y: innerHeight / 2 };
-  const pos = { x: souris.x, y: souris.y };
-  let aimant = null; // élément attiré vers le curseur
-  let vu = false;
-
-  document.documentElement.classList.add("curseur-actif");
-  racine.classList.add("cache");
-
-  addEventListener("pointermove", (e) => {
-    souris.x = e.clientX;
-    souris.y = e.clientY;
-    if (!vu) {
-      vu = true;
-      pos.x = souris.x;
-      pos.y = souris.y;
-      racine.classList.remove("cache");
-    }
-  }, { passive: true });
-  document.addEventListener("pointerleave", () => racine.classList.add("cache"));
-  document.addEventListener("pointerenter", () => racine.classList.remove("cache"));
-  addEventListener("pointerdown", () => racine.classList.add("presse"));
-  addEventListener("pointerup", () => racine.classList.remove("presse"));
-
-  const relacher = () => {
-    if (aimant) aimant.style.translate = "";
-    aimant = null;
+// Clair / sombre : le choix du visiteur est gardé dans ce navigateur (sinon, réglage du système)
+function theme() {
+  const bouton = document.querySelector(".theme-bouton");
+  if (!bouton) return;
+  const racine = document.documentElement;
+  const actuel = () => racine.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "sombre" : "clair");
+  const afficher = () => {
+    const sombre = actuel() === "sombre";
+    bouton.textContent = sombre ? bouton.dataset.clair : bouton.dataset.sombre;
+    bouton.setAttribute("aria-pressed", sombre);
   };
-
-  document.addEventListener("pointerover", (e) => {
-    const cible = e.target;
-    const oeuvre = cible.closest(".oeuvre[data-ouvrable]");
-    const lien = cible.closest("a, button, select, label.champ, .filtre");
-    const texte = cible.closest("p, h1, h2, h3, li, input, textarea, figcaption");
-    racine.classList.toggle("oeuvre", !!oeuvre);
-    racine.classList.toggle("lien", !oeuvre && !!lien);
-    racine.classList.toggle("texte", !oeuvre && !lien && !!texte);
-    if (oeuvre) label.textContent = `${oeuvre.dataset.numero} / ${voir}`;
-    const nouvelAimant = !oeuvre && lien && lien.matches("a, button") ? lien : null;
-    if (nouvelAimant !== aimant) {
-      relacher();
-      aimant = nouvelAimant;
-    }
+  bouton.addEventListener("click", () => {
+    racine.dataset.theme = actuel() === "sombre" ? "clair" : "sombre";
+    try { localStorage.setItem("theme", racine.dataset.theme); } catch (e) {}
+    afficher();
   });
-
-  let derniereCoord = "";
-  const boucle = () => {
-    const dx = souris.x - pos.x;
-    const dy = souris.y - pos.y;
-    pos.x += dx * 0.14;
-    pos.y += dy * 0.14;
-
-    // étirement plafonné dans la direction du mouvement
-    // (pas d'étirement quand l'anneau porte un label, pour qu'il reste lisible)
-    const libre = !racine.classList.contains("oeuvre");
-    const vitesse = libre ? Math.min(Math.hypot(dx, dy) / 140, 0.28) : 0;
-    const angle = vitesse ? Math.atan2(dy, dx) * (180 / Math.PI) : 0;
-    point.style.transform = `translate3d(${souris.x}px, ${souris.y}px, 0)`;
-    anneau.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0) rotate(${angle}deg) scale(${1 + vitesse}, ${1 - vitesse * 0.6})`;
-    coords.style.transform = `translate3d(${pos.x + (libre ? 26 : 56)}px, ${pos.y + (libre ? 18 : 24)}px, 0)`;
-
-    const texteCoords = `X ${String(Math.round(souris.x)).padStart(4, "0")} / Y ${String(Math.round(souris.y)).padStart(4, "0")}`;
-    if (texteCoords !== derniereCoord) coords.textContent = derniereCoord = texteCoords;
-
-    // effet magnétique : l'élément survolé glisse de 4 px au plus vers le curseur
-    if (aimant) {
-      const r = aimant.getBoundingClientRect();
-      const mx = Math.max(-4, Math.min(4, (souris.x - (r.left + r.width / 2)) * 0.12));
-      const my = Math.max(-4, Math.min(4, (souris.y - (r.top + r.height / 2)) * 0.12));
-      aimant.style.translate = `${mx}px ${my}px`;
-    }
-    requestAnimationFrame(boucle);
-  };
-  requestAnimationFrame(boucle);
+  afficher();
 }

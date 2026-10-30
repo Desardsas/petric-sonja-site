@@ -179,6 +179,8 @@ TEXTES = {
         "mentions_legales": "Mentions légales",
         "sur_rdv": "Cannes, sur rendez-vous",
         "og_locale": "fr_FR",
+        "theme_sombre": "Sombre",
+        "theme_clair": "Clair",
     },
     "en": {
         "descriptions": {
@@ -261,6 +263,8 @@ TEXTES = {
         "mentions_legales": "Legal notice",
         "sur_rdv": "Cannes, by appointment",
         "og_locale": "en_GB",
+        "theme_sombre": "Dark",
+        "theme_clair": "Light",
     },
 }
 
@@ -752,8 +756,9 @@ def page(langue, nom):
   <title>{t["titres"][nom]}</title>
   <meta name="description" content="{description}">
   <link rel="canonical" href="{url}">
-  <meta name="theme-color" content="#3A3029">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#EFEAE2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1714" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
   <meta property="og:title" content="{t["titres"][nom]}">
   <meta property="og:description" content="{description}">
   <meta property="og:type" content="website">
@@ -764,9 +769,8 @@ def page(langue, nom):
 {alternates}
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
-{ld}  <script>document.documentElement.classList.add("js")</script>
+{ld}  <script>document.documentElement.classList.add("js");try{{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 </head>
 <body>
   <a class="evitement mono" href="#contenu">{t["aller_contenu"]}</a>
@@ -777,7 +781,7 @@ def page(langue, nom):
       <ul>
 {nav}
       </ul>
-      <div class="langues">{langues}</div>
+      <div class="langues">{langues}<button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="{t["theme_sombre"]}" data-clair="{t["theme_clair"]}">{t["theme_sombre"]}</button></div>
     </nav>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="{t["menu"]}" data-fermer="{t["fermer_menu"]}">{t["menu"]}</button>
   </header>
@@ -795,7 +799,6 @@ def page(langue, nom):
     <a class="lien" href="{INSTAGRAM}" rel="noopener">Instagram</a>
     {"".join(f'<a class="lien" href="{chemin(langue, p)}">{t["confidentialite" if p == "confidentialite" else "mentions_legales"]}</a>' for p in PAGES_LEGALES)}
   </footer>
-  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
   <script src="/js/main.js" defer></script>
 </body>
 </html>

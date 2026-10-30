@@ -6,8 +6,9 @@
   <title>Contact et devis · Petric Sonja</title>
   <meta name="description" content="Parlez de votre projet à Petric Sonja : formulaire, e-mail, téléphone ou WhatsApp. Basée à Cannes, sur la Côte d'Azur et à Monaco.">
   <link rel="canonical" href="https://www.petricsonja.art/contact">
-  <meta name="theme-color" content="#3A3029">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#EFEAE2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1714" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
   <meta property="og:title" content="Contact et devis · Petric Sonja">
   <meta property="og:description" content="Parlez de votre projet à Petric Sonja : formulaire, e-mail, téléphone ou WhatsApp. Basée à Cannes, sur la Côte d'Azur et à Monaco.">
   <meta property="og:type" content="website">
@@ -20,9 +21,8 @@
   <link rel="alternate" hreflang="x-default" href="https://www.petricsonja.art/contact">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
   <a class="evitement mono" href="#contenu">Aller au contenu</a>
@@ -37,7 +37,7 @@
           <li><a class="lien-nav" href="/a-propos"><span class="num">04</span>À propos</a></li>
           <li><a class="lien-nav" href="/contact" aria-current="page"><span class="num">05</span>Contact</a></li>
       </ul>
-      <div class="langues"><a class="lien-nav" href="/contact" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/contact" lang="en" hreflang="en">EN</a></div>
+      <div class="langues"><a class="lien-nav" href="/contact" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/contact" lang="en" hreflang="en">EN</a><button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="Sombre" data-clair="Clair">Sombre</button></div>
     </nav>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Fermer">Menu</button>
   </header>
@@ -97,7 +97,6 @@
     <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
     <a class="lien" href="/confidentialite">Confidentialité</a>
   </footer>
-  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
   <script src="/js/main.js" defer></script>
 </body>
 </html>
