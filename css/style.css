@@ -17,7 +17,7 @@
   font-weight: 300 700;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0130, U+0132-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Cormorant Garamond";
@@ -33,7 +33,7 @@
   font-weight: 300 700;
   font-style: italic;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0130, U+0132-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Inter Tight";
@@ -49,7 +49,7 @@
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0130, U+0132-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "IBM Plex Mono";
@@ -65,7 +65,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0130, U+0132-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "IBM Plex Mono";
@@ -81,7 +81,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0130, U+0132-0151, U+0154-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /* ---------- Design tokens ---------- */
@@ -272,17 +272,16 @@ body::after {
 .entete {
   position: fixed; inset: 0 0 auto 0; z-index: 50;
   height: var(--entete);
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gouttiere);
-  align-items: center;
+  display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px);
   padding: 0 var(--marge);
   background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
-.logo { grid-column: 1 / span 3; display: inline-flex; align-items: center; gap: 12px; justify-self: start; font-weight: 500; letter-spacing: -0.01em; font-size: 1.05rem; }
+.logo { margin-right: auto; display: inline-flex; align-items: center; gap: 12px; justify-self: start; font-weight: 500; letter-spacing: -0.01em; font-size: 1.05rem; }
 .logo-sp { width: auto; height: 38px; flex: none; }
-.indicateur { grid-column: 4 / span 3; color: var(--text-muted); margin: 0; }
+.indicateur { color: var(--text-muted); margin: 0 auto 0 0; }
 .entete .mono { letter-spacing: 0.08em; }
-.nav { grid-column: 7 / -1; display: flex; justify-content: flex-end; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
+.nav { display: flex; justify-content: flex-end; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
 .nav ul { display: flex; gap: clamp(14px, 2vw, 28px); }
 .lien-nav { position: relative; color: var(--text-muted); display: inline-flex; gap: 6px; white-space: nowrap; padding: 6px 0; transition: color var(--duree) var(--ease); }
 .lien-nav .num { color: var(--text-muted); }
@@ -293,14 +292,21 @@ body::after {
 .langues { display: flex; gap: 10px; padding-left: clamp(14px, 2vw, 28px); border-left: 1px solid var(--line); }
 .theme-bouton { color: var(--text-muted); padding: 6px 0; min-width: 24px; }
 .theme-bouton:hover { color: var(--text); }
-.menu-bouton { display: none; grid-column: 10 / -1; justify-self: end; padding: 10px 0; }
+.menu-bouton { display: none; padding: 10px 0; }
+/* « Votre projet » : toujours visible, le seul bouton plein du site */
+.cta-entete {
+  flex: none; display: inline-flex; gap: 0.5em; align-items: center; min-height: 36px; padding: 0 14px;
+  background: var(--accent); color: var(--sur-accent); border: 1px solid var(--accent);
+  transition: background-color var(--duree) var(--ease), color var(--duree) var(--ease);
+}
+.cta-entete:hover, .cta-entete[aria-current] { background: transparent; color: var(--accent); }
 
 @media (max-width: 1600px) {
   .indicateur { display: none; }
 }
 @media (max-width: 1100px) {
-  .logo { grid-column: 1 / span 4; }
-  .nav { grid-column: 5 / -1; }
+  .nav ul { gap: 14px; }
+  .lien-nav .num { display: none; }
 }
 @media (max-width: 900px) {
   .menu-bouton { display: block; }
@@ -320,7 +326,9 @@ body::after {
   .nav ul .lien-nav { display: flex; width: 100%; }
   .nav ul .lien-nav[aria-current]::before { left: auto; right: 0; }
   .langues { border: 0; padding: 0; }
-  .logo { grid-column: 1 / span 8; }
+}
+@media (max-width: 359px) {
+  .logo-texte { display: none; }
 }
 
 /* ---------- Accueil ---------- */
@@ -473,6 +481,10 @@ body::after {
 .etat.ko { color: var(--accent); }
 .etat a { text-decoration: underline; text-underline-offset: 3px; }
 .piege { position: absolute; left: -9999px; }
+.consignes { display: grid; gap: 8px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: var(--text-muted); max-width: 60ch; }
+.consignes .mono { color: var(--text); }
+.case { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; cursor: pointer; }
+.case input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); }
 @media (max-width: 760px) {
   .coordonnees, .formulaire { grid-column: 1 / -1; }
   .deux-colonnes { grid-template-columns: 1fr; }

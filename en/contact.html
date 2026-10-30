@@ -27,7 +27,7 @@
 <body>
   <a class="evitement mono" href="#contenu">Skip to content</a>
   <header class="entete">
-    <a class="logo" href="/en"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38">Petric Sonja</a>
+    <a class="logo" href="/en"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38"><span class="logo-texte">Petric Sonja</span></a>
     <p class="indicateur mono" aria-hidden="true"><span class="num">05</span> / 05 — Contact</p>
     <nav class="nav mono" id="menu" aria-label="Menu">
       <ul>
@@ -39,6 +39,7 @@
       </ul>
       <div class="langues"><a class="lien-nav" href="/contact" lang="fr" hreflang="fr">FR</a><a class="lien-nav" href="/en/contact" lang="en" hreflang="en" aria-current="true">EN</a><button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="Dark" data-clair="Light">Dark</button></div>
     </nav>
+    <a class="cta-entete mono" href="/en/contact" aria-current="page">Your project <span aria-hidden="true">→</span></a>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Close">Menu</button>
   </header>
 
@@ -70,19 +71,39 @@
           <label class="champ"><span class="mono">Phone (optional)</span><input type="tel" name="telephone" autocomplete="tel"></label>
         </div>
         <div class="deux-colonnes">
-          <label class="champ"><span class="mono">Service</span>
-            <select name="prestation">
-              <option>Painting</option>
-              <option>Painting restoration</option>
-              <option>Bespoke decorative plaster</option>
+          <label class="champ"><span class="mono">Type of request</span>
+            <select name="demande">
+              <option>Colour &amp; materials</option>
+              <option>Layout &amp; staging</option>
               <option>Home staging</option>
+              <option>Decor &amp; art sourcing</option>
+              <option>Artwork restoration</option>
               <option>Other</option>
             </select>
           </label>
+          <label class="champ"><span class="mono">You are</span>
+            <select name="profil">
+              <option>Private client</option>
+              <option>Estate agent</option>
+              <option>Holiday rental, concierge</option>
+              <option>Business (shop, hotel, restaurant, office)</option>
+            </select>
+          </label>
+        </div>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">Type of property (villa, flat, shop…)</span><input name="bien"></label>
           <label class="champ"><span class="mono">Project location</span><input name="ville" autocomplete="address-level2"></label>
         </div>
-        <label class="champ"><span class="mono">Your project (place, surface, timing…)</span><textarea name="message" rows="5" required></textarea></label>
-        <p class="mono mention">Your details are only used to reply to your request. <a class="lien" href="/en/confidentialite">Privacy</a></p>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">Approximate size, in m² (optional)</span><input name="surface" inputmode="numeric"></label>
+          <label class="champ"><span class="mono">Timing (sale, rental, season, opening…)</span><input name="echeance"></label>
+        </div>
+        <label class="champ"><span class="mono">Your project in a few lines</span><textarea name="message" rows="5" required></textarea></label>
+        <div class="consignes">
+          <p class="mono">Do you have photos?</p>
+          <p>Send them after your request by WhatsApp or email. For a room: one wide shot from the doorway in daylight, without flash, then a detail of the walls and floor. For an artwork: straight on and in full, then a detail of the damaged areas.</p>
+        </div>
+        <label class="case"><input type="checkbox" name="consentement" value="oui" required><span>I agree that this information is used to reply to my request. <a class="lien" href="/en/confidentialite">Privacy</a></span></label>
         <div class="envoi"><button class="lien-fort accent" type="submit">Send request <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>
