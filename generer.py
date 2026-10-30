@@ -24,6 +24,7 @@ CLE_FORMULAIRE = "53f87200-2afb-415d-aa77-5d1bc108841a"  # vide = formulaire pas
 PRESTATIONS = [
     {
         "id": "peinture",
+        "image": "illustrations/peinture-toile-console.jpg",
         "titre": {"fr": "Peinture", "en": "Painting"},
         "resume": {"fr": "Des toiles contemporaines aux lignes épurées, et des œuvres sur commande pensées pour votre intérieur.", "en": "Contemporary canvases with clean lines, and commissioned works designed for your interior."},
         "points": {
@@ -54,6 +55,7 @@ PRESTATIONS = [
     },
     {
         "id": "home-staging",
+        "image": "illustrations/home-staging-salon.jpg",
         "titre": {"fr": "Home staging", "en": "Home staging"},
         "resume": {"fr": "Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.", "en": "Enhancing a property so it sells or rents faster, with an artist's eye and a controlled budget."},
         "points": {
@@ -63,17 +65,22 @@ PRESTATIONS = [
     },
 ]
 
-# Chaque réalisation : fichier image dans images/realisations/ (None tant qu'il n'y a pas de photo),
+# Chaque réalisation : fichier image dans images/realisations/ (ou "dossier/fichier" depuis images/),
 # prestation (un "id" de PRESTATIONS), titre et détails dans chaque langue.
-# Les trois premières apparaissent sur l'accueil.
+# "illustration": True = image d'ambiance (générée par IA), pas un chantier de Sonja : elle n'apparaît
+# que si ILLUSTRATIONS_DANS_REALISATIONS vaut True, avec la mention « Illustration » sur son cartel.
+# Une réalisation sans image ("image": None) n'est pas affichée.
+# Les trois premières affichées apparaissent sur l'accueil.
 REALISATIONS = [
     {"image": "enduit-salon.jpg", "prestation": "enduits", "titre": {"fr": "Mur de salon en enduit décoratif", "en": "Living room wall in decorative plaster"}, "details": {"fr": "", "en": ""}},
     {"image": "restauration-avant-apres.jpg", "entier": True, "prestation": "restauration", "titre": {"fr": "Tableau ancien, avant / après", "en": "Old painting, before / after"}, "details": {"fr": "", "en": ""}},
-    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
-    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
+    {"image": "illustrations/peinture-formes-terre-cuite.jpg", "illustration": True, "prestation": "peinture", "titre": {"fr": "Formes en terre cuite", "en": "Terracotta shapes"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/enduit-tadelakt-salle-de-bain.jpg", "illustration": True, "prestation": "enduits", "titre": {"fr": "Salle de bains en tadelakt", "en": "Tadelakt bathroom"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/peinture-diptyque-arches.jpg", "illustration": True, "prestation": "peinture", "titre": {"fr": "Diptyque aux arches", "en": "Arches diptych"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/enduit-chaux-olivier.jpg", "illustration": True, "prestation": "enduits", "titre": {"fr": "Mur à la chaux", "en": "Lime plaster wall"}, "details": {"fr": "", "en": ""}},
 ]
+
+ILLUSTRATIONS_DANS_REALISATIONS = False  # True = montrer aussi les illustrations IA dans Réalisations et sur l'accueil
 
 PARCOURS = [
     {"annee": "[Année]", "fr": "Formation à l'École supérieure d'art d'Avignon (ESAA)", "en": "Trained at the École supérieure d'art d'Avignon (ESAA)"},
@@ -142,6 +149,7 @@ TEXTES = {
         "copier": "Copier",
         "copie": "Copié",
         "image_a_venir": "Image à venir",
+        "illustration": "Illustration",
         "echap": "Échap",
         "lieu": "Cannes, Côte d'Azur",
         "fermer_menu": "Fermer",
@@ -208,6 +216,7 @@ TEXTES = {
         "copier": "Copy",
         "copie": "Copied",
         "image_a_venir": "Image to come",
+        "illustration": "Illustration",
         "echap": "Esc",
         "lieu": "Cannes, French Riviera",
         "fermer_menu": "Close",
@@ -226,6 +235,15 @@ def chemin(langue, page):
     if langue == LANGUES[0]:
         return "/" if page == "index" else f"/{page}"
     return f"/{langue}" if page == "index" else f"/{langue}/{page}"
+
+
+def fichier_image(nom):
+    """Chemin depuis images/ : les noms simples sont dans images/realisations/."""
+    return nom if "/" in nom else f"realisations/{nom}"
+
+
+def realisations_visibles():
+    return [r for r in REALISATIONS if r["image"] and (ILLUSTRATIONS_DANS_REALISATIONS or not r.get("illustration"))]
 
 
 def num(n, chiffres=3):
@@ -301,10 +319,11 @@ def entete_section(numero, libelle):
 
 def oeuvre(r, n, total, t, langue, tailles):
     if r["image"]:
-        visuel = picture(f'realisations/{r["image"]}', r["titre"][langue], tailles)
+        visuel = picture(fichier_image(r["image"]), r["titre"][langue], tailles)
     else:
         visuel = attente(t)
-    details = " · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x)
+    mention = t["illustration"] if r.get("illustration") else ""
+    details = " · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue], mention) if x)
     ouvrable = ' data-ouvrable tabindex="0" role="button"' if r["image"] else ""
     return f'''<figure class="oeuvre" data-categorie="{r["prestation"]}" data-numero="{num(n)}"{ouvrable} data-reveal>
           <div class="oeuvre-image">{visuel}</div>
@@ -334,9 +353,9 @@ def corps_index(t, langue):
           </a>
         </li>''' for n, p in enumerate(PRESTATIONS, 1)
     )
-    avec_image = [(n, r) for n, r in enumerate(REALISATIONS, 1) if r["image"]][:3]
+    avec_image = list(enumerate(realisations_visibles(), 1))[:3]
     recentes = "\n".join(
-        oeuvre(r, n, len(REALISATIONS), t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in avec_image
+        oeuvre(r, n, len(realisations_visibles()), t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in avec_image
     )
     portrait = picture(PHOTO_ACCUEIL, t["photo_principale"], "(max-width: 760px) 100vw, 40vw", prioritaire=True) if PHOTO_ACCUEIL else attente(t)
     return f'''    <section class="hero grille">
@@ -375,7 +394,7 @@ def corps_index(t, langue):
 def corps_prestations(t, langue):
     blocs = []
     for n, p in enumerate(PRESTATIONS, 1):
-        visuel = picture(f'realisations/{p["image"]}', p["titre"][langue], "(max-width: 760px) 100vw, 45vw") if p.get("image") else attente(t)
+        visuel = picture(fichier_image(p["image"]), p["titre"][langue], "(max-width: 760px) 100vw, 45vw") if p.get("image") else attente(t)
         points = "\n".join(f"            <li>{x}</li>" for x in p["points"][langue])
         blocs.append(f'''      <article class="prestation grille{" inverse" if n % 2 == 0 else ""}" id="{p["id"]}">
         <p class="mono num prestation-num" data-reveal>{num(n, 2)} / {num(len(PRESTATIONS), 2)}</p>
@@ -402,12 +421,13 @@ def corps_prestations(t, langue):
 
 
 def corps_realisations(t, langue):
-    total = len(REALISATIONS)
+    visibles = realisations_visibles()
+    total = len(visibles)
     filtres = "\n".join(
-        f'        <button class="filtre" data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]} <span class="compte">{sum(r["prestation"] == p["id"] for r in REALISATIONS)}</span></button>'
+        f'        <button class="filtre" data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]} <span class="compte">{sum(r["prestation"] == p["id"] for r in visibles)}</span></button>'
         for p in PRESTATIONS
     )
-    items = "\n        ".join(oeuvre(r, n, total, t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in enumerate(REALISATIONS, 1))
+    items = "\n        ".join(oeuvre(r, n, total, t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in enumerate(visibles, 1))
     return f'''    <section class="entete-page grille">
       <div class="col-entete">{entete_section(3, t["realisations"])}</div>
       <div class="col-large">
