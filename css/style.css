@@ -268,7 +268,8 @@ body::after {
 .oeuvre { position: relative; }
 .oeuvre[data-ouvrable] { cursor: zoom-in; }
 .oeuvre-image { overflow: hidden; }
-.oeuvre-image img { transition: transform 900ms var(--ease); }
+.oeuvre-image img { width: 100%; transition: transform 900ms var(--ease); }
+.prestation-image img { width: 100%; }
 .oeuvre[data-ouvrable]:hover .oeuvre-image img { transform: scale(1.025); }
 .oeuvre[hidden] { display: none; }
 

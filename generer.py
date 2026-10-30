@@ -80,7 +80,7 @@ REALISATIONS = [
     {"image": "illustrations/enduit-chaux-olivier.jpg", "illustration": True, "prestation": "enduits", "titre": {"fr": "Mur à la chaux", "en": "Lime plaster wall"}, "details": {"fr": "", "en": ""}},
 ]
 
-ILLUSTRATIONS_DANS_REALISATIONS = False  # True = montrer aussi les illustrations IA dans Réalisations et sur l'accueil
+ILLUSTRATIONS_DANS_REALISATIONS = True  # True = montrer aussi les illustrations IA dans Réalisations et sur l'accueil
 
 PARCOURS = [
     {"annee": "[Année]", "fr": "Formation à l'École supérieure d'art d'Avignon (ESAA)", "en": "Trained at the École supérieure d'art d'Avignon (ESAA)"},
