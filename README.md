@@ -8,9 +8,11 @@ Pour remettre un mot de passe avant chaque page, restaurer `middleware.js` depui
 
 ## Design
 
-Direction « galerie dans l'ombre » : fond quasi noir, grain léger, Cormorant Garamond pour tout le site et Inter Tight pour le nom « Petric Sonja » seulement, hébergées dans `fonts/` (licence SIL OFL), grille de 12 colonnes, sections et œuvres numérotées, images jamais recadrées avec un cartel en petites capitales, palette tirée du logo SP (sable `#D9C7B2` et terre cuite `#8C462E`) : fond brun cacao chaud, textes sable, accent terre cuite (`--accent`) sur 2 ou 3 éléments. Le monogramme est dans `images/logo-sp.svg` (en-tête) et `images/favicon.svg`. Les couleurs, polices et espacements sont des variables en haut de `css/style.css`.
+Direction « brutalisme méditerranéen » : palette claire « Chaux & Terre » (chaux, pierre, béton, encre, terre cuite en seul accent, olive en aplat rare) avec une variante sombre « Nuit d'été » qui suit le réglage du système ou le bouton Clair / Sombre de l'en-tête. Radius 0, filets de 1 px, aucune ombre, grille de 12 colonnes, grain de chaux derrière le contenu (jamais sur les photos).
 
-Le curseur personnalisé, les révélations au défilement, la vue en grand et le formulaire sont dans `js/main.js`, sans bibliothèque. Le curseur est désactivé sur écran tactile et quand le visiteur demande moins d'animations ; dans ce cas tout s'affiche aussi sans mouvement.
+Polices hébergées dans `fonts/` (licence SIL OFL), latin étendu chargé seulement si besoin (č, ć, š, ž) : Cormorant Garamond pour les titres, Inter Tight pour le texte courant et le nom, IBM Plex Mono pour les données, la navigation, les cartels et les boutons. Les couleurs, polices, tailles et durées sont des variables en haut de `css/style.css`.
+
+Les révélations au défilement, la vue en grand, le formulaire et le thème sont dans `js/main.js`, sans bibliothèque. Les mouvements durent 150 à 250 ms ; quand le visiteur demande moins d'animations, tout s'affiche sans mouvement.
 
 `generer.py` crée pour chaque image des versions AVIF et WebP en 640, 1024 et 1600 px dans `images/_gen/` (il faut Pillow : `pip install pillow`).
 

@@ -6,8 +6,9 @@
   <title>Petric Sonja · Painting, decorative plaster, home staging in Cannes</title>
   <meta name="description" content="Petric Sonja, Cannes: colour, material, layout and home staging for homes, properties for sale and hospitality spaces, French Riviera and Monaco.">
   <link rel="canonical" href="https://www.petricsonja.art/en">
-  <meta name="theme-color" content="#3A3029">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#EFEAE2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1A1714" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
   <meta property="og:title" content="Petric Sonja · Painting, decorative plaster, home staging in Cannes">
   <meta property="og:description" content="Petric Sonja, Cannes: colour, material, layout and home staging for homes, properties for sale and hospitality spaces, French Riviera and Monaco.">
   <meta property="og:type" content="website">
@@ -20,10 +21,9 @@
   <link rel="alternate" hreflang="x-default" href="https://www.petricsonja.art/">
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "ProfessionalService", "@id": "https://www.petricsonja.art/#studio", "name": "Petric Sonja", "description": "Petric Sonja, Cannes: colour, material, layout and home staging for homes, properties for sale and hospitality spaces, French Riviera and Monaco.", "url": "https://www.petricsonja.art/en", "email": "sonjapetric92@gmail.com", "telephone": "+33609491875", "image": "https://www.petricsonja.art/images/sonja-petric-portrait.jpg", "address": {"@type": "PostalAddress", "addressLocality": "Cannes", "addressRegion": "Provence-Alpes-Côte d'Azur", "addressCountry": "FR"}, "areaServed": [{"@type": "AdministrativeArea", "name": "Côte d'Azur"}, {"@type": "Country", "name": "Monaco"}], "availableLanguage": ["fr", "en"], "sameAs": ["https://www.instagram.com/psonjap/"], "founder": {"@id": "https://www.petricsonja.art/#personne"}}, {"@type": "Person", "@id": "https://www.petricsonja.art/#personne", "name": "Petric Sonja", "givenName": "Sonja", "familyName": "Petric", "jobTitle": "Interior art director", "knowsAbout": ["couleur", "matières", "agencement", "home staging", "accrochage d'œuvres", "conservation-restauration de peinture"], "alumniOf": {"@type": "CollegeOrUniversity", "name": "École supérieure d'art d'Avignon"}, "hasCredential": {"@type": "EducationalOccupationalCredential", "name": "DNSEP mention Conservation-restauration des biens culturels", "educationalLevel": "Master"}, "sameAs": ["https://www.instagram.com/psonjap/"]}]}</script>
-  <script>document.documentElement.classList.add("js")</script>
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
   <a class="evitement mono" href="#contenu">Skip to content</a>
@@ -38,7 +38,7 @@
           <li><a class="lien-nav" href="/en/a-propos"><span class="num">04</span>About</a></li>
           <li><a class="lien-nav" href="/en/contact"><span class="num">05</span>Contact</a></li>
       </ul>
-      <div class="langues"><a class="lien-nav" href="/" lang="fr" hreflang="fr">FR</a><a class="lien-nav" href="/en" lang="en" hreflang="en" aria-current="true">EN</a></div>
+      <div class="langues"><a class="lien-nav" href="/" lang="fr" hreflang="fr">FR</a><a class="lien-nav" href="/en" lang="en" hreflang="en" aria-current="true">EN</a><button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="Dark" data-clair="Light">Dark</button></div>
     </nav>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Close">Menu</button>
   </header>
@@ -147,7 +147,6 @@
     <a class="lien" href="https://www.instagram.com/psonjap/" rel="noopener">Instagram</a>
     <a class="lien" href="/en/confidentialite">Privacy</a>
   </footer>
-  <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
   <script src="/js/main.js" defer></script>
 </body>
 </html>
