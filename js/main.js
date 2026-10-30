@@ -1,4 +1,4 @@
-// Sonja Petric : menu, révélations, images, galerie, vue en grand, formulaire et curseur.
+// Petric Sonja : menu, révélations, images, galerie, vue en grand, formulaire et curseur.
 // Aucune bibliothèque. Une seule boucle requestAnimationFrame pour le curseur.
 
 const mouvementReduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
