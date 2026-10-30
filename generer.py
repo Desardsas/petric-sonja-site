@@ -153,9 +153,17 @@ TEXTES = {
         "email": "E-mail",
         "telephone": "Téléphone",
         "nom": "Nom",
-        "type_projet": "Prestation souhaitée",
-        "autre": "Autre",
-        "message": "Votre projet (lieu, surface, délai…)",
+        "type_projet": "Type de demande",
+        "profil": "Vous êtes",
+        "bien": "Type de bien (villa, appartement, boutique…)",
+        "surface": "Surface approximative, en m² (facultatif)",
+        "echeance": "Échéance (vente, location, saison, ouverture…)",
+        "facultatif": "facultatif",
+        "photos_titre": "Vous avez des photos ?",
+        "photos_texte": "Envoyez-les après votre demande par WhatsApp ou par e-mail. Pour une pièce : une vue d'ensemble prise depuis l'entrée, en lumière du jour et sans flash, puis un détail des murs et du sol. Pour une œuvre : de face et en entier, puis un détail des zones abîmées.",
+        "consentement": "J'accepte que ces informations servent à répondre à ma demande.",
+        "votre_projet": "Votre projet",
+        "message": "Votre projet en quelques lignes",
         "envoyer": "Envoyer la demande",
         "telephone_facultatif": "Téléphone (facultatif)",
         "ville": "Ville du projet",
@@ -237,9 +245,17 @@ TEXTES = {
         "email": "Email",
         "telephone": "Phone",
         "nom": "Name",
-        "type_projet": "Service",
-        "autre": "Other",
-        "message": "Your project (place, surface, timing…)",
+        "type_projet": "Type of request",
+        "profil": "You are",
+        "bien": "Type of property (villa, flat, shop…)",
+        "surface": "Approximate size, in m² (optional)",
+        "echeance": "Timing (sale, rental, season, opening…)",
+        "facultatif": "optional",
+        "photos_titre": "Do you have photos?",
+        "photos_texte": "Send them after your request by WhatsApp or email. For a room: one wide shot from the doorway in daylight, without flash, then a detail of the walls and floor. For an artwork: straight on and in full, then a detail of the damaged areas.",
+        "consentement": "I agree that this information is used to reply to my request.",
+        "votre_projet": "Your project",
+        "message": "Your project in a few lines",
         "envoyer": "Send request",
         "telephone_facultatif": "Phone (optional)",
         "ville": "Project location",
@@ -269,6 +285,16 @@ TEXTES = {
 }
 
 
+# Formulaire de projet : types de demande et profils proposés
+DEMANDES = {
+    "fr": ["Couleurs & matières", "Agencement & mise en scène", "Home staging", "Sourcing déco & œuvres", "Restauration d'œuvre", "Autre"],
+    "en": ["Colour & materials", "Layout & staging", "Home staging", "Decor & art sourcing", "Artwork restoration", "Other"],
+}
+PROFILS = {
+    "fr": ["Particulier", "Agent immobilier", "Location saisonnière, conciergerie", "Lieu professionnel (boutique, hôtel, restaurant, bureau)"],
+    "en": ["Private client", "Estate agent", "Holiday rental, concierge", "Business (shop, hotel, restaurant, office)"],
+}
+
 PAGES = ["index", "prestations", "realisations", "a-propos", "contact"]
 # Pages hors menu, liées depuis le pied de page. Les mentions légales attendent le SIRET.
 PAGES_LEGALES = ["confidentialite"] + (["mentions-legales"] if SIRET else [])
@@ -279,7 +305,7 @@ LEGAL = {
 Petric Sonja, Cannes. Contact : {EMAIL}.
 
 ## Informations collectées
-Le formulaire de contact recueille votre nom, votre e-mail, votre téléphone (facultatif), la prestation souhaitée, la ville du projet et votre message. Rien d'autre n'est collecté.
+Le formulaire de contact recueille votre nom, votre e-mail, votre téléphone (facultatif), le type de demande, votre profil, le type de bien, la ville, la surface et l'échéance du projet, votre message et votre accord. Rien d'autre n'est collecté.
 
 ## Pourquoi
 Uniquement pour répondre à votre demande et, si vous le souhaitez, établir un devis. Base légale : les mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).
@@ -314,7 +340,7 @@ Les images marquées « Illustration » sont des images d'ambiance générées p
 Petric Sonja, Cannes. Contact: {EMAIL}.
 
 ## What is collected
-The contact form collects your name, email, phone number (optional), the service you are interested in, the project location and your message. Nothing else is collected.
+The contact form collects your name, email, phone number (optional), the type of request, your profile, the type of property, the project location, size and timing, your message and your consent. Nothing else is collected.
 
 ## Why
 Only to reply to your request and, if you wish, to prepare a quotation. Legal basis: pre-contractual steps taken at your request (Article 6(1)(b) GDPR).
@@ -607,7 +633,8 @@ def corps_a_propos(t, langue):
 
 
 def corps_contact(t, langue):
-    options = "\n".join(f'              <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
+    def options(liste):
+        return "\n".join(f"              <option>{escape(x)}</option>" for x in liste)
     tel = f'\n          <li><span class="mono etiquette">{t["telephone"]}</span><a class="lien" href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a></li>' if TELEPHONE else ""
     whatsapp = f'        <li><span class="mono etiquette">WhatsApp</span><a class="lien" href="https://wa.me/{WHATSAPP}" rel="noopener">{TELEPHONE}</a></li>' if WHATSAPP else ""
     if SERVICE_FORMULAIRE == "formspree":
@@ -642,15 +669,30 @@ def corps_contact(t, langue):
         </div>
         <div class="deux-colonnes">
           <label class="champ"><span class="mono">{t["type_projet"]}</span>
-            <select name="prestation">
-{options}
-              <option>{t["autre"]}</option>
+            <select name="demande">
+{options(DEMANDES[langue])}
             </select>
           </label>
+          <label class="champ"><span class="mono">{t["profil"]}</span>
+            <select name="profil">
+{options(PROFILS[langue])}
+            </select>
+          </label>
+        </div>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">{t["bien"]}</span><input name="bien"></label>
           <label class="champ"><span class="mono">{t["ville"]}</span><input name="ville" autocomplete="address-level2"></label>
         </div>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">{t["surface"]}</span><input name="surface" inputmode="numeric"></label>
+          <label class="champ"><span class="mono">{t["echeance"]}</span><input name="echeance"></label>
+        </div>
         <label class="champ"><span class="mono">{t["message"]}</span><textarea name="message" rows="5" required></textarea></label>
-        <p class="mono mention">{t["mention"]} <a class="lien" href="{chemin(langue, "confidentialite")}">{t["confidentialite"]}</a></p>
+        <div class="consignes">
+          <p class="mono">{t["photos_titre"]}</p>
+          <p>{t["photos_texte"]}</p>
+        </div>
+        <label class="case"><input type="checkbox" name="consentement" value="oui" required><span>{t["consentement"]} <a class="lien" href="{chemin(langue, "confidentialite")}">{t["confidentialite"]}</a></span></label>
         <div class="envoi"><button class="lien-fort accent" type="submit">{t["envoyer"]} <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>'''
@@ -775,7 +817,7 @@ def page(langue, nom):
 <body>
   <a class="evitement mono" href="#contenu">{t["aller_contenu"]}</a>
   <header class="entete">
-    <a class="logo" href="{chemin(langue, "index")}"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38">Petric Sonja</a>
+    <a class="logo" href="{chemin(langue, "index")}"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38"><span class="logo-texte">Petric Sonja</span></a>
     <p class="indicateur mono" aria-hidden="true">{f'<span class="num">{num(index_page, 2)}</span> / {num(len(PAGES), 2)} — {t["nav"][nom]}' if index_page else t["titres"][nom].split(" · ")[0]}</p>
     <nav class="nav mono" id="menu" aria-label="Menu">
       <ul>
@@ -783,6 +825,7 @@ def page(langue, nom):
       </ul>
       <div class="langues">{langues}<button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="{t["theme_sombre"]}" data-clair="{t["theme_clair"]}">{t["theme_sombre"]}</button></div>
     </nav>
+    <a class="cta-entete mono" href="{chemin(langue, "contact")}"{" aria-current=\"page\"" if nom == "contact" else ""}>{t["votre_projet"]} <span aria-hidden="true">→</span></a>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="{t["menu"]}" data-fermer="{t["fermer_menu"]}">{t["menu"]}</button>
   </header>
 

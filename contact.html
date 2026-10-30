@@ -27,7 +27,7 @@
 <body>
   <a class="evitement mono" href="#contenu">Aller au contenu</a>
   <header class="entete">
-    <a class="logo" href="/"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38">Petric Sonja</a>
+    <a class="logo" href="/"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38"><span class="logo-texte">Petric Sonja</span></a>
     <p class="indicateur mono" aria-hidden="true"><span class="num">05</span> / 05 — Contact</p>
     <nav class="nav mono" id="menu" aria-label="Menu">
       <ul>
@@ -39,6 +39,7 @@
       </ul>
       <div class="langues"><a class="lien-nav" href="/contact" lang="fr" hreflang="fr" aria-current="true">FR</a><a class="lien-nav" href="/en/contact" lang="en" hreflang="en">EN</a><button class="theme-bouton mono" type="button" aria-pressed="false" data-sombre="Sombre" data-clair="Clair">Sombre</button></div>
     </nav>
+    <a class="cta-entete mono" href="/contact" aria-current="page">Votre projet <span aria-hidden="true">→</span></a>
     <button class="menu-bouton mono" type="button" aria-expanded="false" aria-controls="menu" data-ouvrir="Menu" data-fermer="Fermer">Menu</button>
   </header>
 
@@ -70,19 +71,39 @@
           <label class="champ"><span class="mono">Téléphone (facultatif)</span><input type="tel" name="telephone" autocomplete="tel"></label>
         </div>
         <div class="deux-colonnes">
-          <label class="champ"><span class="mono">Prestation souhaitée</span>
-            <select name="prestation">
-              <option>Peinture</option>
-              <option>Restauration de peinture</option>
-              <option>Enduits décoratifs sur mesure</option>
+          <label class="champ"><span class="mono">Type de demande</span>
+            <select name="demande">
+              <option>Couleurs &amp; matières</option>
+              <option>Agencement &amp; mise en scène</option>
               <option>Home staging</option>
+              <option>Sourcing déco &amp; œuvres</option>
+              <option>Restauration d&#x27;œuvre</option>
               <option>Autre</option>
             </select>
           </label>
+          <label class="champ"><span class="mono">Vous êtes</span>
+            <select name="profil">
+              <option>Particulier</option>
+              <option>Agent immobilier</option>
+              <option>Location saisonnière, conciergerie</option>
+              <option>Lieu professionnel (boutique, hôtel, restaurant, bureau)</option>
+            </select>
+          </label>
+        </div>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">Type de bien (villa, appartement, boutique…)</span><input name="bien"></label>
           <label class="champ"><span class="mono">Ville du projet</span><input name="ville" autocomplete="address-level2"></label>
         </div>
-        <label class="champ"><span class="mono">Votre projet (lieu, surface, délai…)</span><textarea name="message" rows="5" required></textarea></label>
-        <p class="mono mention">Vos informations servent uniquement à répondre à votre demande. <a class="lien" href="/confidentialite">Confidentialité</a></p>
+        <div class="deux-colonnes">
+          <label class="champ"><span class="mono">Surface approximative, en m² (facultatif)</span><input name="surface" inputmode="numeric"></label>
+          <label class="champ"><span class="mono">Échéance (vente, location, saison, ouverture…)</span><input name="echeance"></label>
+        </div>
+        <label class="champ"><span class="mono">Votre projet en quelques lignes</span><textarea name="message" rows="5" required></textarea></label>
+        <div class="consignes">
+          <p class="mono">Vous avez des photos ?</p>
+          <p>Envoyez-les après votre demande par WhatsApp ou par e-mail. Pour une pièce : une vue d'ensemble prise depuis l'entrée, en lumière du jour et sans flash, puis un détail des murs et du sol. Pour une œuvre : de face et en entier, puis un détail des zones abîmées.</p>
+        </div>
+        <label class="case"><input type="checkbox" name="consentement" value="oui" required><span>J'accepte que ces informations servent à répondre à ma demande. <a class="lien" href="/confidentialite">Confidentialité</a></span></label>
         <div class="envoi"><button class="lien-fort accent" type="submit">Envoyer la demande <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>
