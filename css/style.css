@@ -1,4 +1,4 @@
-/* Sonja Petric — feuille de style unique, sans framework.
+/* Petric Sonja — feuille de style unique, sans framework.
    Direction : minimalisme brutaliste, galerie dans l'ombre. Seuls transform et opacity sont animés. */
 
 /* ---------- Polices (hébergées sur le site, sous-ensemble latin) ---------- */
@@ -34,10 +34,10 @@
   --line: #5A4D42;
   --text: #F4EDE4;         /* sable éclairci, 11 : 1 sur --bg */
   --text-muted: #CDBFAF;   /* sable assourdi, 7,1 : 1 sur --bg */
-  --text-faint: #8A7B6D;   /* décoratif uniquement (3,1 : 1) */
+  --text-faint: #8A7B6D;   /* décoratif uniquement (3,1 : 1), jamais pour une information */
   --accent: #EBA27E;       /* terre cuite éclaircie pour le texte (6,1 : 1), 2 ou 3 éléments au plus */
 
-  /* Inter Tight est réservée au nom « Sonja Petric » (.nom) ; tout le reste est en Cormorant Garamond */
+  /* Inter Tight est réservée au nom « Petric Sonja » (.nom) ; tout le reste est en Cormorant Garamond */
   --nom: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --sans: "Cormorant Garamond", Garamond, "Times New Roman", serif;
   --mono: var(--sans);
@@ -104,7 +104,7 @@ body::after {
 
 /* Focus clavier : toujours visible */
 :focus { outline: none; }
-:focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .evitement {
   position: fixed; left: var(--marge); top: 12px; z-index: 200;
@@ -129,7 +129,7 @@ body::after {
 .entete-page { padding-top: calc(var(--entete) + clamp(64px, 10vw, 160px)); padding-bottom: clamp(48px, 7vw, 112px); border-bottom: 1px solid var(--line); }
 
 .index-section { display: flex; gap: 12px; color: var(--text-muted); margin-bottom: 24px; }
-.index-section span:first-child { color: var(--text-faint); }
+.index-section span:first-child { color: var(--text-muted); }
 
 @media (max-width: 760px) {
   .col-entete, .col-large, .col-principale { grid-column: 1 / -1; }
@@ -141,10 +141,14 @@ body::after {
 .nom, .logo, .hero-nom { font-family: var(--nom); }
 .titre-xxl.nom, .hero-nom { line-height: 0.92; letter-spacing: -0.035em; }
 .titre-xl { font-size: var(--t-xl); font-weight: 500; line-height: 1; letter-spacing: -0.01em; }
+.titre-m { font-size: var(--t-m); font-weight: 500; line-height: 1.2; margin-top: 2.2em; }
+.texte-legal { max-width: 68ch; }
+.texte-legal p { margin-top: 0.8em; }
+.texte-legal h2:first-child { margin-top: 0; }
 .titre-l { font-size: var(--t-l); font-weight: 500; line-height: 1.02; letter-spacing: -0.005em; }
 .texte-large { font-size: var(--t-m); line-height: 1.4; letter-spacing: 0; max-width: 34em; }
 .intro { margin-top: clamp(28px, 4vw, 56px); }
-.num { color: var(--text-faint); }
+.num { color: var(--text-muted); }
 
 /* ---------- Liens ---------- */
 .lien { position: relative; display: inline-block; }
@@ -185,7 +189,7 @@ body::after {
 .nav { grid-column: 7 / -1; display: flex; justify-content: flex-end; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
 .nav ul { display: flex; gap: clamp(14px, 2vw, 28px); }
 .lien-nav { position: relative; color: var(--text-muted); display: inline-flex; gap: 6px; white-space: nowrap; padding: 6px 0; transition: color 300ms var(--ease); }
-.lien-nav .num { color: var(--text-faint); }
+.lien-nav .num { color: var(--text-muted); }
 .lien-nav:hover, .lien-nav[aria-current] { color: var(--text); }
 .nav ul .lien-nav[aria-current]::before {
   content: ""; position: absolute; left: -10px; top: 50%; width: 4px; height: 4px; margin-top: -2px; background: var(--accent);
@@ -231,7 +235,7 @@ body::after {
   border-bottom: 1px solid var(--line);
 }
 .hero-meta { grid-column: 1 / span 6; grid-row: 1; display: flex; gap: 12px; color: var(--text-muted); }
-.hero-meta span:first-child { color: var(--text-faint); }
+.hero-meta span:first-child { color: var(--text-muted); }
 .hero-nom { grid-column: 1 / span 8; grid-row: 2; align-self: end; font-size: clamp(4rem, 13vw, 14rem); position: relative; z-index: 2; }
 .hero-texte { grid-column: 1 / span 5; grid-row: 3; display: grid; gap: 24px; }
 .surtitre { color: var(--text-muted); max-width: 40em; }
@@ -274,7 +278,7 @@ body::after {
 .oeuvre[hidden] { display: none; }
 
 .cartel { display: grid; grid-template-columns: 48px 1fr; column-gap: 12px; padding-top: 12px; color: var(--text-muted); border-top: 1px solid var(--line); margin-top: 12px; }
-.cartel-num { color: var(--text-faint); grid-row: span 2; }
+.cartel-num { color: var(--text-muted); grid-row: span 2; }
 .cartel-titre { color: var(--text); }
 .hero-portrait .cartel, .apropos-portrait .cartel { grid-template-columns: 1fr; }
 
@@ -296,14 +300,14 @@ body::after {
 
 .filtres { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 28px; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
 .filtre { position: relative; color: var(--text-muted); padding: 6px 0; transition: color 300ms var(--ease); }
-.filtre .compte { color: var(--text-faint); margin-left: 4px; }
+.filtre .compte { color: var(--text-muted); margin-left: 4px; }
 .filtre:hover, .filtre[aria-pressed="true"] { color: var(--text); }
 .filtre::after { content: ""; position: absolute; left: 0; right: 0; bottom: -17px; height: 1px; background: var(--text); transform: scaleX(0); transform-origin: left; transition: transform 600ms var(--ease); }
 .filtre[aria-pressed="true"]::after { transform: scaleX(1); }
 
 /* Image en attente : sobre, sans dégradé */
 .attente { aspect-ratio: 4 / 5; background: var(--bg-elevated); border: 1px solid var(--line); display: flex; align-items: flex-end; padding: 14px; }
-.attente span { font-family: var(--mono); font-size: var(--t-mono); text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); }
+.attente span { font-family: var(--mono); font-size: var(--t-mono); text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); }
 
 /* Chargement progressif : fondu depuis la couleur dominante */
 .js picture.fondu img { opacity: 0; transition: opacity 900ms var(--ease); }
@@ -362,7 +366,7 @@ body::after {
 .champ select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%), linear-gradient(135deg, var(--text-muted) 50%, transparent 50%); background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%; background-size: 5px 5px; background-repeat: no-repeat; }
 .champ select option { background: var(--bg-elevated); color: var(--text); }
 .champ input:hover, .champ textarea:hover, .champ select:hover { border-bottom-color: var(--text-muted); }
-.champ input:focus-visible, .champ textarea:focus-visible, .champ select:focus-visible { outline: none; border-bottom-color: var(--text); }
+.champ input:focus-visible, .champ textarea:focus-visible, .champ select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-bottom-color: var(--text); }
 .mention { color: var(--text-muted); text-transform: none; }
 .envoi { display: grid; gap: 12px; justify-items: start; }
 .envoi button[disabled] { opacity: 0.5; cursor: wait; }
