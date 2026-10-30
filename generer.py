@@ -11,7 +11,13 @@ from pathlib import Path
 RACINE = Path(__file__).parent
 LANGUES = ["fr", "en"]  # la première est la langue par défaut, à la racine
 EMAIL = "sonjapetric92@gmail.com"
-TELEPHONE = ""  # par exemple "+33 6 12 34 56 78" ; vide = non affiché
+TELEPHONE = "+33 6 09 49 18 75"  # vide = non affiché
+WHATSAPP = "33609491875"  # numéro au format international sans + ni espace, pour https://wa.me/ ; vide = non affiché
+SITE = "https://www.petricsonja.art"  # adresse publique, pour les liens canoniques, hreflang, JSON-LD et le plan du site
+# Mentions légales : la page n'est générée que lorsque SIRET est rempli (mention obligatoire).
+STATUT = {"fr": "Entrepreneuse individuelle (micro-entreprise)", "en": "Sole trader (micro-entreprise)"}  # à confirmer
+SIRET = ""
+ADRESSE = ""  # vide = « Cannes, sur rendez-vous »
 INSTAGRAM = "https://www.instagram.com/psonjap/"
 PHOTO_ACCUEIL = "sonja-petric-portrait.jpg"  # dans images/ ; None = cadre d'attente
 # Service qui transforme chaque demande de devis en e-mail pour Sonja.
@@ -24,6 +30,8 @@ CLE_FORMULAIRE = "53f87200-2afb-415d-aa77-5d1bc108841a"  # vide = formulaire pas
 PRESTATIONS = [
     {
         "id": "peinture",
+        "image": "illustrations/peinture-toile-console.jpg",
+        "alt": {"fr": "Illustration : grande toile abstraite terre cuite et ocre accrochée au-dessus d'un banc en bois, mur à la chaux", "en": "Illustration: large terracotta and ochre abstract canvas hung above a wooden bench, lime-washed wall"},
         "titre": {"fr": "Peinture", "en": "Painting"},
         "resume": {"fr": "Des toiles contemporaines aux lignes épurées, et des œuvres sur commande pensées pour votre intérieur.", "en": "Contemporary canvases with clean lines, and commissioned works designed for your interior."},
         "points": {
@@ -34,9 +42,10 @@ PRESTATIONS = [
     {
         "id": "restauration",
         "image": "restauration-avant-apres.jpg",
+        "alt": {"fr": "Tableau ancien avant et après restauration, vernis jauni puis couleurs retrouvées", "en": "Old painting before and after restoration, yellowed varnish then recovered colours"},
         "entier": True,  # image montrée en entier (avant / après), sans recadrage
         "titre": {"fr": "Restauration de peinture", "en": "Painting restoration"},
-        "resume": {"fr": "Formée à l'École supérieure d'art d'Avignon, elle redonne vie aux tableaux abîmés par le temps, dans le respect de l'œuvre.", "en": "Trained at the École supérieure d'art d'Avignon, she brings time-worn paintings back to life while respecting the original work."},
+        "resume": {"fr": "Formée à l'École supérieure d'art d'Avignon, elle traite les tableaux abîmés par le temps en intervenant le moins possible, dans le respect de l'œuvre.", "en": "Trained at the École supérieure d'art d'Avignon, she treats time-worn paintings with minimal intervention, respecting the original work."},
         "points": {
             "fr": ["Nettoyage et allègement des vernis", "Consolidation et retouches", "Conseils de conservation"],
             "en": ["Cleaning and varnish reduction", "Consolidation and retouching", "Conservation advice"],
@@ -45,6 +54,7 @@ PRESTATIONS = [
     {
         "id": "enduits",
         "image": "enduit-salon.jpg",
+        "alt": {"fr": "Salon aux murs en enduit décoratif ocre clair, éclairé par deux appliques", "en": "Living room with pale ochre decorative plaster walls lit by two wall lights"},
         "titre": {"fr": "Enduits décoratifs sur mesure", "en": "Bespoke decorative plaster"},
         "resume": {"fr": "Des murs uniques, créés sur mesure : matières minérales, textures subtiles et teintes choisies avec vous.", "en": "Unique walls, made to measure: mineral materials, subtle textures and colours chosen with you."},
         "points": {
@@ -54,8 +64,10 @@ PRESTATIONS = [
     },
     {
         "id": "home-staging",
+        "image": "illustrations/home-staging-salon.jpg",
+        "alt": {"fr": "Illustration : salon haussmannien clair mis en scène, canapé lin, table basse en travertin, tableau terre cuite", "en": "Illustration: bright Haussmann-style living room staged with a linen sofa, travertine coffee table and terracotta painting"},
         "titre": {"fr": "Home staging", "en": "Home staging"},
-        "resume": {"fr": "Valoriser un bien pour le vendre ou le louer plus vite, avec un regard d'artiste et des moyens maîtrisés.", "en": "Enhancing a property so it sells or rents faster, with an artist's eye and a controlled budget."},
+        "resume": {"fr": "Préparer un bien à la vente ou à la location pour qu'il se lise bien en photo et en visite : retirer, réordonner, corriger la couleur et la lumière.", "en": "Preparing a property for sale or rental so it reads clearly in photographs and viewings: removing, rearranging, correcting colour and light."},
         "points": {
             "fr": ["Conseil couleurs et agencement", "Rafraîchissement des murs avant les photos", "Mise en scène pour la vente ou la location"],
             "en": ["Colour and layout advice", "Wall refresh before the photo shoot", "Staging for sale or rental"],
@@ -63,34 +75,48 @@ PRESTATIONS = [
     },
 ]
 
-# Chaque réalisation : fichier image dans images/realisations/ (None tant qu'il n'y a pas de photo),
+# Chaque réalisation : fichier image dans images/realisations/ (ou "dossier/fichier" depuis images/),
 # prestation (un "id" de PRESTATIONS), titre et détails dans chaque langue.
-# Les trois premières apparaissent sur l'accueil.
+# "illustration": True = image d'ambiance (générée par IA), pas un chantier de Sonja : elle n'apparaît
+# que si ILLUSTRATIONS_DANS_REALISATIONS vaut True, avec la mention « Illustration » sur son cartel.
+# Une réalisation sans image ("image": None) n'est pas affichée.
+# Les trois premières affichées apparaissent sur l'accueil.
 REALISATIONS = [
-    {"image": "enduit-salon.jpg", "prestation": "enduits", "titre": {"fr": "Mur de salon en enduit décoratif", "en": "Living room wall in decorative plaster"}, "details": {"fr": "", "en": ""}},
-    {"image": "restauration-avant-apres.jpg", "entier": True, "prestation": "restauration", "titre": {"fr": "Tableau ancien, avant / après", "en": "Old painting, before / after"}, "details": {"fr": "", "en": ""}},
-    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
-    {"image": None, "prestation": "peinture", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Technique, dimensions, année]", "en": "[Medium, size, year]"}},
-    {"image": None, "prestation": "enduits", "titre": {"fr": "[Titre]", "en": "[Title]"}, "details": {"fr": "[Pièce, matière, ville]", "en": "[Room, material, town]"}},
+    {"image": "enduit-salon.jpg", "alt": {"fr": "Salon aux murs en enduit décoratif ocre clair, éclairé par deux appliques, canapé d'angle en tissu blanc cassé", "en": "Living room with pale ochre decorative plaster walls lit by two wall lights, off-white corner sofa"}, "prestation": "enduits", "titre": {"fr": "Mur de salon en enduit décoratif", "en": "Living room wall in decorative plaster"}, "details": {"fr": "", "en": ""}},
+    {"image": "restauration-avant-apres.jpg", "alt": {"fr": "Tableau ancien avant et après restauration : un cheval blanc bâté et deux chiens dans un paysage de montagne, vernis jauni en haut, couleurs retrouvées en bas", "en": "Old painting before and after restoration: a white pack horse and two dogs in a mountain landscape, yellowed varnish above, recovered colours below"}, "entier": True, "prestation": "restauration", "titre": {"fr": "Tableau ancien, avant / après", "en": "Old painting, before / after"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/peinture-formes-terre-cuite.jpg", "alt": {"fr": "Illustration : toile abstraite aux grandes formes arrondies terre cuite, rose poudré et blanc cassé", "en": "Illustration: abstract canvas with large rounded shapes in terracotta, dusty pink and off-white"}, "illustration": True, "prestation": "peinture", "titre": {"fr": "Formes en terre cuite", "en": "Terracotta shapes"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/enduit-tadelakt-salle-de-bain.jpg", "alt": {"fr": "Illustration : salle de bains entièrement en tadelakt terre cuite, vasque maçonnée, robinetterie laiton, niche en arc", "en": "Illustration: bathroom finished entirely in terracotta tadelakt, built-in basin, brass taps, arched niche"}, "illustration": True, "prestation": "enduits", "titre": {"fr": "Salle de bains en tadelakt", "en": "Tadelakt bathroom"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/peinture-diptyque-arches.jpg", "alt": {"fr": "Illustration : diptyque aux arches ocre, brun et terre cuite au-dessus d'une console en bois brut", "en": "Illustration: diptych of ochre, brown and terracotta arches above a raw wood console"}, "illustration": True, "prestation": "peinture", "titre": {"fr": "Diptyque aux arches", "en": "Arches diptych"}, "details": {"fr": "", "en": ""}},
+    {"image": "illustrations/enduit-chaux-olivier.jpg", "alt": {"fr": "Illustration : mur à la chaux sable en lumière rasante, ombre d'une branche d'olivier, jarre en terre cuite", "en": "Illustration: sand-coloured lime wall in raking light, shadow of an olive branch, terracotta jar"}, "illustration": True, "prestation": "enduits", "titre": {"fr": "Mur à la chaux", "en": "Lime plaster wall"}, "details": {"fr": "", "en": ""}},
 ]
 
+ILLUSTRATIONS_DANS_REALISATIONS = True  # True = montrer aussi les illustrations IA dans Réalisations et sur l'accueil
+
 PARCOURS = [
-    {"annee": "[Année]", "fr": "Formation à l'École supérieure d'art d'Avignon (ESAA)", "en": "Trained at the École supérieure d'art d'Avignon (ESAA)"},
-    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
-    {"annee": "[Année]", "fr": "[Formation, expérience ou exposition]", "en": "[Training, experience or exhibition]"},
+    # "annee" vide = non affichée. Ajouter ici les autres formations, expériences ou expositions.
+    {"annee": "", "fr": "DNSEP (Diplôme national supérieur d'expression plastique, grade Master) mention Conservation-restauration des biens culturels, École supérieure d'art d'Avignon", "en": "DNSEP (French national higher diploma in visual arts, Master's level), Conservation-restoration of cultural property, École supérieure d'art d'Avignon"},
 ]
 
 TEXTES = {
     "fr": {
-        "description": "Sonja Petric, Cannes : peinture, restauration de peinture, enduits décoratifs sur mesure et home staging sur toute la Côte d'Azur.",
+        "descriptions": {
+            "index": "Petric Sonja, Cannes : couleur, matière, agencement et home staging pour maisons, biens à vendre et lieux d'accueil, de la Côte d'Azur à Monaco.",
+            "prestations": "Conseil couleurs et matières, enduits, home staging et restauration de peinture, à Cannes, sur la Côte d'Azur et à Monaco. Sur devis.",
+            "realisations": "Réalisations de Petric Sonja : enduits décoratifs, home staging et restauration de tableaux, à Cannes et sur la Côte d'Azur.",
+            "a-propos": "Petric Sonja, diplômée en conservation-restauration des biens culturels (DNSEP, Avignon), porte un regard de restauratrice sur les intérieurs.",
+            "contact": "Parlez de votre projet à Petric Sonja : formulaire, e-mail, téléphone ou WhatsApp. Basée à Cannes, sur la Côte d'Azur et à Monaco.",
+            "confidentialite": "Comment Petric Sonja traite les informations envoyées par le formulaire de contact du site petricsonja.art.",
+            "mentions-legales": "Mentions légales du site petricsonja.art : éditrice, hébergeur, propriété intellectuelle et crédits.",
+        },
         "nav": {"index": "Accueil", "prestations": "Prestations", "realisations": "Réalisations", "a-propos": "À propos", "contact": "Contact"},
         "titres": {
-            "index": "Sonja Petric · Peinture, enduits décoratifs, home staging à Cannes",
-            "prestations": "Prestations · Sonja Petric",
-            "realisations": "Réalisations · Sonja Petric",
-            "a-propos": "À propos · Sonja Petric",
-            "contact": "Contact et devis · Sonja Petric",
+            "index": "Petric Sonja · Peinture, enduits décoratifs, home staging à Cannes",
+            "prestations": "Prestations · Petric Sonja",
+            "realisations": "Réalisations · Petric Sonja",
+            "a-propos": "À propos · Petric Sonja",
+            "contact": "Contact et devis · Petric Sonja",
+            "confidentialite": "Confidentialité · Petric Sonja",
+            "mentions-legales": "Mentions légales · Petric Sonja",
         },
         "menu": "Menu",
         "droits": "Tous droits réservés.",
@@ -98,7 +124,8 @@ TEXTES = {
         "accroche": "Artiste peintre à Cannes, je crée des toiles, des murs et des intérieurs contemporains, et je restaure les tableaux qui comptent pour vous.",
         "voir_prestations": "Mes prestations",
         "devis": "Demander un devis",
-        "photo_principale": "Portrait de Sonja Petric",
+        "photo_principale": "Portrait de Petric Sonja",
+        "portrait_alt": "Portrait en noir et blanc de Petric Sonja, cheveux longs, pull à col roulé sombre",
         "prestations": "Prestations",
         "prestations_intro": "Chaque projet est unique : je vous écoute, je vous conseille, puis je réalise le travail moi-même, du premier croquis à la dernière touche.",
         "en_savoir_plus": "En savoir plus →",
@@ -116,13 +143,13 @@ TEXTES = {
         "suivante": "Suivante",
         "a_propos": "À propos",
         "portrait": "Portrait",
-        "bio": "Formée à l'École supérieure d'art d'Avignon, Sonja Petric partage son travail entre la création et le savoir-faire : peinture, restauration de tableaux, enduits décoratifs et home staging.",
-        "bio_demarche": "Son style est contemporain et épuré : des lignes simples, des matières justes et des couleurs choisies avec soin, pour des œuvres et des lieux qui vous ressemblent.",
+        "bio": "Formée à l'École supérieure d'art d'Avignon, Petric Sonja partage son travail entre la création et le savoir-faire : peinture, restauration de tableaux, enduits décoratifs et home staging.",
+        "bio_demarche": "Son style est contemporain et épuré : des lignes simples, des matières justes et des couleurs choisies avec soin, pour des œuvres et des lieux cohérents avec leur histoire.",
         "parcours": "Parcours",
         "zone": "Atelier à Cannes. Intervient sur toute la Côte d'Azur : Cannes, Antibes, Nice, Grasse, Saint-Tropez et alentours.",
         "contact": "Contact",
         "ecrivez": "Parlons de votre projet",
-        "contact_intro": "Pour un devis, une commande ou une simple question, écrivez-moi : je réponds rapidement.",
+        "contact_intro": "Pour un devis, une commande ou une simple question, écrivez-moi : je réponds sous 48 h.",
         "email": "E-mail",
         "telephone": "Téléphone",
         "nom": "Nom",
@@ -134,7 +161,7 @@ TEXTES = {
         "ville": "Ville du projet",
         "mention": "Vos informations servent uniquement à répondre à votre demande.",
         "envoi": "Envoi en cours…",
-        "merci": "Merci, votre demande est bien envoyée. Je vous réponds au plus vite.",
+        "merci": "Votre demande est bien arrivée. Je vous réponds sous 48 h.",
         "erreur": "L'envoi n'a pas abouti. Vous pouvez m'écrire directement à",
         "pas_actif": "Le formulaire sera bientôt actif. En attendant, écrivez-moi à",
         "sujet": "Nouvelle demande de devis depuis petricsonja.art",
@@ -142,21 +169,36 @@ TEXTES = {
         "copier": "Copier",
         "copie": "Copié",
         "image_a_venir": "Image à venir",
+        "illustration": "Illustration",
         "echap": "Échap",
         "lieu": "Cannes, Côte d'Azur",
         "fermer_menu": "Fermer",
         "aller_contenu": "Aller au contenu",
         "atelier_libelle": "Atelier",
+        "confidentialite": "Confidentialité",
+        "mentions_legales": "Mentions légales",
+        "sur_rdv": "Cannes, sur rendez-vous",
+        "og_locale": "fr_FR",
     },
     "en": {
-        "description": "Sonja Petric, Cannes: painting, painting restoration, bespoke decorative plaster and home staging across the French Riviera.",
+        "descriptions": {
+            "index": "Petric Sonja, Cannes: colour, material, layout and home staging for homes, properties for sale and hospitality spaces, French Riviera and Monaco.",
+            "prestations": "Colour and material advice, decorative plaster, home staging and painting restoration in Cannes, on the French Riviera and in Monaco. On quotation.",
+            "realisations": "Projects by Petric Sonja: decorative plaster, home staging and painting restoration in Cannes and on the French Riviera.",
+            "a-propos": "Petric Sonja, trained in the conservation-restoration of cultural property (DNSEP, Avignon), brings a conservator's eye to interiors.",
+            "contact": "Tell Petric Sonja about your project: form, email, phone or WhatsApp. Based in Cannes, working across the French Riviera and Monaco.",
+            "confidentialite": "How Petric Sonja handles the information sent through the contact form on petricsonja.art.",
+            "mentions-legales": "Legal notice for petricsonja.art: publisher, host, intellectual property and credits.",
+        },
         "nav": {"index": "Home", "prestations": "Services", "realisations": "Projects", "a-propos": "About", "contact": "Contact"},
         "titres": {
-            "index": "Sonja Petric · Painting, decorative plaster, home staging in Cannes",
-            "prestations": "Services · Sonja Petric",
-            "realisations": "Projects · Sonja Petric",
-            "a-propos": "About · Sonja Petric",
-            "contact": "Contact and quotes · Sonja Petric",
+            "index": "Petric Sonja · Painting, decorative plaster, home staging in Cannes",
+            "prestations": "Services · Petric Sonja",
+            "realisations": "Projects · Petric Sonja",
+            "a-propos": "About · Petric Sonja",
+            "contact": "Contact and quotes · Petric Sonja",
+            "confidentialite": "Privacy · Petric Sonja",
+            "mentions-legales": "Legal notice · Petric Sonja",
         },
         "menu": "Menu",
         "droits": "All rights reserved.",
@@ -164,7 +206,8 @@ TEXTES = {
         "accroche": "A painter based in Cannes, I create contemporary canvases, walls and interiors, and restore the paintings that matter to you.",
         "voir_prestations": "My services",
         "devis": "Request a quote",
-        "photo_principale": "Portrait of Sonja Petric",
+        "photo_principale": "Portrait of Petric Sonja",
+        "portrait_alt": "Black and white portrait of Petric Sonja, long hair, dark roll-neck jumper",
         "prestations": "Services",
         "prestations_intro": "Every project is unique: I listen, I advise, then I carry out the work myself, from the first sketch to the final touch.",
         "en_savoir_plus": "Learn more →",
@@ -182,13 +225,13 @@ TEXTES = {
         "suivante": "Next",
         "a_propos": "About",
         "portrait": "Portrait",
-        "bio": "Trained at the École supérieure d'art d'Avignon, Sonja Petric divides her work between creation and craft: painting, painting restoration, decorative plaster and home staging.",
-        "bio_demarche": "Her style is contemporary and clean: simple lines, honest materials and carefully chosen colours, for works and spaces that feel like you.",
+        "bio": "Trained at the École supérieure d'art d'Avignon, Petric Sonja divides her work between creation and craft: painting, painting restoration, decorative plaster and home staging.",
+        "bio_demarche": "Her style is contemporary and clean: simple lines, honest materials and carefully chosen colours, for works and spaces in keeping with their history.",
         "parcours": "Background",
         "zone": "Studio in Cannes. Works across the French Riviera: Cannes, Antibes, Nice, Grasse, Saint-Tropez and the surrounding area.",
         "contact": "Contact",
         "ecrivez": "Let's talk about your project",
-        "contact_intro": "For a quote, a commission or a simple question, write to me: I reply quickly.",
+        "contact_intro": "For a quote, a commission or a simple question, write to me: I reply within 48 hours.",
         "email": "Email",
         "telephone": "Phone",
         "nom": "Name",
@@ -200,7 +243,7 @@ TEXTES = {
         "ville": "Project location",
         "mention": "Your details are only used to reply to your request.",
         "envoi": "Sending…",
-        "merci": "Thank you, your request has been sent. I will get back to you shortly.",
+        "merci": "Your request has arrived. I will reply within 48 hours.",
         "erreur": "The request could not be sent. You can email me directly at",
         "pas_actif": "The form will be active soon. In the meantime, email me at",
         "sujet": "New quote request from petricsonja.art",
@@ -208,16 +251,96 @@ TEXTES = {
         "copier": "Copy",
         "copie": "Copied",
         "image_a_venir": "Image to come",
+        "illustration": "Illustration",
         "echap": "Esc",
         "lieu": "Cannes, French Riviera",
         "fermer_menu": "Close",
         "aller_contenu": "Skip to content",
         "atelier_libelle": "Studio",
+        "confidentialite": "Privacy",
+        "mentions_legales": "Legal notice",
+        "sur_rdv": "Cannes, by appointment",
+        "og_locale": "en_GB",
     },
 }
 
 
 PAGES = ["index", "prestations", "realisations", "a-propos", "contact"]
+# Pages hors menu, liées depuis le pied de page. Les mentions légales attendent le SIRET.
+PAGES_LEGALES = ["confidentialite"] + (["mentions-legales"] if SIRET else [])
+
+LEGAL = {
+    "fr": {
+        "confidentialite": f"""## Responsable du traitement
+Petric Sonja, Cannes. Contact : {EMAIL}.
+
+## Informations collectées
+Le formulaire de contact recueille votre nom, votre e-mail, votre téléphone (facultatif), la prestation souhaitée, la ville du projet et votre message. Rien d'autre n'est collecté.
+
+## Pourquoi
+Uniquement pour répondre à votre demande et, si vous le souhaitez, établir un devis. Base légale : les mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).
+
+## Qui les reçoit
+Petric Sonja seule. Le message est acheminé par e-mail par le service Web3Forms. Le site est hébergé par Vercel. Vos informations ne sont ni vendues ni cédées.
+
+## Combien de temps
+Au plus 3 ans après notre dernier échange, puis elles sont supprimées.
+
+## Cookies
+Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni de publicité.
+
+## Vos droits
+Vous pouvez demander l'accès à vos informations, leur rectification, leur effacement, la limitation du traitement ou vous y opposer en écrivant à {EMAIL}. Vous pouvez aussi saisir la CNIL (www.cnil.fr).""",
+        "mentions-legales": f"""## Éditrice
+Petric Sonja, {STATUT["fr"]}. SIRET : {SIRET}. Adresse : {ADRESSE or "Cannes, sur rendez-vous"}. E-mail : {EMAIL}. Téléphone : {TELEPHONE}.
+
+Directrice de la publication : Petric Sonja.
+
+## Hébergeur
+Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis. vercel.com.
+
+## Propriété intellectuelle
+Les textes et les photographies de ce site sont la propriété de Petric Sonja, sauf mention contraire. Toute reproduction sans accord écrit est interdite.
+
+## Crédits
+Les images marquées « Illustration » sont des images d'ambiance générées par intelligence artificielle : ce ne sont pas des réalisations de Petric Sonja.""",
+    },
+    "en": {
+        "confidentialite": f"""## Data controller
+Petric Sonja, Cannes. Contact: {EMAIL}.
+
+## What is collected
+The contact form collects your name, email, phone number (optional), the service you are interested in, the project location and your message. Nothing else is collected.
+
+## Why
+Only to reply to your request and, if you wish, to prepare a quotation. Legal basis: pre-contractual steps taken at your request (Article 6(1)(b) GDPR).
+
+## Who receives it
+Petric Sonja alone. The message is delivered by email through the Web3Forms service. The site is hosted by Vercel. Your information is never sold or shared.
+
+## How long
+No more than 3 years after our last exchange, after which it is deleted.
+
+## Cookies
+This site sets no cookies and uses no analytics or advertising tools.
+
+## Your rights
+You may ask to access, correct or erase your information, restrict its use or object to it by writing to {EMAIL}. You may also contact the French data protection authority, the CNIL (www.cnil.fr).""",
+        "mentions-legales": f"""## Publisher
+Petric Sonja, {STATUT["en"]}. SIRET: {SIRET}. Address: {ADRESSE or "Cannes, by appointment"}. Email: {EMAIL}. Phone: {TELEPHONE}.
+
+Publication director: Petric Sonja.
+
+## Host
+Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, United States. vercel.com.
+
+## Intellectual property
+The texts and photographs on this site belong to Petric Sonja unless stated otherwise. No reproduction without written consent.
+
+## Credits
+Images marked "Illustration" are AI-generated mood images: they are not projects by Petric Sonja.""",
+    },
+}
 LARGEURS = [640, 1024, 1600]  # tailles générées pour chaque image (AVIF et WebP)
 
 
@@ -226,6 +349,15 @@ def chemin(langue, page):
     if langue == LANGUES[0]:
         return "/" if page == "index" else f"/{page}"
     return f"/{langue}" if page == "index" else f"/{langue}/{page}"
+
+
+def fichier_image(nom):
+    """Chemin depuis images/ : les noms simples sont dans images/realisations/."""
+    return nom if "/" in nom else f"realisations/{nom}"
+
+
+def realisations_visibles():
+    return [r for r in REALISATIONS if r["image"] and (ILLUSTRATIONS_DANS_REALISATIONS or not r.get("illustration"))]
 
 
 def num(n, chiffres=3):
@@ -301,10 +433,11 @@ def entete_section(numero, libelle):
 
 def oeuvre(r, n, total, t, langue, tailles):
     if r["image"]:
-        visuel = picture(f'realisations/{r["image"]}', r["titre"][langue], tailles)
+        visuel = picture(fichier_image(r["image"]), r.get("alt", r["titre"])[langue], tailles)
     else:
         visuel = attente(t)
-    details = " · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue]) if x)
+    mention = t["illustration"] if r.get("illustration") else ""
+    details = " · ".join(x for x in (nom_prestation(r["prestation"], langue), r["details"][langue], mention) if x)
     ouvrable = ' data-ouvrable tabindex="0" role="button"' if r["image"] else ""
     return f'''<figure class="oeuvre" data-categorie="{r["prestation"]}" data-numero="{num(n)}"{ouvrable} data-reveal>
           <div class="oeuvre-image">{visuel}</div>
@@ -334,14 +467,14 @@ def corps_index(t, langue):
           </a>
         </li>''' for n, p in enumerate(PRESTATIONS, 1)
     )
-    avec_image = [(n, r) for n, r in enumerate(REALISATIONS, 1) if r["image"]][:3]
+    avec_image = list(enumerate(realisations_visibles(), 1))[:3]
     recentes = "\n".join(
-        oeuvre(r, n, len(REALISATIONS), t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in avec_image
+        oeuvre(r, n, len(realisations_visibles()), t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in avec_image
     )
-    portrait = picture(PHOTO_ACCUEIL, t["photo_principale"], "(max-width: 760px) 100vw, 40vw", prioritaire=True) if PHOTO_ACCUEIL else attente(t)
+    portrait = picture(PHOTO_ACCUEIL, t["portrait_alt"], "(max-width: 760px) 100vw, 40vw", prioritaire=True) if PHOTO_ACCUEIL else attente(t)
     return f'''    <section class="hero grille">
       <p class="hero-meta mono" data-reveal><span>{num(1)}</span><span>{t["lieu"]}</span></p>
-      <h1 class="hero-nom" data-reveal="masque"><span class="ligne"><span>Sonja</span></span><span class="ligne"><span>Petric</span></span></h1>
+      <h1 class="hero-nom" data-reveal="masque"><span class="ligne"><span>Petric</span></span><span class="ligne"><span>Sonja</span></span></h1>
       <div class="hero-texte">
         <p class="mono surtitre" data-reveal>{t["surtitre"]}</p>
         <p class="texte-large" data-reveal>{t["accroche"]}</p>
@@ -349,7 +482,7 @@ def corps_index(t, langue):
       </div>
       <figure class="hero-portrait" data-reveal>
         <div class="hero-image">{portrait}</div>
-        <figcaption class="cartel mono"><span class="cartel-titre">Sonja Petric</span><span class="cartel-details">{t["photo_principale"]}</span></figcaption>
+        <figcaption class="cartel mono"><span class="cartel-titre">Petric Sonja</span><span class="cartel-details">{t["photo_principale"]}</span></figcaption>
       </figure>
     </section>
 
@@ -375,7 +508,7 @@ def corps_index(t, langue):
 def corps_prestations(t, langue):
     blocs = []
     for n, p in enumerate(PRESTATIONS, 1):
-        visuel = picture(f'realisations/{p["image"]}', p["titre"][langue], "(max-width: 760px) 100vw, 45vw") if p.get("image") else attente(t)
+        visuel = picture(fichier_image(p["image"]), p.get("alt", p["titre"])[langue], "(max-width: 760px) 100vw, 45vw") if p.get("image") else attente(t)
         points = "\n".join(f"            <li>{x}</li>" for x in p["points"][langue])
         blocs.append(f'''      <article class="prestation grille{" inverse" if n % 2 == 0 else ""}" id="{p["id"]}">
         <p class="mono num prestation-num" data-reveal>{num(n, 2)} / {num(len(PRESTATIONS), 2)}</p>
@@ -402,12 +535,13 @@ def corps_prestations(t, langue):
 
 
 def corps_realisations(t, langue):
-    total = len(REALISATIONS)
+    visibles = realisations_visibles()
+    total = len(visibles)
     filtres = "\n".join(
-        f'        <button class="filtre" data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]} <span class="compte">{sum(r["prestation"] == p["id"] for r in REALISATIONS)}</span></button>'
+        f'        <button class="filtre" data-filtre="{p["id"]}" aria-pressed="false">{p["titre"][langue]} <span class="compte">{sum(r["prestation"] == p["id"] for r in visibles)}</span></button>'
         for p in PRESTATIONS
     )
-    items = "\n        ".join(oeuvre(r, n, total, t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in enumerate(REALISATIONS, 1))
+    items = "\n        ".join(oeuvre(r, n, total, t, langue, "(max-width: 760px) 100vw, 50vw") for n, r in enumerate(visibles, 1))
     return f'''    <section class="entete-page grille">
       <div class="col-entete">{entete_section(3, t["realisations"])}</div>
       <div class="col-large">
@@ -443,17 +577,17 @@ def visionneuse(t):
 
 def corps_a_propos(t, langue):
     lignes = "\n".join(
-        f'          <li data-reveal><span class="mono annee">{e["annee"]}</span><span>{e[langue]}</span></li>' for e in PARCOURS
+        f'          <li data-reveal><span class="mono annee">{e["annee"] or "—"}</span><span>{e[langue]}</span></li>' for e in PARCOURS if "[" not in e[langue]
     )
-    portrait = picture(PHOTO_ACCUEIL, t["photo_principale"], "(max-width: 760px) 100vw, 35vw") if PHOTO_ACCUEIL else attente(t)
+    portrait = picture(PHOTO_ACCUEIL, t["portrait_alt"], "(max-width: 760px) 100vw, 35vw") if PHOTO_ACCUEIL else attente(t)
     return f'''    <section class="entete-page grille">
       <div class="col-entete">{entete_section(4, t["a_propos"])}</div>
       <div class="col-large">
-        {titre_masque("h1", "Sonja Petric", "titre-xxl nom")}
+        {titre_masque("h1", "Petric Sonja", "titre-xxl nom")}
       </div>
     </section>
     <section class="section apropos grille">
-      <figure class="apropos-portrait" data-reveal>{portrait}<figcaption class="cartel mono"><span class="cartel-titre">Sonja Petric</span><span class="cartel-details">{t["lieu"]}</span></figcaption></figure>
+      <figure class="apropos-portrait" data-reveal>{portrait}<figcaption class="cartel mono"><span class="cartel-titre">Petric Sonja</span><span class="cartel-details">{t["lieu"]}</span></figcaption></figure>
       <div class="apropos-texte">
         <p class="texte-large" data-reveal>{t["bio"]}</p>
         <p data-reveal>{t["bio_demarche"]}</p>
@@ -471,6 +605,7 @@ def corps_a_propos(t, langue):
 def corps_contact(t, langue):
     options = "\n".join(f'              <option>{p["titre"][langue]}</option>' for p in PRESTATIONS)
     tel = f'\n          <li><span class="mono etiquette">{t["telephone"]}</span><a class="lien" href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a></li>' if TELEPHONE else ""
+    whatsapp = f'        <li><span class="mono etiquette">WhatsApp</span><a class="lien" href="https://wa.me/{WHATSAPP}" rel="noopener">{TELEPHONE}</a></li>' if WHATSAPP else ""
     if SERVICE_FORMULAIRE == "formspree":
         adresse, caches = f"https://formspree.io/f/{CLE_FORMULAIRE}", f'        <input type="hidden" name="_subject" value="{t["sujet"]}">'
     else:
@@ -488,6 +623,7 @@ def corps_contact(t, langue):
     <section class="section contact grille">
       <ul class="coordonnees" data-reveal>
         <li><span class="mono etiquette">{t["email"]}</span><a class="lien email" href="mailto:{EMAIL}">{EMAIL}</a> <button class="copier mono" type="button" data-copier="{EMAIL}" data-copie="{t["copie"]}">{t["copier"]}</button></li>{tel}
+{whatsapp}
         <li><span class="mono etiquette">Instagram</span><a class="lien" href="{INSTAGRAM}" rel="noopener">@psonjap</a></li>
         <li><span class="mono etiquette">{t["atelier_libelle"]}</span><span>{t["zone"]}</span></li>
       </ul>
@@ -510,10 +646,75 @@ def corps_contact(t, langue):
           <label class="champ"><span class="mono">{t["ville"]}</span><input name="ville" autocomplete="address-level2"></label>
         </div>
         <label class="champ"><span class="mono">{t["message"]}</span><textarea name="message" rows="5" required></textarea></label>
-        <p class="mono mention">{t["mention"]}</p>
+        <p class="mono mention">{t["mention"]} <a class="lien" href="{chemin(langue, "confidentialite")}">{t["confidentialite"]}</a></p>
         <div class="envoi"><button class="lien-fort accent" type="submit">{t["envoyer"]} <span aria-hidden="true">→</span></button><p class="etat mono" role="status" aria-live="polite"></p></div>
       </form>
     </section>'''
+
+
+def corps_legal(nom):
+    def corps(t, langue):
+        blocs = []
+        for bloc in LEGAL[langue][nom].split("\n\n"):
+            if bloc.startswith("## "):
+                titre, _, reste = bloc[3:].partition("\n")
+                blocs.append(f'        <h2 class="titre-m">{escape(titre)}</h2>')
+                if reste:
+                    blocs.append(f"        <p>{escape(reste)}</p>")
+            else:
+                blocs.append(f"        <p>{escape(bloc)}</p>")
+        contenu = "\n".join(blocs)
+        return f'''    <section class="entete-page grille">
+      <div class="col-large">
+        <h1 class="titre-xl">{t["titres"][nom].split(" · ")[0]}</h1>
+      </div>
+    </section>
+    <section class="section grille">
+      <div class="col-large texte-legal">
+{contenu}
+      </div>
+    </section>'''
+    return corps
+
+
+def json_ld(langue):
+    """Données structurées de l'accueil : l'activité et la personne."""
+    import json
+    contact = {"email": EMAIL}
+    if TELEPHONE:
+        contact["telephone"] = TELEPHONE.replace(" ", "")
+    donnees = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "ProfessionalService",
+                "@id": f"{SITE}/#studio",
+                "name": "Petric Sonja",
+                "description": TEXTES[langue]["descriptions"]["index"],
+                "url": SITE + chemin(langue, "index"),
+                **contact,
+                "image": f"{SITE}/images/{PHOTO_ACCUEIL}",
+                "address": {"@type": "PostalAddress", "addressLocality": "Cannes", "addressRegion": "Provence-Alpes-Côte d'Azur", "addressCountry": "FR"},
+                "areaServed": [{"@type": "AdministrativeArea", "name": "Côte d'Azur"}, {"@type": "Country", "name": "Monaco"}],
+                "availableLanguage": ["fr", "en"],
+                "sameAs": [INSTAGRAM],
+                "founder": {"@id": f"{SITE}/#personne"},
+            },
+            {
+                "@type": "Person",
+                "@id": f"{SITE}/#personne",
+                "name": "Petric Sonja",
+                "givenName": "Sonja",
+                "familyName": "Petric",
+                "jobTitle": "Directrice artistique d'intérieur" if langue == "fr" else "Interior art director",
+                "knowsAbout": ["couleur", "matières", "agencement", "home staging", "accrochage d'œuvres", "conservation-restauration de peinture"],
+                "alumniOf": {"@type": "CollegeOrUniversity", "name": "École supérieure d'art d'Avignon"},
+                "hasCredential": {"@type": "EducationalOccupationalCredential", "name": "DNSEP mention Conservation-restauration des biens culturels", "educationalLevel": "Master"},
+                "sameAs": [INSTAGRAM],
+            },
+        ],
+    }
+    return '  <script type="application/ld+json">' + json.dumps(donnees, ensure_ascii=False) + "</script>\n"
 
 
 CORPS = {
@@ -522,12 +723,16 @@ CORPS = {
     "realisations": corps_realisations,
     "a-propos": corps_a_propos,
     "contact": corps_contact,
+    "confidentialite": corps_legal("confidentialite"),
+    "mentions-legales": corps_legal("mentions-legales"),
 }
 
 
 def page(langue, nom):
     t = TEXTES[langue]
-    index_page = PAGES.index(nom) + 1
+    index_page = PAGES.index(nom) + 1 if nom in PAGES else None
+    description = t["descriptions"][nom]
+    url = SITE + chemin(langue, nom)
     nav = "\n".join(
         f'          <li><a class="lien-nav" href="{chemin(langue, p)}"{" aria-current=\"page\"" if p == nom else ""}><span class="num">{num(i, 2)}</span>{t["nav"][p]}</a></li>'
         for i, p in enumerate(PAGES, 1)
@@ -535,7 +740,9 @@ def page(langue, nom):
     langues = "".join(
         f'<a class="lien-nav" href="{chemin(l, nom)}" lang="{l}" hreflang="{l}"{" aria-current=\"true\"" if l == langue else ""}>{l.upper()}</a>' for l in LANGUES
     )
-    alternates = "\n".join(f'  <link rel="alternate" hreflang="{l}" href="{chemin(l, nom)}">' for l in LANGUES)
+    alternates = "\n".join(f'  <link rel="alternate" hreflang="{l}" href="{SITE}{chemin(l, nom)}">' for l in LANGUES)
+    alternates += f'\n  <link rel="alternate" hreflang="x-default" href="{SITE}{chemin(LANGUES[0], nom)}">'
+    ld = json_ld(langue) if nom == "index" else ""
     extra = visionneuse(t) if nom in ("realisations", "index") else ""
     return f'''<!doctype html>
 <html lang="{langue}">
@@ -543,24 +750,29 @@ def page(langue, nom):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{t["titres"][nom]}</title>
-  <meta name="description" content="{t["description"]}">
-  <meta name="theme-color" content="#0E0E0E">
+  <meta name="description" content="{description}">
+  <link rel="canonical" href="{url}">
+  <meta name="theme-color" content="#3A3029">
   <meta name="color-scheme" content="dark">
   <meta property="og:title" content="{t["titres"][nom]}">
-  <meta property="og:description" content="{t["description"]}">
+  <meta property="og:description" content="{description}">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="{url}">
+  <meta property="og:locale" content="{t["og_locale"]}">
+  <meta property="og:image" content="{SITE}/images/{PHOTO_ACCUEIL}">
+  <meta name="twitter:card" content="summary_large_image">
 {alternates}
   <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
-  <script>document.documentElement.classList.add("js")</script>
+{ld}  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
   <a class="evitement mono" href="#contenu">{t["aller_contenu"]}</a>
   <header class="entete">
-    <a class="logo" href="{chemin(langue, "index")}">Sonja Petric</a>
-    <p class="indicateur mono" aria-hidden="true"><span class="num">{num(index_page, 2)}</span> / {num(len(PAGES), 2)} — {t["nav"][nom]}</p>
+    <a class="logo" href="{chemin(langue, "index")}"><img class="logo-sp" src="/images/logo-sp.svg" alt="" width="18" height="38">Petric Sonja</a>
+    <p class="indicateur mono" aria-hidden="true">{f'<span class="num">{num(index_page, 2)}</span> / {num(len(PAGES), 2)} — {t["nav"][nom]}' if index_page else t["titres"][nom].split(" · ")[0]}</p>
     <nav class="nav mono" id="menu" aria-label="Menu">
       <ul>
 {nav}
@@ -575,10 +787,13 @@ def page(langue, nom):
   </main>
 {extra}
   <footer class="pied mono grille">
-    <span>© <span id="annee"></span> Sonja Petric</span>
+    <span>© <span id="annee"></span> Petric Sonja</span>
     <span>{t["lieu"]}</span>
     <a class="lien" href="mailto:{EMAIL}">{EMAIL}</a>
+    {f'<a class="lien" href="tel:{TELEPHONE.replace(" ", "")}">{TELEPHONE}</a>' if TELEPHONE else ""}
+    {f'<a class="lien" href="https://wa.me/{WHATSAPP}" rel="noopener">WhatsApp</a>' if WHATSAPP else ""}
     <a class="lien" href="{INSTAGRAM}" rel="noopener">Instagram</a>
+    {"".join(f'<a class="lien" href="{chemin(langue, p)}">{t["confidentialite" if p == "confidentialite" else "mentions_legales"]}</a>' for p in PAGES_LEGALES)}
   </footer>
   <div class="curseur" aria-hidden="true"><div class="curseur-anneau"><span class="curseur-label"></span></div><div class="curseur-point"></div><div class="curseur-coords"></div></div>
   <script src="/js/main.js" defer></script>
@@ -591,6 +806,16 @@ if __name__ == "__main__":
     for langue in LANGUES:
         dossier = RACINE if langue == LANGUES[0] else RACINE / langue
         dossier.mkdir(exist_ok=True)
-        for nom in PAGES:
+        for nom in PAGES + PAGES_LEGALES:
             (dossier / f"{nom}.html").write_text(page(langue, nom), encoding="utf-8")
             print(f"{dossier.relative_to(RACINE) / (nom + '.html')}")
+    urls = []
+    for nom in PAGES + PAGES_LEGALES:
+        liens = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{l}" href="{SITE}{chemin(l, nom)}"/>' for l in LANGUES)
+        urls += [f"  <url>\n    <loc>{SITE}{chemin(l, nom)}</loc>{liens}\n  </url>" for l in LANGUES]
+    (RACINE / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
+        + "\n".join(urls) + "\n</urlset>\n", encoding="utf-8")
+    (RACINE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
+    print("sitemap.xml, robots.txt")

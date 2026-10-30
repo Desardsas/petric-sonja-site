@@ -1,4 +1,4 @@
-# Sonja Petric — site vitrine
+# Petric Sonja — site vitrine
 
 Site statique en HTML, CSS et un peu de JavaScript, sans framework ni étape de compilation. Il se déploie tel quel sur Vercel (ou tout autre hébergeur).
 
@@ -8,7 +8,7 @@ Pour remettre un mot de passe avant chaque page, restaurer `middleware.js` depui
 
 ## Design
 
-Direction « galerie dans l'ombre » : fond quasi noir, grain léger, Cormorant Garamond pour tout le site et Inter Tight pour le nom « Sonja Petric » seulement, hébergées dans `fonts/` (licence SIL OFL), grille de 12 colonnes, sections et œuvres numérotées, images jamais recadrées avec un cartel en petites capitales, accent ocre (`--accent`) sur 2 ou 3 éléments. Les couleurs, polices et espacements sont des variables en haut de `css/style.css`.
+Direction « galerie dans l'ombre » : fond quasi noir, grain léger, Cormorant Garamond pour tout le site et Inter Tight pour le nom « Petric Sonja » seulement, hébergées dans `fonts/` (licence SIL OFL), grille de 12 colonnes, sections et œuvres numérotées, images jamais recadrées avec un cartel en petites capitales, palette tirée du logo SP (sable `#D9C7B2` et terre cuite `#8C462E`) : fond brun cacao chaud, textes sable, accent terre cuite (`--accent`) sur 2 ou 3 éléments. Le monogramme est dans `images/logo-sp.svg` (en-tête) et `images/favicon.svg`. Les couleurs, polices et espacements sont des variables en haut de `css/style.css`.
 
 Le curseur personnalisé, les révélations au défilement, la vue en grand et le formulaire sont dans `js/main.js`, sans bibliothèque. Le curseur est désactivé sur écran tactile et quand le visiteur demande moins d'animations ; dans ce cas tout s'affiche aussi sans mouvement.
 
@@ -27,6 +27,12 @@ python3 generer.py
 ```
 
 puis commit des fichiers `.html` mis à jour. Les textes entre crochets `[...]` sont à remplacer par le vrai contenu.
+
+## Pages légales, référencement
+
+`confidentialite` est générée dans chaque langue et liée depuis le pied de page et le formulaire. `mentions-legales` n'est générée qu'une fois `SIRET` rempli en haut de `generer.py` (avec `STATUT` et `ADRESSE`), car le SIRET y est obligatoire. Leurs textes sont dans `LEGAL`.
+
+`generer.py` écrit aussi `sitemap.xml` et `robots.txt`, ajoute à chaque page un lien canonique, les `hreflang` absolus (avec `x-default`) et l'image de partage, et place les données structurées (JSON-LD) sur l'accueil. L'adresse publique est `SITE`.
 
 ## Ajouter une réalisation
 
