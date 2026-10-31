@@ -32,7 +32,7 @@ puis commit des fichiers `.html` mis à jour. Les textes entre crochets `[...]` 
 
 ## Pages légales, référencement
 
-`confidentialite` est générée dans chaque langue et liée depuis le pied de page et le formulaire. `mentions-legales` n'est générée qu'une fois `SIRET` rempli en haut de `generer.py` (avec `STATUT` et `ADRESSE`), car le SIRET y est obligatoire. Leurs textes sont dans `LEGAL`.
+`confidentialite` est générée dans chaque langue et liée depuis le pied de page et le formulaire. `mentions-legales` n'est générée qu'une fois `SIREN` rempli en haut de `generer.py` (avec `STATUT` et `ADRESSE`), car le SIREN y est obligatoire. Leurs textes sont dans `LEGAL`.
 
 `generer.py` écrit aussi `sitemap.xml` et `robots.txt`, ajoute à chaque page un lien canonique, les `hreflang` absolus (avec `x-default`) et l'image de partage, et place les données structurées (JSON-LD) sur l'accueil. L'adresse publique est `SITE`.
 

@@ -15,9 +15,9 @@ EMAIL = "sonjapetric92@gmail.com"
 TELEPHONE = "+33 6 09 49 18 75"  # vide = non affiché
 WHATSAPP = "33609491875"  # numéro au format international sans + ni espace, pour https://wa.me/ ; vide = non affiché
 SITE = "https://www.petricsonja.art"  # adresse publique, pour les liens canoniques, hreflang, JSON-LD et le plan du site
-# Mentions légales : la page n'est générée que lorsque SIRET est rempli (mention obligatoire).
+# Mentions légales : la page n'est générée que lorsque SIREN est rempli (mention obligatoire).
 STATUT = {"fr": "Entrepreneuse individuelle (micro-entreprise)", "en": "Sole trader (micro-entreprise)"}  # à confirmer
-SIRET = ""
+SIREN = "899 621 312"  # numéro d'entreprise (INSEE) ; le SIRET y ajoute 5 chiffres d'établissement
 ADRESSE = ""  # vide = « Cannes, sur rendez-vous »
 INSTAGRAM = "https://www.instagram.com/psonjap/"
 PHOTO_ACCUEIL = "sonja-petric-portrait.jpg"  # dans images/ ; None = cadre d'attente
@@ -464,8 +464,8 @@ PROFILS = {
 # Pages du menu, dans l'ordre. L'accueil est le logo.
 NAV = ["projets", "prestations", "a-propos", "contact"]
 PAGES = ["index", "projets", "prestations", "professionnels", "conservation-restauration", "a-propos", "contact"]
-# Pages hors menu, liées depuis le pied de page. Les mentions légales attendent le SIRET.
-PAGES_LEGALES = ["confidentialite"] + (["mentions-legales"] if SIRET else [])
+# Pages hors menu, liées depuis le pied de page. Les mentions légales attendent le SIREN (vide = page non générée).
+PAGES_LEGALES = ["confidentialite"] + (["mentions-legales"] if SIREN else [])
 # Adresse de chaque page dans chaque langue (sans .html). Une page absente garde son nom interne.
 SLUGS = {
     "fr": {},
@@ -496,7 +496,7 @@ Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience ni
 ## Vos droits
 Vous pouvez demander l'accès à vos informations, leur rectification, leur effacement, la limitation du traitement ou vous y opposer en écrivant à {EMAIL}. Vous pouvez aussi saisir la CNIL (www.cnil.fr).""",
         "mentions-legales": f"""## Éditrice
-Petric Sonja, {STATUT["fr"]}. SIRET : {SIRET}. Adresse : {ADRESSE or "Cannes, sur rendez-vous"}. E-mail : {EMAIL}. Téléphone : {TELEPHONE}.
+Petric Sonja, {STATUT["fr"]}. SIREN : {SIREN}. Adresse : {ADRESSE or "Cannes, sur rendez-vous"}. E-mail : {EMAIL}. Téléphone : {TELEPHONE}.
 
 Directrice de la publication : Petric Sonja.
 
@@ -531,7 +531,7 @@ This site sets no cookies and uses no analytics or advertising tools.
 ## Your rights
 You may ask to access, correct or erase your information, restrict its use or object to it by writing to {EMAIL}. You may also contact the French data protection authority, the CNIL (www.cnil.fr).""",
         "mentions-legales": f"""## Publisher
-Petric Sonja, {STATUT["en"]}. SIRET: {SIRET}. Address: {ADRESSE or "Cannes, by appointment"}. Email: {EMAIL}. Phone: {TELEPHONE}.
+Petric Sonja, {STATUT["en"]}. SIREN: {SIREN}. Address: {ADRESSE or "Cannes, by appointment"}. Email: {EMAIL}. Phone: {TELEPHONE}.
 
 Publication director: Petric Sonja.
 
