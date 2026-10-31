@@ -462,7 +462,7 @@ PROFILS = {
 }
 
 # Pages du menu, dans l'ordre. L'accueil est le logo.
-NAV = ["projets", "prestations", "a-propos", "contact"]
+NAV = ["projets", "prestations", "conservation-restauration", "a-propos", "contact"]
 PAGES = ["index", "projets", "prestations", "professionnels", "conservation-restauration", "a-propos", "contact"]
 # Pages hors menu, liées depuis le pied de page. Les mentions légales attendent le SIREN (vide = page non générée).
 PAGES_LEGALES = ["confidentialite"] + (["mentions-legales"] if SIREN else [])
@@ -1211,7 +1211,7 @@ def page(langue, nom, corps=None, titre=None, robots=""):
     alternates += f'\n  <link rel="alternate" hreflang="x-default" href="{SITE}{chemin(LANGUES[0], nom)}">'
     ld = "" if corps else json_ld(langue, nom)
     extra = visionneuse(t) if nom in ("projets", "index") and not corps else ""
-    pied_pages = ["professionnels", "conservation-restauration"] + PAGES_LEGALES
+    pied_pages = ["professionnels"] + PAGES_LEGALES
     indicateur = f'<span class="num">{num(index_page, 2)}</span> / {num(len(NAV), 2)} — {t["nav"][nom]}' if index_page else titre.split(" · ")[0]
     return f'''<!doctype html>
 <html lang="{langue}">

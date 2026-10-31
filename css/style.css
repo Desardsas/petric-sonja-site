@@ -305,11 +305,11 @@ body::after {
 @media (max-width: 1600px) {
   .indicateur { display: none; }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1440px) {
   .nav ul { gap: 14px; }
   .lien-nav .num { display: none; }
 }
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .menu-bouton { display: block; }
   .nav {
     position: fixed; inset: var(--entete) 0 0 0; z-index: 49;
@@ -324,7 +324,7 @@ body::after {
   .nav ul li { border-bottom: 1px solid var(--line); }
   .nav ul .lien-nav { font-family: var(--serif); text-transform: none; letter-spacing: 0; font-size: clamp(2.4rem, 10vw, 3.8rem); font-weight: 500; line-height: 1; padding: 18px 0; gap: 16px; align-items: baseline; color: var(--text); }
   .nav ul .lien-nav .num { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; }
-  .nav ul .lien-nav { display: flex; width: 100%; }
+  .nav ul .lien-nav { display: flex; width: 100%; white-space: normal; overflow-wrap: anywhere; }
   .nav ul .lien-nav[aria-current]::before { left: auto; right: 0; }
   .langues { border: 0; padding: 0; }
 }
