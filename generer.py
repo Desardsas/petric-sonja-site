@@ -16,7 +16,7 @@ TELEPHONE = "+33 6 09 49 18 75"  # vide = non affiché
 WHATSAPP = "33609491875"  # numéro au format international sans + ni espace, pour https://wa.me/ ; vide = non affiché
 SITE = "https://www.petricsonja.art"  # adresse publique, pour les liens canoniques, hreflang, JSON-LD et le plan du site
 # Mentions légales : la page n'est générée que lorsque SIREN est rempli (mention obligatoire).
-STATUT = {"fr": "Entrepreneuse individuelle (micro-entreprise)", "en": "Sole trader (micro-entreprise)"}  # à confirmer
+STATUT = {"fr": "Entrepreneuse individuelle", "en": "Sole trader (entrepreneuse individuelle)"}  # confirmé par François le 31/10
 SIREN = "899 621 312"  # numéro d'entreprise (INSEE) ; le SIRET y ajoute 5 chiffres d'établissement
 ADRESSE = ""  # vide = « Cannes, sur rendez-vous »
 INSTAGRAM = "https://www.instagram.com/psonjap/"
