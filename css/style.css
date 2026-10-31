@@ -621,3 +621,14 @@ body.vis-active { overflow: hidden; }
   .js picture.fondu img { opacity: 1; }
   @view-transition { navigation: none; }
 }
+
+/* Curseur pinceau (souris uniquement, ajouté par main.js) : pinceau au repos, pinceau chargé de terre sur ce qui se clique.
+   La traînée est dessinée dans un canvas par main.js. */
+.pinceau, .pinceau body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='translate(2.5 29.5) rotate(45)' stroke='%23EFEAE2' stroke-width='1.5' stroke-linejoin='round' paint-order='stroke'%3E%3Cpath d='M-2.4 -17 L-1.5 -35.5 Q0 -38 1.5 -35.5 L2.4 -17Z' fill='%231A1714'/%3E%3Crect x='-3.3' y='-17.5' width='6.6' height='6.5' fill='%238A8580'/%3E%3Cpath d='M0 0 C-1.2 -3 -3.3 -7 -3.3 -11 L3.3 -11 C3.3 -7 1.2 -3 0 0Z' fill='%233B2F27'/%3E%3C/g%3E%3Cpath d='M2.5 29.5 C3.2 27.2 4.2 25.6 5.6 24.2 L7.8 26.4 C6.4 27.8 4.8 28.8 2.5 29.5Z' fill='%23A34A26'/%3E%3C/svg%3E") 2 30, auto; }
+.pinceau a, .pinceau button, .pinceau summary, .pinceau label, .pinceau select, .pinceau [role="button"], .pinceau .case { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='translate(2.5 29.5) rotate(45)' stroke='%23EFEAE2' stroke-width='1.5' stroke-linejoin='round' paint-order='stroke'%3E%3Cpath d='M-2.4 -17 L-1.5 -35.5 Q0 -38 1.5 -35.5 L2.4 -17Z' fill='%231A1714'/%3E%3Crect x='-3.3' y='-17.5' width='6.6' height='6.5' fill='%238A8580'/%3E%3Cpath d='M0 0 C-1.2 -3 -3.3 -7 -3.3 -11 L3.3 -11 C3.3 -7 1.2 -3 0 0Z' fill='%23A34A26'/%3E%3C/g%3E%3Cpath d='M2.5 29.5 C3.2 27.2 4.2 25.6 5.6 24.2 L7.8 26.4 C6.4 27.8 4.8 28.8 2.5 29.5Z' fill='%23A34A26'/%3E%3C/svg%3E") 2 30, pointer; }
+.pinceau input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), .pinceau textarea { cursor: text; }
+.pinceau .oeuvre[data-ouvrable] { cursor: zoom-in; }
+.pinceau .envoi button[disabled] { cursor: wait; }
+.trainee { position: fixed; inset: 0; z-index: 300; pointer-events: none; mix-blend-mode: multiply; }
+:root[data-theme="sombre"] .trainee { mix-blend-mode: normal; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="clair"]) .trainee { mix-blend-mode: normal; } }
