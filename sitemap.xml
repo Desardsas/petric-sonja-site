@@ -80,4 +80,14 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/confidentialite"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/privacy"/>
   </url>
+  <url>
+    <loc>https://www.petricsonja.art/mentions-legales</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/mentions-legales"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/legal"/>
+  </url>
+  <url>
+    <loc>https://www.petricsonja.art/en/legal</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/mentions-legales"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/legal"/>
+  </url>
 </urlset>
