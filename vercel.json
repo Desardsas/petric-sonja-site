@@ -2,7 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/galerie", "destination": "/realisations", "permanent": true },
-    { "source": "/en/galerie", "destination": "/en/realisations", "permanent": true }
+    { "source": "/galerie", "destination": "/projets", "permanent": true },
+    { "source": "/realisations", "destination": "/projets", "permanent": true },
+    { "source": "/en/galerie", "destination": "/en/projects", "permanent": true },
+    { "source": "/en/realisations", "destination": "/en/projects", "permanent": true },
+    { "source": "/en/prestations", "destination": "/en/services", "permanent": true },
+    { "source": "/en/a-propos", "destination": "/en/about", "permanent": true },
+    { "source": "/en/confidentialite", "destination": "/en/privacy", "permanent": true }
   ]
 }

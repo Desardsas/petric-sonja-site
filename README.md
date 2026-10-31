@@ -20,7 +20,7 @@ L'audit et la note d'intention de la refonte sont dans `docs/`.
 
 ## Pages et langues
 
-Cinq pages en français à la racine (`index`, `prestations`, `realisations`, `a-propos`, `contact`) et leur version anglaise dans `en/`. Un lien FR / EN en haut de chaque page mène à la même page dans l'autre langue. L'ancienne adresse `/galerie` redirige vers `/realisations` (`vercel.json`).
+Sept pages en français à la racine (`index`, `projets`, `prestations`, `professionnels`, `conservation-restauration`, `a-propos`, `contact`), plus `confidentialite`, et leur version anglaise dans `en/` avec des adresses anglaises (`/en/projects`, `/en/services`, `/en/professionals`, `/en/conservation`, `/en/about`, `/en/privacy` ; table `SLUGS` dans `generer.py`). Le menu montre Projets, Prestations, À propos et Contact ; Professionnels et Conservation-restauration sont liés depuis l'accueil, À propos et le pied de page. Les anciennes adresses (`/galerie`, `/realisations`, `/en/prestations`, `/en/a-propos`…) redirigent vers les nouvelles (`vercel.json`).
 
 Ces fichiers HTML sont **générés** par `generer.py` : on ne les modifie pas à la main. Coordonnées, prestations, réalisations, parcours et tous les textes sont en haut de `generer.py`. Après une modification :
 
@@ -39,10 +39,10 @@ puis commit des fichiers `.html` mis à jour. Les textes entre crochets `[...]` 
 ## Ajouter une réalisation
 
 1. Déposer la photo dans `images/realisations/` (JPEG, 1600 px de large maximum, nom sans espace, par exemple `salon-tadelakt.jpg`).
-2. Dans `generer.py`, ajouter une entrée à `REALISATIONS` avec `"image": "salon-tadelakt.jpg"`, la prestation concernée (un `id` de `PRESTATIONS`), son titre et ses détails dans chaque langue. Les trois premières apparaissent sur l'accueil.
+2. Dans `generer.py`, ajouter une entrée à `REALISATIONS` avec `"image": "salon-tadelakt.jpg"`, la prestation concernée (un `id` de `PRESTATIONS` ou `"conservation"`), son titre, son lieu (ville ou secteur, jamais d'adresse) et son année. Les trois premières apparaissent sur l'accueil.
 3. Lancer `python3 generer.py`.
 
-Un lien vers `/realisations#enduits` ouvre la page déjà filtrée sur une prestation.
+Les projets réels vont au registre de la page Projets (lieu anonymisé et année dans `REALISATIONS`, « — » si vide) ; les illustrations IA sont rangées à part, dans la planche d'illustrations. `python3 generer.py --exemple DOSSIER` écrit un exemple du gabarit « étude de projet », marqué « ne pas publier ».
 
 ## Formulaire de devis
 
