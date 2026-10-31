@@ -20,7 +20,7 @@ L'audit et la note d'intention de la refonte sont dans `docs/`.
 
 ## Pages et langues
 
-Sept pages en français à la racine (`index`, `projets`, `prestations`, `professionnels`, `conservation-restauration`, `a-propos`, `contact`), plus `confidentialite`, et leur version anglaise dans `en/` avec des adresses anglaises (`/en/projects`, `/en/services`, `/en/professionals`, `/en/conservation`, `/en/about`, `/en/privacy` ; table `SLUGS` dans `generer.py`). Le menu montre Projets, Prestations, À propos et Contact ; Professionnels et Conservation-restauration sont liés depuis l'accueil, À propos et le pied de page. Les anciennes adresses (`/galerie`, `/realisations`, `/en/prestations`, `/en/a-propos`…) redirigent vers les nouvelles (`vercel.json`).
+Sept pages en français à la racine (`index`, `projets`, `prestations`, `professionnels`, `conservation-restauration`, `a-propos`, `contact`), plus `confidentialite`, et leur version anglaise dans `en/` avec des adresses anglaises (`/en/projects`, `/en/services`, `/en/professionals`, `/en/conservation`, `/en/about`, `/en/privacy` ; table `SLUGS` dans `generer.py`). Le menu montre Projets, Prestations, Conservation-restauration, À propos et Contact (menu repliable sous 1180 px) ; Professionnels est lié depuis l'accueil, À propos et le pied de page. Les anciennes adresses (`/galerie`, `/realisations`, `/en/prestations`, `/en/a-propos`…) redirigent vers les nouvelles (`vercel.json`).
 
 Ces fichiers HTML sont **générés** par `generer.py` : on ne les modifie pas à la main. Coordonnées, prestations, réalisations, parcours et tous les textes sont en haut de `generer.py`. Après une modification :
 
