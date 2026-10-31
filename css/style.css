@@ -230,11 +230,12 @@ body::after {
 }
 
 /* ---------- Typographie ---------- */
-.titre-xxl, .hero-nom { font-size: var(--t-xxl); font-weight: 500; line-height: 0.95; letter-spacing: -0.015em; }
+.titre-xxl { font-size: var(--t-xxl); font-weight: 500; line-height: 0.95; letter-spacing: -0.015em; }
 /* Le nom garde sa police d'origine */
-.titre-xxl, .titre-xl, .titre-l, .titre-m, .lp-titre { font-family: var(--serif); }
-.nom, .logo, .hero-nom { font-family: var(--nom); }
-.titre-xxl.nom, .hero-nom { line-height: 0.92; letter-spacing: -0.035em; }
+.titre-xxl, .titre-xl, .titre-l, .titre-m, .titre-s, .lp-titre { font-family: var(--serif); }
+.titre-s { font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 500; line-height: 1.1; }
+.nom, .logo { font-family: var(--nom); }
+.titre-xxl.nom { line-height: 0.92; letter-spacing: -0.035em; }
 .titre-xl { font-size: var(--t-xl); font-weight: 500; line-height: 1; letter-spacing: -0.01em; }
 .titre-m { font-size: var(--t-m); font-weight: 500; line-height: 1.2; margin-top: 2.2em; }
 .texte-legal { max-width: 68ch; }
@@ -342,7 +343,9 @@ body::after {
 }
 .hero-meta { grid-column: 1 / span 6; grid-row: 1; display: flex; gap: 12px; color: var(--text-muted); }
 .hero-meta span:first-child { color: var(--text-muted); }
-.hero-nom { grid-column: 1 / span 8; grid-row: 2; align-self: end; font-size: clamp(4rem, 13vw, 14rem); position: relative; z-index: 2; }
+.hero-titre { grid-column: 1 / span 7; grid-row: 2; align-self: end; position: relative; z-index: 2; display: grid; gap: clamp(16px, 2vw, 28px); font-weight: 500; }
+.hero-qui { font-size: var(--t-mono); color: var(--text); }
+.hero-manifeste { font-family: var(--serif); font-size: clamp(2.8rem, 6.6vw, 8rem); line-height: 0.95; letter-spacing: -0.015em; }
 .hero-texte { grid-column: 1 / span 5; grid-row: 3; display: grid; gap: 24px; }
 .surtitre { color: var(--text-muted); max-width: 40em; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px 36px; }
@@ -351,7 +354,7 @@ body::after {
 
 @media (max-width: 760px) {
   .hero { min-height: 0; grid-template-rows: none; }
-  .hero-meta, .hero-nom, .hero-texte { grid-column: 1 / -1; grid-row: auto; }
+  .hero-meta, .hero-titre, .hero-texte { grid-column: 1 / -1; grid-row: auto; }
   .hero-portrait { grid-column: 3 / -1; grid-row: auto; }
 }
 
@@ -386,7 +389,7 @@ body::after {
 .cartel { display: grid; grid-template-columns: 48px 1fr; column-gap: 12px; padding-top: 12px; color: var(--text-muted); border-top: 1px solid var(--line); margin-top: 12px; }
 .cartel-num { color: var(--text-muted); grid-row: span 2; }
 .cartel-titre { color: var(--text); }
-.hero-portrait .cartel, .apropos-portrait .cartel { grid-template-columns: 1fr; }
+.hero-portrait .cartel, .apropos-portrait .cartel, .conservation-image .cartel, .prestation-image .cartel { grid-template-columns: 1fr; }
 
 /* Accueil : composition asymétrique */
 .galerie-accueil .oeuvre:nth-child(1) { grid-column: 1 / span 7; }
@@ -489,6 +492,85 @@ body::after {
   .coordonnees, .formulaire { grid-column: 1 / -1; }
   .deux-colonnes { grid-template-columns: 1fr; }
 }
+
+/* ---------- Lot 3 : registre, pour qui, étapes, questions, professionnels ---------- */
+.lp-resume .mono { color: var(--text-muted); margin-right: 8px; }
+.sur-devis { color: var(--text); }
+
+/* Registre des projets */
+.registre { width: 100%; border-collapse: collapse; border-top: 1px solid var(--line-fort); }
+.registre th, .registre td { text-align: left; vertical-align: baseline; padding: 14px var(--gouttiere) 14px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
+.registre thead th { font-weight: 500; color: var(--text-muted); padding-top: 10px; padding-bottom: 10px; }
+.registre .r-projet { font-family: var(--serif); font-size: var(--t-m); font-weight: 500; }
+.registre .r-num, .registre .r-annee, .registre .r-lieu { color: var(--text-muted); }
+.r-num { width: 64px; }
+.r-etiquette { display: none; }
+.galerie-accueil { margin-top: clamp(56px, 8vw, 112px); }
+@media (max-width: 760px) {
+  .registre thead { display: none; }
+  .registre tr { display: grid; grid-template-columns: 48px 1fr; column-gap: 12px; row-gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .registre th, .registre td { border: 0; padding: 0; }
+  .registre .r-num { grid-row: span 4; }
+  .r-etiquette { display: inline-block; min-width: 96px; color: var(--text-muted); font-family: var(--mono); font-size: var(--t-mono); text-transform: uppercase; letter-spacing: 0.04em; }
+}
+
+/* Pour qui */
+.pour-qui { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.pour-qui li { display: grid; gap: 14px; align-content: start; padding: clamp(24px, 3vw, 40px) var(--gouttiere) clamp(24px, 3vw, 40px) 0; border-bottom: 1px solid var(--line); }
+.pour-qui li:nth-child(odd) { border-right: 1px solid var(--line); }
+.pour-qui li:nth-child(even) { padding-left: var(--gouttiere); }
+.pour-qui p { color: var(--text-muted); max-width: 34em; }
+.pour-qui .lien { justify-self: start; }
+@media (max-width: 760px) {
+  .pour-qui { grid-template-columns: 1fr; }
+  .pour-qui li:nth-child(odd) { border-right: 0; }
+  .pour-qui li:nth-child(even) { padding-left: 0; }
+}
+
+/* Étapes numérotées : méthode, principes, interventions */
+.etapes { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.etapes li { display: grid; grid-template-columns: 48px minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--gouttiere); align-items: baseline; padding: clamp(18px, 2.4vw, 32px) 0; border-bottom: 1px solid var(--line); }
+.etapes p { color: var(--text-muted); max-width: 40em; }
+.etapes + .sur-devis { margin-top: 24px; }
+@media (max-width: 760px) {
+  .etapes li { grid-template-columns: 36px 1fr; row-gap: 8px; }
+  .etapes p { grid-column: 2; }
+}
+
+/* Questions fréquentes */
+.faq { border-top: 1px solid var(--line); }
+.question { border-bottom: 1px solid var(--line); }
+.question summary { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gouttiere); padding: clamp(18px, 2.4vw, 28px) 0; cursor: pointer; list-style: none; }
+.question summary::-webkit-details-marker { display: none; }
+.question summary:hover .titre-s { color: var(--accent); }
+.question .plus { color: var(--text-muted); transition: transform var(--duree) var(--ease); }
+.question[open] .plus { transform: rotate(45deg); }
+.reponse { display: grid; gap: 12px; padding-bottom: 28px; max-width: 46em; color: var(--text-muted); }
+
+/* Professionnels */
+.pro { padding-top: clamp(64px, 9vw, 128px); padding-bottom: clamp(64px, 9vw, 128px); border-bottom: 1px solid var(--line); row-gap: 28px; align-items: start; scroll-margin-top: var(--entete); }
+.pro-texte { grid-column: 3 / span 5; display: grid; gap: 24px; }
+.pro-points { grid-column: 9 / -1; }
+.engagements { border-top: 1px solid var(--line-fort); }
+.engagements li { font-family: var(--serif); font-size: var(--t-m); padding: 16px 0; border-bottom: 1px solid var(--line); }
+.engagements + .sur-devis { margin-top: 24px; }
+@media (max-width: 760px) {
+  .pro-texte, .pro-points { grid-column: 1 / -1; }
+}
+
+/* Divers */
+.diplome { display: grid; gap: 20px; border-top: 1px solid var(--line-fort); padding-top: 28px; }
+.liens-suite { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+.planche .galerie { grid-column: 1 / -1; padding-top: clamp(32px, 4vw, 64px); }
+.planche .col-large p { max-width: 40em; }
+.section-galerie .col-large + .galerie { padding-top: clamp(56px, 8vw, 112px); }
+.fiche { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0 var(--gouttiere); margin: clamp(28px, 4vw, 48px) 0 0; border-top: 1px solid var(--line); }
+.fiche div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.fiche dt { color: var(--text-muted); }
+.fiche dd { margin: 4px 0 0; }
+.etude { row-gap: 8px; }
+.etude .col-principale { margin-bottom: 40px; }
+.bandeau-exemple { display: inline-block; background: var(--accent); color: var(--sur-accent); padding: 6px 10px; margin-bottom: 24px; }
 
 /* ---------- Pied de page ---------- */
 .pied { display: flex; flex-wrap: wrap; gap: 10px 28px; border-top: 1px solid var(--line); padding-top: 24px; padding-bottom: 32px; color: var(--text-muted); }

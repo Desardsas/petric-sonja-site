@@ -11,34 +11,54 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en"/>
   </url>
   <url>
+    <loc>https://www.petricsonja.art/projets</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/projets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/projects"/>
+  </url>
+  <url>
+    <loc>https://www.petricsonja.art/en/projects</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/projets"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/projects"/>
+  </url>
+  <url>
     <loc>https://www.petricsonja.art/prestations</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/prestations"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/prestations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/services"/>
   </url>
   <url>
-    <loc>https://www.petricsonja.art/en/prestations</loc>
+    <loc>https://www.petricsonja.art/en/services</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/prestations"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/prestations"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/services"/>
   </url>
   <url>
-    <loc>https://www.petricsonja.art/realisations</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/realisations"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/realisations"/>
+    <loc>https://www.petricsonja.art/professionnels</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/professionnels"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/professionals"/>
   </url>
   <url>
-    <loc>https://www.petricsonja.art/en/realisations</loc>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/realisations"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/realisations"/>
+    <loc>https://www.petricsonja.art/en/professionals</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/professionnels"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/professionals"/>
+  </url>
+  <url>
+    <loc>https://www.petricsonja.art/conservation-restauration</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/conservation-restauration"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/conservation"/>
+  </url>
+  <url>
+    <loc>https://www.petricsonja.art/en/conservation</loc>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/conservation-restauration"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/conservation"/>
   </url>
   <url>
     <loc>https://www.petricsonja.art/a-propos</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/a-propos"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/a-propos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/about"/>
   </url>
   <url>
-    <loc>https://www.petricsonja.art/en/a-propos</loc>
+    <loc>https://www.petricsonja.art/en/about</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/a-propos"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/a-propos"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/about"/>
   </url>
   <url>
     <loc>https://www.petricsonja.art/contact</loc>
@@ -53,11 +73,11 @@
   <url>
     <loc>https://www.petricsonja.art/confidentialite</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/confidentialite"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/privacy"/>
   </url>
   <url>
-    <loc>https://www.petricsonja.art/en/confidentialite</loc>
+    <loc>https://www.petricsonja.art/en/privacy</loc>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.petricsonja.art/confidentialite"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/confidentialite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.petricsonja.art/en/privacy"/>
   </url>
 </urlset>
